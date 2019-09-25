@@ -1074,6 +1074,7 @@ GameObject:
   - component: {fileID: 1791914975}
   - component: {fileID: 1791914973}
   - component: {fileID: 1791914974}
+  - component: {fileID: 1791914976}
   m_Layer: 0
   m_Name: bird
   m_TagString: Untagged
@@ -1177,6 +1178,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1791914976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791914971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e8aafb9cfdb4d41a3b2237a27f91ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  stoppingDistance: 20
+  retreatDistance: 10
+  startTimeBtwShots: 2
+  projectile: {fileID: 100000, guid: 8fde8ec1b330d4bbfb4839f4b41cadc0, type: 3}
+  player: {fileID: 2092441719}
 --- !u!1 &1795924599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1397,7 @@ GameObject:
   - component: {fileID: 2092441717}
   m_Layer: 8
   m_Name: SnowMan
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
