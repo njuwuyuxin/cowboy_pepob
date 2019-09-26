@@ -544,7 +544,6 @@ GameObject:
   m_Component:
   - component: {fileID: 415799650}
   - component: {fileID: 415799653}
-  - component: {fileID: 415799652}
   - component: {fileID: 415799651}
   m_Layer: 0
   m_Name: Shoulder
@@ -567,8 +566,8 @@ Transform:
   m_Father: {fileID: 1684436554}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &415799651
-MeshRenderer:
+--- !u!137 &415799651
+SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -605,14 +604,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &415799652
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415799649}
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 0}
+  m_Bones:
+  - {fileID: 1165628210}
+  - {fileID: 965215039}
+  - {fileID: 1793525148}
+  - {fileID: 94090231}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 1165628210}
+  m_AABB:
+    m_Center: {x: 0.13823892, y: 0.04162255, z: 0}
+    m_Extent: {x: 0.48427427, y: 0.47845516, z: 0}
+  m_DirtyAABB: 0
 --- !u!114 &415799653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2568,13 +2575,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734771491}
-  m_LocalRotation: {x: 0, y: 0, z: -0.15897584, w: 0.9872825}
+  m_LocalRotation: {x: 0, y: 0, z: -0.047866333, w: 0.9988538}
   m_LocalPosition: {x: 0.4000002, y: 0.0000002034958, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1562825677}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -18.295}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.4870005}
 --- !u!114 &1734771493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3510,7 +3517,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2103480066}
   - component: {fileID: 2103480069}
-  - component: {fileID: 2103480068}
   - component: {fileID: 2103480067}
   m_Layer: 0
   m_Name: Shoulder
@@ -3533,8 +3539,8 @@ Transform:
   m_Father: {fileID: 1684436554}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &2103480067
-MeshRenderer:
+--- !u!137 &2103480067
+SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3571,14 +3577,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &2103480068
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2103480065}
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 0}
+  m_Bones:
+  - {fileID: 1346608539}
+  - {fileID: 1195195264}
+  - {fileID: 1692487479}
+  - {fileID: 693264371}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 1346608539}
+  m_AABB:
+    m_Center: {x: 0.044484615, y: 0.021250099, z: 0}
+    m_Extent: {x: 0.45536506, y: 0.44855094, z: 0}
+  m_DirtyAABB: 0
 --- !u!114 &2103480069
 MonoBehaviour:
   m_ObjectHideFlags: 0
