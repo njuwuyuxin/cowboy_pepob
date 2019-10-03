@@ -100,11 +100,11 @@ public class move : MonoBehaviour
 
 
         // we can only jump whilst grounded
-        if (_controller.isGrounded && Input.GetKeyDown(KeyCode.W))
-        {
-            _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
-            //_animator.Play(Animator.StringToHash("Jump"));
-        }
+        //if (_controller.isGrounded && Input.GetKeyDown(KeyCode.W))
+        //{
+        //    _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+        //    //_animator.Play(Animator.StringToHash("Jump"));
+        //}
 
 
         // apply horizontal speed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control

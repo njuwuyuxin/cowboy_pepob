@@ -5,8 +5,11 @@ using Prime31;
 
 public class rope : MonoBehaviour
 {
-    public float DragSpeed =5f;
+    public float StartDragSpeed = 10f;
+    public float MaxDragSpeed = 15f;
+    public float AccelerateSpeed = 5f;
 
+    private float DragSpeed;
     private LineRenderer line;
     private bool isDragging;
     private CharacterController2D _controller;
@@ -23,6 +26,7 @@ public class rope : MonoBehaviour
         _moveScript = GetComponent<move>();
         _ropeScript = GetComponent<rope>();
         _veclocity = new Vector2(0f, 0f);
+        DragSpeed = StartDragSpeed;
     }
 
     // Update is called once per frame
@@ -66,6 +70,10 @@ public class rope : MonoBehaviour
 
         if (isDragging)
         {
+            //if(_moveScript.enabled == true)
+            //{
+
+            //}
             _moveScript.enabled = false;
             //_ropeScript.enabled = true;
             //如果已经到达目标点，则钩锁自动脱离
@@ -82,6 +90,10 @@ public class rope : MonoBehaviour
             //_veclocity.x += forceDirection.x * Time.deltaTime;
             //_veclocity.y += forceDirection.y * Time.deltaTime;
             _veclocity = forceDirection * DragSpeed;
+            Debug.Log(DragSpeed);
+
+            if (DragSpeed < MaxDragSpeed)
+                DragSpeed += AccelerateSpeed * Time.deltaTime;
             _controller.move(_veclocity * Time.deltaTime);
 
         }
@@ -98,6 +110,7 @@ public class rope : MonoBehaviour
             line.enabled = false;
             _veclocity.x = 0f;
             _veclocity.y = 0f;
+            DragSpeed = StartDragSpeed;
         }
 
 
