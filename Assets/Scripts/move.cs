@@ -10,6 +10,7 @@ public class move : MonoBehaviour
     public float groundDamping = 20f; // how fast do we change direction? higher means faster
     public float inAirDamping = 5f;
     public float jumpHeight = 3f;
+    public Vector3 _velocity;
 
     [HideInInspector]
     private float normalizedHorizontalSpeed = 0;
@@ -17,7 +18,7 @@ public class move : MonoBehaviour
     private CharacterController2D _controller;
     private Animator _animator;
     private RaycastHit2D _lastControllerColliderHit;
-    private Vector3 _velocity;
+
 
     void Awake()
     {
@@ -71,7 +72,7 @@ public class move : MonoBehaviour
             //Debug.Log("on the ground!");
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             normalizedHorizontalSpeed = 1;
             if (transform.localScale.x < 0f)
@@ -80,7 +81,7 @@ public class move : MonoBehaviour
             //if (_controller.isGrounded)
             //    _animator.Play(Animator.StringToHash("Run"));
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.A))
         {
             normalizedHorizontalSpeed = -1;
             if (transform.localScale.x > 0f)
@@ -99,7 +100,7 @@ public class move : MonoBehaviour
 
 
         // we can only jump whilst grounded
-        if (_controller.isGrounded && Input.GetKeyDown(KeyCode.UpArrow))
+        if (_controller.isGrounded && Input.GetKeyDown(KeyCode.W))
         {
             _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
             //_animator.Play(Animator.StringToHash("Jump"));
@@ -115,7 +116,7 @@ public class move : MonoBehaviour
 
         // if holding down bump up our movement amount and turn off one way platform detection for a frame.
         // this lets us jump down through one way platforms
-        if (_controller.isGrounded && Input.GetKey(KeyCode.DownArrow))
+        if (_controller.isGrounded && Input.GetKey(KeyCode.S))
         {
             _velocity.y *= 3f;
             _controller.ignoreOneWayPlatformsThisFrame = true;
