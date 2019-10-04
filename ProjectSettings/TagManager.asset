@@ -9,6 +9,8 @@ TagManager:
   - ground
   - candy
   - Building
+  - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -846,6 +846,8 @@ GameObject:
   - component: {fileID: 1770554933}
   - component: {fileID: 1770554938}
   - component: {fileID: 1770554939}
+  - component: {fileID: 1770554940}
+  - component: {fileID: 1770554941}
   m_Layer: 8
   m_Name: SnowMan
   m_TagString: Player
@@ -1054,8 +1056,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartDragSpeed: 10
-  MaxDragSpeed: 15
-  AccelerateSpeed: 5
+  MaxDragSpeed: 20
+  AccelerateSpeed: 7
 --- !u!120 &1770554939
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1152,6 +1154,32 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &1770554940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770554931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5a5f1d041e8c742a9b58673d4aabf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1770554941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770554931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ae8bfdfaa8dcd42ad655aec113407f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocket: {fileID: 5000000, guid: 8fde8ec1b330d4bbfb4839f4b41cadc0, type: 3}
+  speed: 20
 --- !u!1 &1809969318
 GameObject:
   m_ObjectHideFlags: 0
