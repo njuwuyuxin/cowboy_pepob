@@ -1053,9 +1053,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471640486e4d165418a6475b19d04175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxRopeLength: 10
   StartDragSpeed: 10
   MaxDragSpeed: 15
   AccelerateSpeed: 5
+  RopeExtendSpeed: 4
 --- !u!120 &1770554939
 LineRenderer:
   m_ObjectHideFlags: 0
