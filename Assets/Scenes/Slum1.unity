@@ -846,7 +846,6 @@ GameObject:
   - component: {fileID: 1770554933}
   - component: {fileID: 1770554938}
   - component: {fileID: 1770554939}
-  - component: {fileID: 1770554940}
   - component: {fileID: 1770554942}
   m_Layer: 8
   m_Name: SnowMan
@@ -1156,18 +1155,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &1770554940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1770554931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db5a5f1d041e8c742a9b58673d4aabf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1770554942
 MonoBehaviour:
   m_ObjectHideFlags: 0
