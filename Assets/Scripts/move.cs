@@ -18,11 +18,11 @@ public class move : MonoBehaviour
     private CharacterController2D _controller;
     private Animator _animator;
     private RaycastHit2D _lastControllerColliderHit;
-
+    public Animator anim;
 
     void Awake()
     {
-        //_animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         _controller = GetComponent<CharacterController2D>();
 
         // listen to some events for illustration purposes
@@ -74,6 +74,7 @@ public class move : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
+            anim.SetBool("isRunning",true);
             normalizedHorizontalSpeed = 1;
             if (transform.localScale.x < 0f)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -83,6 +84,7 @@ public class move : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
+            anim.SetBool("isRunning", true);
             normalizedHorizontalSpeed = -1;
             if (transform.localScale.x > 0f)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -92,6 +94,7 @@ public class move : MonoBehaviour
         }
         else
         {
+            anim.SetBool("isRunning", false);
             normalizedHorizontalSpeed = 0;
 
             //if (_controller.isGrounded)

@@ -14,6 +14,7 @@ public class rope : MonoBehaviour
 
     private float DragSpeed;
     private LineRenderer line;
+    private bool isThrowing = true;//判断是否是刚刚按下鼠标
     private bool isDragging;
     private bool isLaunching;
     private CharacterController2D _controller;
@@ -25,6 +26,8 @@ public class rope : MonoBehaviour
     private Vector2 ropeEndPoint;
     private Vector2 ropeEndPointLastFrame;
     private float LerpPercent;
+
+    public Animator anim;//动画管理器（动画）
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,7 @@ public class rope : MonoBehaviour
         _ropeScript = GetComponent<rope>();
         _veclocity = new Vector2(0f, 0f);
         DragSpeed = StartDragSpeed;
+        anim = GetComponent<Animator>();//获取Animator部件（动画）
     }
 
     // Update is called once per frame
@@ -44,6 +48,11 @@ public class rope : MonoBehaviour
         //Debug.Log(transform.position);
         if (Input.GetMouseButtonDown(1))
         {
+            if(isThrowing)
+            {
+                anim.SetTrigger("RopeOut");
+                isThrowing = false;
+            }
             Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 MousePosition2D = new Vector2(MousePosition.x, MousePosition.y);
             //Debug.Log(MousePosition2D);
@@ -76,6 +85,7 @@ public class rope : MonoBehaviour
         {
             isLaunching = false;
             isDragging = false;
+            isThrowing = true;
         }
 
         if (isLaunching)
@@ -94,26 +104,31 @@ public class rope : MonoBehaviour
             {
                 isLaunching = false;
                 isDragging = true;
+                anim.SetTrigger("RopeIn");
             }
             if (rayHitPoint.x - ropeEndPointLastFrame.x <= 0 && rayHitPoint.x - ropeEndPoint.x >= 0)
             {
                 isLaunching = false;
                 isDragging = true;
+                anim.SetTrigger("RopeIn");
             }
             if (rayHitPoint.y - ropeEndPointLastFrame.y >= 0 && rayHitPoint.y - ropeEndPoint.y <= 0)
             {
                 isLaunching = false;
                 isDragging = true;
+                anim.SetTrigger("RopeIn");
             }
             if (rayHitPoint.y - ropeEndPointLastFrame.y <= 0 && rayHitPoint.y - ropeEndPoint.y >= 0)
             {
                 isLaunching = false;
                 isDragging = true;
+                anim.SetTrigger("RopeIn");
             }
             //if (Mathf.Abs(rayHitPoint.x - ropeEndPoint.x) < 0.6f && Mathf.Abs(rayHitPoint.y - ropeEndPoint.y) < 0.6f)
             //{
             //    isLaunching = false;
             //    isDragging = true;
+            //    anim.SetTrigger("RopeIn");
             //}
             line.SetPosition(0, transform.position);
             line.SetPosition(1, ropeEndPoint);
@@ -124,7 +139,10 @@ public class rope : MonoBehaviour
             _moveScript.enabled = false;
             //如果已经到达目标点，则钩锁自动脱离
             if (Mathf.Abs(rayHitPoint.x - transform.position.x) < 0.5f && Mathf.Abs(rayHitPoint.y - transform.position.y) < 0.5f)
+            {
                 isDragging = false;
+                anim.SetTrigger("LandSafe");
+            }
 
             line.SetPosition(0, transform.position);
             line.SetPosition(1, rayHitPoint);
