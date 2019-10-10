@@ -29,6 +29,7 @@ public class BirdEnemy : MonoBehaviour
         //}
         if (timeBtwShots <= 0)
         {
+            //发射子弹
             Instantiate(projectile, transform.position, Quaternion.identity);
             timeBtwShots = startTimeBtwShots;
         }
