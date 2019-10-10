@@ -36,8 +36,16 @@ public class shoot : MonoBehaviour
             // ... set the animator Shoot trigger parameter and play the audioclip.
             //anim.SetTrigger("Shoot");
             //GetComponent<AudioSource>().Play();
-           
-            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+            Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 MousePosition2D = new Vector2(MousePosition.x, MousePosition.y);
+            //根据鼠标点击位置更改人物朝向
+            if (MousePosition2D.x > transform.position.x && transform.localScale.x < 0)
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            if (MousePosition2D.x < transform.position.x && transform.localScale.x > 0)
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+            Vector3 pos =MousePosition - transform.position;
             float angle = Vector2.Angle(new Vector2(pos.x, pos.y), new Vector2(1, 0));
             if (pos.y < 0)
                 angle = -angle;
