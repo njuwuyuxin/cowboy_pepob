@@ -53,11 +53,12 @@ public class rope : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            if(isThrowing)
-            {
-                anim.SetTrigger("RopeOut");
-                isThrowing = false;
-            }
+            //if(isThrowing)
+            //{
+            //    anim.SetBool("isThrowingRope", true);
+            //    isThrowing = false;
+            //}
+            // 如果可以空扔绳子就用这个
             Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 MousePosition2D = new Vector2(MousePosition.x, MousePosition.y);
 
@@ -79,7 +80,7 @@ public class rope : MonoBehaviour
                 //如果发生了碰撞
                 Debug.Log(info.point);
                 isLaunching = true;
-
+                anim.SetBool("isThrowingRope", true);
                 //绳子发射起始位置增加一个偏移量，保证视觉上绳子从手部发射（以人物中心为起点）
                 ropeStartPoint = transform.position + startPointOffset;
                 Debug.Log("ropeStartPoint with offset:"+ropeStartPoint);
@@ -100,6 +101,11 @@ public class rope : MonoBehaviour
 
         if (Input.GetMouseButtonUp(1))
         {
+            //if (isDragging)
+            //{
+                anim.SetBool("isDragging",false);
+            //}
+            anim.SetBool("isThrowingRope", false);
             isLaunching = false;
             isDragging = false;
             isThrowing = true;
@@ -124,25 +130,29 @@ public class rope : MonoBehaviour
             {
                 isLaunching = false;
                 isDragging = true;
-                anim.SetTrigger("RopeIn");
+                anim.SetBool("isThrowingRope", false);
+                anim.SetBool("isDragging",true);
             }
             if (rayHitPoint.x - ropeEndPointLastFrame.x <= 0 && rayHitPoint.x - ropeEndPoint.x >= 0)
             {
                 isLaunching = false;
                 isDragging = true;
-                anim.SetTrigger("RopeIn");
+                anim.SetBool("isThrowingRope", false);
+                anim.SetBool("isDragging",true);
             }
             if (rayHitPoint.y - ropeEndPointLastFrame.y >= 0 && rayHitPoint.y - ropeEndPoint.y <= 0)
             {
                 isLaunching = false;
                 isDragging = true;
-                anim.SetTrigger("RopeIn");
+                anim.SetBool("isThrowingRope", false);
+                anim.SetBool("isDragging",true);
             }
             if (rayHitPoint.y - ropeEndPointLastFrame.y <= 0 && rayHitPoint.y - ropeEndPoint.y >= 0)
             {
                 isLaunching = false;
                 isDragging = true;
-                anim.SetTrigger("RopeIn");
+                anim.SetBool("isThrowingRope", false);
+                anim.SetBool("isDragging",true);
             }
             line.SetPosition(0,ropeStartPoint);
             line.SetPosition(1, ropeEndPoint);
@@ -156,7 +166,7 @@ public class rope : MonoBehaviour
             if (Mathf.Abs(rayHitPoint.x - ropeStartPoint.x) < 0.5f && Mathf.Abs(rayHitPoint.y - ropeStartPoint.y) < 0.5f)
             {
                 isDragging = false;
-                anim.SetTrigger("LandSafe");
+                anim.SetBool("isDragging",false);
             }
 
             line.SetPosition(0, ropeStartPoint);

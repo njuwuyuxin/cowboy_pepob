@@ -23,7 +23,7 @@ public class shoot : MonoBehaviour
         // Setting up the references.
         shootableMask = LayerMask.GetMask("Shootable");
         player = GameObject.FindGameObjectWithTag("Player");
-
+        anim = GetComponent<Animator>();
         //anim = transform.root.gameObject.GetComponent<Animator>();
         playerCtrl = transform.root.GetComponent<PlayerControl>();
         timer = 0.2f;
@@ -31,7 +31,15 @@ public class shoot : MonoBehaviour
 
 
     void Update()
-    {      
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            anim.SetBool("isShooting", true);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            anim.SetBool("isShooting", false);
+        }
         if (Input.GetMouseButton(0))
         {
             timer += Time.deltaTime;
@@ -66,5 +74,6 @@ public class shoot : MonoBehaviour
         {
             timer = 0.2f;
         }
+        
     }
 }

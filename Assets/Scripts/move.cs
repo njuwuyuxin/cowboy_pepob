@@ -69,12 +69,28 @@ public class move : MonoBehaviour
         if (_controller.isGrounded)
         {
             _velocity.y = 0;
+            //bool land = false;
+            //if (anim.GetBool("inSky"))
+            //{
+            //    land = true;
+            //}
+            anim.SetBool("inSky", false);
+            //if (land)
+            //{
+            //    anim.SetBool("isLanding", true);
+            //    //这里停顿0.5秒表示落地硬直
+            //    anim.SetBool("isLanding", false);
+            //}
             //Debug.Log("on the ground!");
+        }
+        else
+        {
+            anim.SetBool("inSky", true);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            anim.SetBool("isRunning",true);
+            anim.SetBool("isRunning", true);
             normalizedHorizontalSpeed = 1;
             if (transform.localScale.x < 0f)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
