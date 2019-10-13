@@ -27,8 +27,9 @@ public class EnemyAI : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         //重复寻路/0.1s
-        InvokeRepeating("UpdatePath", 0f, .8f);
+        InvokeRepeating("UpdatePath", 0f, 1f);
     }
+
     //视野角度
     [Range(0, 180)]
     public int viewAngle;
@@ -50,8 +51,21 @@ public class EnemyAI : MonoBehaviour
         Handles.color = Color.blue;
         Handles.DrawSolidDisc(new Vector3(patrolStart.x, patrolStart.y,-1), up,0.3f);
         Handles.DrawSolidDisc(new Vector3(patrolEnd.x, patrolEnd.y, -1), up, 0.3f);
+        if (state == EnemyState.TRACK) {
+            Debug.Log(rb.position);
+            Debug.Log(((Vector2)target.position - rb.position).normalized);
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
+            Vector3 end = target.position;
+            if (hit.collider!=null)
+            {
+                end = hit.point;
+            }
+            Handles.DrawBezier(rb.position, end, rb.position, end, Color.red, null, 3);
+        }
         Handles.color = color;
+
     }
+
     float getAngle(Vector3 fromVector, Vector3 toVector) {
         float angle = Vector3.Angle(fromVector, toVector);
         Vector3 normal = Vector3.Cross(fromVector, toVector);
@@ -82,22 +96,23 @@ public class EnemyAI : MonoBehaviour
             currentWayPoint = 0;
         }
     }
-
+    public static Vector2 RIGHTFORWARD = new Vector2(1f, 0f);
+    public static Vector2 LEFTFORWARD = new Vector2(-1f, 0f);
     // Update is called once per frame
     void FixedUpdate()
     {
         switch (state) {
             case EnemyState.PATROL:
-                float rangerSqr = (this.enemyGFX.position - target.position).sqrMagnitude;
+                float rangerSqr = ((Vector2)this.enemyGFX.position - (Vector2)target.position).sqrMagnitude;
                 //距离小于视野
                 if (rangerSqr <= viewRadius * viewRadius)
                 {
-                    Vector3 sight = target.position - this.enemyGFX.position;
+                    Vector3 sight = (Vector2)(target.position - this.enemyGFX.position);
                     float angle=getAngle(new Vector3(sight.x, sight.y, 0), forward);
                     //在视野里或者实在太近
                     if (angle < viewAngle / 2 && angle > -viewAngle / 2 || rangerSqr<= viewRadius) {
                         lastStartTrack = 0f;
-                        sightColor = Color.red;
+                        sightColor = Color.yellow;
                         state = EnemyState.TRACK;
                         //暂时追踪模式疯狂开火
                         eneity.SendMessage("startFire", "");
@@ -110,7 +125,7 @@ public class EnemyAI : MonoBehaviour
                 break;
             case EnemyState.TRACK:
                 track(speed);
-                //至少追踪五秒后，并且离开根号2 *视野后停止最终
+                //至少追踪五秒后，并且离开 根号2 *视野 后停止最终
                 if ((lastStartTrack> trackSecond && (this.enemyGFX.position - target.position).sqrMagnitude >= 2 * viewRadius * viewRadius)) {
                     sightColor = Color.green;
                     state = EnemyState.PATROL;
@@ -133,6 +148,7 @@ public class EnemyAI : MonoBehaviour
             return true;
         }
         //得到施加力的方向，记得加线性阻力，否则不会停
+        if (currentWayPoint == 0) { currentWayPoint = 1; }
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;
         lastStartTrack += Time.deltaTime;
@@ -145,18 +161,19 @@ public class EnemyAI : MonoBehaviour
         }
         //Debug.Log(rb.velocity.magnitude);
         //转身
-        if (force.x >= 0.01f)
+        if (force.x >= 1f)
         {
-            enemyGFX.localScale = new Vector3(-1f, 1f, 1f);
-            forward = new Vector3(1f, 0f, 0f);
-
+            enemyGFX.localScale.Set(-Mathf.Abs(enemyGFX.localScale.x), enemyGFX.localScale.y, enemyGFX.localScale.z);
+            forward = RIGHTFORWARD;
 
         }
-        
-        else if (force.x <= -0.01f)
+
+        else if (force.x <= -1f)
         {
-            enemyGFX.localScale = new Vector3(1f, 1f, 1f);
-            forward = new Vector3(-1f, 0f, 0f);
+
+            enemyGFX.localScale.Set(Mathf.Abs(enemyGFX.localScale.x), enemyGFX.localScale.y, enemyGFX.localScale.z);
+            forward = LEFTFORWARD;
+            
         }
         rb.AddForce(force);
         return false;
