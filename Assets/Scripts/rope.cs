@@ -15,7 +15,7 @@ public class rope : MonoBehaviour
 
     private float DragSpeed;
     private LineRenderer line;
-    private bool isThrowing = true;//判断是否是刚刚按下鼠标
+    private bool isThrowing = true;                                 //判断是否是刚刚按下鼠标
     private bool isDragging;
     private bool isLaunching;
     private CharacterController2D _controller;
@@ -23,10 +23,11 @@ public class rope : MonoBehaviour
     private rope _ropeScript;
     private Vector2 rayHitPoint;
     private Vector2 _veclocity;
-    private Vector2 ropeStartPoint;
-    private Vector2 ropeEndPoint;
-    private Vector2 ropeEndPointLastFrame;
-    private float LerpPercent;
+    private Vector2 ropeStartPoint;                                  //绳子当前帧终点坐标
+    private Vector2 ropeEndPoint;                                   //绳子当前帧终点坐标（用来计算是否勾到物体）
+    private Vector2 ropeEndPointLastFrame;                  //绳子上一帧终点坐标（用来计算是否勾到物体）
+    private float LerpPercent;                                          //绳子延伸时的插值百分比
+    private float RopeDistance;                                       //绳子刚勾到物体时，绳子的长度（目标点到绳子起始点）
 
     public Animator anim;//动画管理器（动画）
     // Start is called before the first frame update
@@ -87,6 +88,8 @@ public class rope : MonoBehaviour
                 LerpPercent = 0;
                 line.enabled = true;
                 rayHitPoint = info.point;
+
+                RopeDistance = (rayHitPoint-ropeStartPoint).magnitude;
                 
                 //GameObject obj = info.collider.gameObject;
                 //if (obj.CompareTag("Building"))//用tag判断碰到了什么对象
@@ -112,7 +115,9 @@ public class rope : MonoBehaviour
             //Debug.Log("DeltaTime:");
             //Debug.Log(Time.deltaTime);
             LerpPercent += Time.deltaTime;
-            ropeEndPoint = Vector2.Lerp(ropeStartPoint, rayHitPoint, LerpPercent*RopeExtendSpeed);
+
+            //为保证钩锁勾不同距离的位置，发射速度保持一致，插值时的百分比（第三个参数）除以一个绳子距离（以刚发射时为准）来保持匀速
+            ropeEndPoint = Vector2.Lerp(ropeStartPoint, rayHitPoint, LerpPercent*RopeExtendSpeed/RopeDistance);
 
 
             if (rayHitPoint.x - ropeEndPointLastFrame.x >= 0 && rayHitPoint.x - ropeEndPoint.x <= 0)
@@ -139,12 +144,6 @@ public class rope : MonoBehaviour
                 isDragging = true;
                 anim.SetTrigger("RopeIn");
             }
-            //if (Mathf.Abs(rayHitPoint.x - ropeEndPoint.x) < 0.6f && Mathf.Abs(rayHitPoint.y - ropeEndPoint.y) < 0.6f)
-            //{
-            //    isLaunching = false;
-            //    isDragging = true;
-            //    anim.SetTrigger("RopeIn");
-            //}
             line.SetPosition(0,ropeStartPoint);
             line.SetPosition(1, ropeEndPoint);
             line.material.color = Color.blue;
