@@ -10,6 +10,7 @@ public class rope : MonoBehaviour
     public float MaxDragSpeed = 15f;
     public float AccelerateSpeed = 5f;
     public float RopeExtendSpeed = 3f;
+    public Vector3 startPointOffset;
 
 
     private float DragSpeed;
@@ -45,7 +46,10 @@ public class rope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(transform.position);
+        //保证绳子起始位置偏移量和人物朝向一致
+        if ((transform.localScale.x > 0 && startPointOffset.x < 0)||(transform.localScale.x < 0 && startPointOffset.x > 0)) 
+            startPointOffset.x = -startPointOffset.x;
+
         if (Input.GetMouseButtonDown(1))
         {
             if(isThrowing)
@@ -73,10 +77,13 @@ public class rope : MonoBehaviour
             {
                 //如果发生了碰撞
                 Debug.Log(info.point);
-                //isDragging = true;
                 isLaunching = true;
-                ropeStartPoint = transform.position;
-                ropeEndPoint = transform.position;
+
+                //绳子发射起始位置增加一个偏移量，保证视觉上绳子从手部发射（以人物中心为起点）
+                ropeStartPoint = transform.position + startPointOffset;
+                Debug.Log("ropeStartPoint with offset:"+ropeStartPoint);
+
+                ropeEndPoint = ropeStartPoint;
                 LerpPercent = 0;
                 line.enabled = true;
                 rayHitPoint = info.point;
@@ -97,7 +104,8 @@ public class rope : MonoBehaviour
 
         if (isLaunching)
         {
-            Vector2 forceDirection = new Vector2(rayHitPoint.x - transform.position.x, rayHitPoint.y - transform.position.y);
+            ropeStartPoint = transform.position + startPointOffset;
+            Vector2 forceDirection = new Vector2(rayHitPoint.x - ropeStartPoint.x, rayHitPoint.y - ropeStartPoint.y);
             forceDirection.Normalize(); //方向向量
             ropeEndPointLastFrame = ropeEndPoint;
             //ropeEndPoint += forceDirection * Time.deltaTime*RopeExtendSpeed;
@@ -137,7 +145,7 @@ public class rope : MonoBehaviour
             //    isDragging = true;
             //    anim.SetTrigger("RopeIn");
             //}
-            line.SetPosition(0, transform.position);
+            line.SetPosition(0,ropeStartPoint);
             line.SetPosition(1, ropeEndPoint);
             line.material.color = Color.blue;
         }
@@ -145,21 +153,22 @@ public class rope : MonoBehaviour
         {
             _moveScript.enabled = false;
             //如果已经到达目标点，则钩锁自动脱离
-            if (Mathf.Abs(rayHitPoint.x - transform.position.x) < 0.5f && Mathf.Abs(rayHitPoint.y - transform.position.y) < 0.5f)
+            ropeStartPoint = transform.position + startPointOffset;
+            if (Mathf.Abs(rayHitPoint.x - ropeStartPoint.x) < 0.5f && Mathf.Abs(rayHitPoint.y - ropeStartPoint.y) < 0.5f)
             {
                 isDragging = false;
                 anim.SetTrigger("LandSafe");
             }
 
-            line.SetPosition(0, transform.position);
+            line.SetPosition(0, ropeStartPoint);
             line.SetPosition(1, rayHitPoint);
             line.material.color = Color.blue;
 
-            Vector2 forceDirection =new Vector2( rayHitPoint.x - transform.position.x,rayHitPoint.y-transform.position.y);
+            Vector2 forceDirection = new Vector2(rayHitPoint.x - ropeStartPoint.x, rayHitPoint.y - ropeStartPoint.y);
             forceDirection.Normalize(); //方向向量
-            Debug.Log(forceDirection);
+            //Debug.Log(forceDirection);
             _veclocity = forceDirection * DragSpeed;
-            Debug.Log(DragSpeed);
+            //Debug.Log(DragSpeed);
 
             if (DragSpeed < MaxDragSpeed)
                 DragSpeed += AccelerateSpeed * Time.deltaTime;

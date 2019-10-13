@@ -143,7 +143,7 @@ public class EnemyAI : MonoBehaviour
         {
             currentWayPoint++;
         }
-        Debug.Log(rb.velocity.magnitude);
+        //Debug.Log(rb.velocity.magnitude);
         //转身
         if (force.x >= 0.01f)
         {
