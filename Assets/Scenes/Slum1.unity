@@ -2484,7 +2484,8 @@ MonoBehaviour:
   StartDragSpeed: 10
   MaxDragSpeed: 15
   AccelerateSpeed: 5
-  RopeExtendSpeed: 3
+  RopeExtendSpeed: 15
+  startPointOffset: {x: 0.2, y: 0.3, z: 0}
   anim: {fileID: 0}
 --- !u!50 &1422056796
 Rigidbody2D:
@@ -3296,6 +3297,7 @@ MonoBehaviour:
   MaxDragSpeed: 15
   AccelerateSpeed: 5
   RopeExtendSpeed: 3
+  startPointOffset: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
 --- !u!120 &1770554939
 LineRenderer:
