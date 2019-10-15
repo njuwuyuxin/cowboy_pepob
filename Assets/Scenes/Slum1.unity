@@ -2350,6 +2350,7 @@ GameObject:
   - component: {fileID: 1422056794}
   - component: {fileID: 1422056793}
   - component: {fileID: 1422056802}
+  - component: {fileID: 1422056803}
   m_Layer: 8
   m_Name: NEW MAN
   m_TagString: Player
@@ -2698,6 +2699,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1422056803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422056792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1af4465ebded72429ca3cb64c0f02bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerHP: 100
 --- !u!1 &1455447725
 GameObject:
   m_ObjectHideFlags: 0
@@ -3424,6 +3438,7 @@ GameObject:
   - component: {fileID: 1809969320}
   - component: {fileID: 1809969319}
   - component: {fileID: 1809969322}
+  - component: {fileID: 1809969323}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3513,6 +3528,20 @@ MonoBehaviour:
   BorderRight: 10000
   BorderBottom: 0
   BorderTop: 4
+--- !u!114 &1809969323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809969318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4fad9cabd1f77489ead35d36f3d823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 8524034363055660147, guid: fdf3e0fe7c09737498c10bafac56e5cc,
+    type: 3}
 --- !u!1 &1909656125
 GameObject:
   m_ObjectHideFlags: 0
