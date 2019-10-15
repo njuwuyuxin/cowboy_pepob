@@ -80,17 +80,19 @@ public class rope : MonoBehaviour
             if (RopeStatus == RopeState.LAUNGCHING)
                 RopeStatus = RopeState.RETURNING;
             if (RopeStatus == RopeState.DRAGGING)
+            {
                 RopeStatus = RopeState.IDLE;
+                _moveScript.enabled = true;
+                _moveScript._velocity.x = _veclocity.x;
+                _moveScript._velocity.y = _veclocity.y;
+                _veclocity.x = 0f;
+                _veclocity.y = 0f;
+                DragSpeed = StartDragSpeed;
+            }
+                
             anim.SetBool("isDragging",false);
             anim.SetBool("isThrowingRope", false);
             isThrowing = true;
-
-            _moveScript.enabled = true;
-            _moveScript._velocity.x = _veclocity.x;
-            _moveScript._velocity.y = _veclocity.y;
-            _veclocity.x = 0f;
-            _veclocity.y = 0f;
-            DragSpeed = StartDragSpeed;
         }
 
         if (RopeStatus==RopeState.LAUNGCHING)
@@ -98,6 +100,7 @@ public class rope : MonoBehaviour
             ropeStartPoint = transform.position + startPointOffset;
             //暂时先用这种方式延伸绳子
             ropeEndPoint += rayDirection * Time.deltaTime * RopeExtendSpeed;
+            //如果绳子已达最大长度
             if ((ropeEndPoint - ropeStartPoint).magnitude > MaxRopeLength)
             {
                 RopeStatus = RopeState.RETURNING;
@@ -137,6 +140,12 @@ public class rope : MonoBehaviour
             if (Mathf.Abs(rayHitPoint.x - ropeStartPoint.x) < 0.5f && Mathf.Abs(rayHitPoint.y - ropeStartPoint.y) < 0.5f)
             {
                 RopeStatus = RopeState.IDLE;
+                _moveScript.enabled = true;
+                _moveScript._velocity.x = _veclocity.x;
+                _moveScript._velocity.y = _veclocity.y;
+                _veclocity.x = 0f;
+                _veclocity.y = 0f;
+                DragSpeed = StartDragSpeed;
                 anim.SetBool("isDragging",false);
             }
 
