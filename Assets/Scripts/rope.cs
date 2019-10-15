@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Prime31;
 
+enum RopeState {LAUNGCHING, DRAGGING, RETURNING,IDLE };
 public class rope : MonoBehaviour
 {
     public float MaxRopeLength = 10f;
@@ -10,37 +11,36 @@ public class rope : MonoBehaviour
     public float MaxDragSpeed = 15f;
     public float AccelerateSpeed = 5f;
     public float RopeExtendSpeed = 3f;
+    public float RopeReturnSpeed = 3f;
     public Vector3 startPointOffset;
-
 
     private float DragSpeed;
     private LineRenderer line;
     private bool isThrowing = true;                                 //判断是否是刚刚按下鼠标
-    private bool isDragging;
-    private bool isLaunching;
+    private RopeState RopeStatus;
     private CharacterController2D _controller;
     private move _moveScript;
     private rope _ropeScript;
-    private Vector2 rayHitPoint;
+    private Vector2 rayDirection;                                       //绳子发射过程中，用来检测是否勾到物体的射线（方向向量）
+    private Vector2 rayHitPoint;                                        //绳子末端发射的极短射线的碰撞点，可以看作绳索勾到的点的坐标
     private Vector2 _veclocity;
     private Vector2 ropeStartPoint;                                  //绳子当前帧终点坐标
     private Vector2 ropeEndPoint;                                   //绳子当前帧终点坐标（用来计算是否勾到物体）
     private Vector2 ropeEndPointLastFrame;                  //绳子上一帧终点坐标（用来计算是否勾到物体）
-    private float LerpPercent;                                          //绳子延伸时的插值百分比
-    private float RopeDistance;                                       //绳子刚勾到物体时，绳子的长度（目标点到绳子起始点）
 
     public Animator anim;//动画管理器（动画）
     // Start is called before the first frame update
     void Start()
     {
+        RopeStatus = RopeState.IDLE;
         line = GetComponent<LineRenderer>();
-        isDragging = false;
-        isLaunching = false;
         _controller = GetComponent<CharacterController2D>();
         _moveScript = GetComponent<move>();
         _ropeScript = GetComponent<rope>();
         _veclocity = new Vector2(0f, 0f);
         DragSpeed = StartDragSpeed;
+        ropeStartPoint = transform.position + startPointOffset;
+        ropeEndPoint = ropeStartPoint;
         anim = GetComponent<Animator>();//获取Animator部件（动画）
     }
 
@@ -51,14 +51,15 @@ public class rope : MonoBehaviour
         if ((transform.localScale.x > 0 && startPointOffset.x < 0)||(transform.localScale.x < 0 && startPointOffset.x > 0)) 
             startPointOffset.x = -startPointOffset.x;
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1)&&RopeStatus==RopeState.IDLE)
         {
-            //if(isThrowing)
-            //{
-            //    anim.SetBool("isThrowingRope", true);
-            //    isThrowing = false;
-            //}
-            // 如果可以空扔绳子就用这个
+            RopeStatus = RopeState.LAUNGCHING;
+            if (isThrowing)
+            {
+                anim.SetBool("isThrowingRope", true);
+                isThrowing = false;
+            }
+            //如果可以空扔绳子就用这个
             Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 MousePosition2D = new Vector2(MousePosition.x, MousePosition.y);
 
@@ -67,105 +68,73 @@ public class rope : MonoBehaviour
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y,transform.localScale.z);
             if (MousePosition2D.x < transform.position.x && transform.localScale.x > 0)
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-
             //Debug.Log(MousePosition2D);
 
-            Vector2 RayDirectrion = new Vector2(MousePosition2D.x - transform.position.x, MousePosition2D.y - transform.position.y);
-            Ray2D testRay = new Ray2D(transform.position, RayDirectrion);
-            Debug.DrawRay(testRay.origin, testRay.direction, Color.blue);
-
-            RaycastHit2D info = Physics2D.Raycast(transform.position, RayDirectrion, MaxRopeLength);
-            if (info.collider != null)
-            {
-                //如果发生了碰撞
-                Debug.Log(info.point);
-                isLaunching = true;
-                anim.SetBool("isThrowingRope", true);
-                //绳子发射起始位置增加一个偏移量，保证视觉上绳子从手部发射（以人物中心为起点）
-                ropeStartPoint = transform.position + startPointOffset;
-                Debug.Log("ropeStartPoint with offset:"+ropeStartPoint);
-
-                ropeEndPoint = ropeStartPoint;
-                LerpPercent = 0;
-                line.enabled = true;
-                rayHitPoint = info.point;
-
-                RopeDistance = (rayHitPoint-ropeStartPoint).magnitude;
-                
-                //GameObject obj = info.collider.gameObject;
-                //if (obj.CompareTag("Building"))//用tag判断碰到了什么对象
-                //{
-                //}
-            }
+            ropeStartPoint = transform.position + startPointOffset;
+            ropeEndPoint = ropeStartPoint;
+            //按下按键时，一次性确定射线方向，该方向在发射过程中会用到
+            rayDirection = new Vector2(MousePosition2D.x - ropeStartPoint.x, MousePosition2D.y - ropeStartPoint.y);
+            rayDirection.Normalize();
+            line.enabled = true;
         }
 
         if (Input.GetMouseButtonUp(1))
         {
-            //if (isDragging)
-            //{
-                anim.SetBool("isDragging",false);
-            //}
+            if (RopeStatus == RopeState.LAUNGCHING)
+                RopeStatus = RopeState.RETURNING;
+            if (RopeStatus == RopeState.DRAGGING)
+                RopeStatus = RopeState.IDLE;
+            anim.SetBool("isDragging",false);
             anim.SetBool("isThrowingRope", false);
-            isLaunching = false;
-            isDragging = false;
             isThrowing = true;
+
+            _moveScript.enabled = true;
+            _moveScript._velocity.x = _veclocity.x;
+            _moveScript._velocity.y = _veclocity.y;
+            _veclocity.x = 0f;
+            _veclocity.y = 0f;
+            DragSpeed = StartDragSpeed;
         }
 
-        if (isLaunching)
+        if (RopeStatus==RopeState.LAUNGCHING)
         {
             ropeStartPoint = transform.position + startPointOffset;
-            Vector2 forceDirection = new Vector2(rayHitPoint.x - ropeStartPoint.x, rayHitPoint.y - ropeStartPoint.y);
-            forceDirection.Normalize(); //方向向量
             ropeEndPointLastFrame = ropeEndPoint;
-            //ropeEndPoint += forceDirection * Time.deltaTime*RopeExtendSpeed;
-            //Debug.Log("DeltaTime:");
-            //Debug.Log(Time.deltaTime);
-            LerpPercent += Time.deltaTime;
+            //暂时先用这种方式延伸绳子
+            ropeEndPoint += rayDirection * Time.deltaTime * RopeExtendSpeed;
 
-            //为保证钩锁勾不同距离的位置，发射速度保持一致，插值时的百分比（第三个参数）除以一个绳子距离（以刚发射时为准）来保持匀速
-            ropeEndPoint = Vector2.Lerp(ropeStartPoint, rayHitPoint, LerpPercent*RopeExtendSpeed/RopeDistance);
+            //为保证钩锁勾不同距离的位置，发射速度保持一致，插值时的百分比（第三个参数）除以一个绳子距离（以刚发射时为准）来保持匀速（该方法已弃用）
+            //LerpPercent += Time.deltaTime;
+            //ropeEndPoint = Vector2.Lerp(ropeStartPoint, rayHitPoint, LerpPercent*RopeExtendSpeed/RopeDistance);
 
 
-            if (rayHitPoint.x - ropeEndPointLastFrame.x >= 0 && rayHitPoint.x - ropeEndPoint.x <= 0)
+            Ray2D testRay = new Ray2D(ropeEndPoint, rayDirection);
+            Debug.DrawRay(testRay.origin, testRay.direction, Color.blue);
+            RaycastHit2D info = Physics2D.Raycast(ropeEndPoint, rayDirection, 0.5f);
+            if (info.collider != null)
             {
-                isLaunching = false;
-                isDragging = true;
+                //如果发生了碰撞，则说明勾到物体
+                Debug.Log(info.point);
+                rayHitPoint = info.point;
+                RopeStatus = RopeState.DRAGGING;
                 anim.SetBool("isThrowingRope", false);
-                anim.SetBool("isDragging",true);
+                anim.SetBool("isDragging", true);
             }
-            if (rayHitPoint.x - ropeEndPointLastFrame.x <= 0 && rayHitPoint.x - ropeEndPoint.x >= 0)
-            {
-                isLaunching = false;
-                isDragging = true;
-                anim.SetBool("isThrowingRope", false);
-                anim.SetBool("isDragging",true);
-            }
-            if (rayHitPoint.y - ropeEndPointLastFrame.y >= 0 && rayHitPoint.y - ropeEndPoint.y <= 0)
-            {
-                isLaunching = false;
-                isDragging = true;
-                anim.SetBool("isThrowingRope", false);
-                anim.SetBool("isDragging",true);
-            }
-            if (rayHitPoint.y - ropeEndPointLastFrame.y <= 0 && rayHitPoint.y - ropeEndPoint.y >= 0)
-            {
-                isLaunching = false;
-                isDragging = true;
-                anim.SetBool("isThrowingRope", false);
-                anim.SetBool("isDragging",true);
-            }
+
             line.SetPosition(0,ropeStartPoint);
             line.SetPosition(1, ropeEndPoint);
             line.material.color = Color.blue;
         }
-        else if (isDragging)
+        else if (RopeStatus==RopeState.DRAGGING)
         {
             _moveScript.enabled = false;
+
             //如果已经到达目标点，则钩锁自动脱离
             ropeStartPoint = transform.position + startPointOffset;
+            ropeEndPoint = rayHitPoint;
             if (Mathf.Abs(rayHitPoint.x - ropeStartPoint.x) < 0.5f && Mathf.Abs(rayHitPoint.y - ropeStartPoint.y) < 0.5f)
             {
-                isDragging = false;
+                RopeStatus = RopeState.IDLE;
                 anim.SetBool("isDragging",false);
             }
 
@@ -183,19 +152,39 @@ public class rope : MonoBehaviour
                 DragSpeed += AccelerateSpeed * Time.deltaTime;
             _controller.move(_veclocity * Time.deltaTime);
         }
-        else
+        else if (RopeStatus == RopeState.RETURNING)
         {
-            _moveScript.enabled = true;
-            if (line.enabled == true)
+            Vector2 returnDirection = ropeEndPoint - ropeStartPoint;
+            returnDirection.Normalize();
+            ropeEndPoint -= returnDirection * Time.deltaTime * RopeExtendSpeed;
+            line.SetPosition(0, ropeStartPoint);
+            line.SetPosition(1, ropeEndPoint);
+            line.material.color = Color.blue;
+            if ((ropeEndPoint - ropeStartPoint).magnitude < 0.5f)
             {
-                _moveScript._velocity.x = _veclocity.x;
-                _moveScript._velocity.y = _veclocity.y;
+                ropeEndPoint = ropeStartPoint;
+                RopeStatus = RopeState.IDLE;
             }
-            
-            line.enabled = false;
-            _veclocity.x = 0f;
-            _veclocity.y = 0f;
-            DragSpeed = StartDragSpeed;
+        }
+        else if(RopeStatus == RopeState.IDLE)
+        {
+            ropeStartPoint = transform.position + startPointOffset;
+            if ((ropeEndPoint - ropeStartPoint).magnitude > 0.5f)
+            {
+                //Debug.Log("return ropen when idle");
+                //Debug.Log("startpoint=" + ropeStartPoint);
+                //Debug.Log("endpoint=" + ropeEndPoint);
+                Vector2 returnDirection = ropeEndPoint - ropeStartPoint;
+                returnDirection.Normalize();
+                ropeEndPoint -= returnDirection * Time.deltaTime * RopeExtendSpeed;
+                line.SetPosition(0, ropeStartPoint);
+                line.SetPosition(1, ropeEndPoint);
+                line.material.color = Color.blue;
+            }
+            else
+            {
+                line.enabled = false;
+            }
         }
     }
 }

@@ -52,8 +52,8 @@ public class EnemyAI : MonoBehaviour
         Handles.DrawSolidDisc(new Vector3(patrolStart.x, patrolStart.y,-1), up,0.3f);
         Handles.DrawSolidDisc(new Vector3(patrolEnd.x, patrolEnd.y, -1), up, 0.3f);
         if (state == EnemyState.TRACK) {
-            Debug.Log(rb.position);
-            Debug.Log(((Vector2)target.position - rb.position).normalized);
+            //Debug.Log(rb.position);
+            //Debug.Log(((Vector2)target.position - rb.position).normalized);
             RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
             Vector3 end = target.position;
             if (hit.collider!=null)
