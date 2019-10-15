@@ -2480,11 +2480,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471640486e4d165418a6475b19d04175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxRopeLength: 10
+  MaxRopeLength: 8
   StartDragSpeed: 10
   MaxDragSpeed: 15
   AccelerateSpeed: 5
   RopeExtendSpeed: 15
+  RopeReturnSpeed: 3
   startPointOffset: {x: 0.2, y: 0.3, z: 0}
   anim: {fileID: 0}
 --- !u!50 &1422056796
@@ -3297,6 +3298,7 @@ MonoBehaviour:
   MaxDragSpeed: 15
   AccelerateSpeed: 5
   RopeExtendSpeed: 3
+  RopeReturnSpeed: 3
   startPointOffset: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
 --- !u!120 &1770554939

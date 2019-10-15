@@ -20,13 +20,11 @@ public class rope : MonoBehaviour
     private RopeState RopeStatus;
     private CharacterController2D _controller;
     private move _moveScript;
-    private rope _ropeScript;
     private Vector2 rayDirection;                                       //绳子发射过程中，用来检测是否勾到物体的射线（方向向量）
     private Vector2 rayHitPoint;                                        //绳子末端发射的极短射线的碰撞点，可以看作绳索勾到的点的坐标
     private Vector2 _veclocity;
     private Vector2 ropeStartPoint;                                  //绳子当前帧终点坐标
-    private Vector2 ropeEndPoint;                                   //绳子当前帧终点坐标（用来计算是否勾到物体）
-    private Vector2 ropeEndPointLastFrame;                  //绳子上一帧终点坐标（用来计算是否勾到物体）
+    private Vector2 ropeEndPoint;                                   //绳子当前帧终点坐标
 
     public Animator anim;//动画管理器（动画）
     // Start is called before the first frame update
@@ -36,7 +34,6 @@ public class rope : MonoBehaviour
         line = GetComponent<LineRenderer>();
         _controller = GetComponent<CharacterController2D>();
         _moveScript = GetComponent<move>();
-        _ropeScript = GetComponent<rope>();
         _veclocity = new Vector2(0f, 0f);
         DragSpeed = StartDragSpeed;
         ropeStartPoint = transform.position + startPointOffset;
@@ -99,9 +96,14 @@ public class rope : MonoBehaviour
         if (RopeStatus==RopeState.LAUNGCHING)
         {
             ropeStartPoint = transform.position + startPointOffset;
-            ropeEndPointLastFrame = ropeEndPoint;
             //暂时先用这种方式延伸绳子
             ropeEndPoint += rayDirection * Time.deltaTime * RopeExtendSpeed;
+            if ((ropeEndPoint - ropeStartPoint).magnitude > MaxRopeLength)
+            {
+                RopeStatus = RopeState.RETURNING;
+                return; 
+                //直接结束本次Update函数
+            }
 
             //为保证钩锁勾不同距离的位置，发射速度保持一致，插值时的百分比（第三个参数）除以一个绳子距离（以刚发射时为准）来保持匀速（该方法已弃用）
             //LerpPercent += Time.deltaTime;
@@ -154,6 +156,7 @@ public class rope : MonoBehaviour
         }
         else if (RopeStatus == RopeState.RETURNING)
         {
+            ropeStartPoint = transform.position + startPointOffset;
             Vector2 returnDirection = ropeEndPoint - ropeStartPoint;
             returnDirection.Normalize();
             ropeEndPoint -= returnDirection * Time.deltaTime * RopeExtendSpeed;
