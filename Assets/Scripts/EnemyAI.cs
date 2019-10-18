@@ -12,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     public float speed = 200f;
     public float nextWayPointDistance = 3f;
     public float trackSecond = 5f;
+    public float fireSecond = 1f;
     public Transform enemyGFX;
     public GameObject eneity;
     public Vector2 patrolStart;
@@ -51,16 +52,14 @@ public class EnemyAI : MonoBehaviour
         Handles.color = Color.blue;
         Handles.DrawSolidDisc(new Vector3(patrolStart.x, patrolStart.y,-1), up,0.3f);
         Handles.DrawSolidDisc(new Vector3(patrolEnd.x, patrolEnd.y, -1), up, 0.3f);
-        if (state == EnemyState.TRACK) {
-            //Debug.Log(rb.position);
-            //Debug.Log(((Vector2)target.position - rb.position).normalized);
+        if (state == EnemyState.PATROL || state == EnemyState.TRACK|| state == EnemyState.FIRE) {
             RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
             Vector3 end = target.position;
             if (hit.collider!=null)
             {
                 end = hit.point;
             }
-            Handles.DrawBezier(rb.position, end, rb.position, end, Color.red, null, 3);
+            Handles.DrawBezier(rb.position, end, rb.position, end, Color.magenta, null, 3);
         }
         Handles.color = color;
 
@@ -101,44 +100,88 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        float rangerSqr = ((Vector2)this.enemyGFX.position - (Vector2)target.position).sqrMagnitude;
+        
         switch (state) {
             case EnemyState.PATROL:
-                float rangerSqr = ((Vector2)this.enemyGFX.position - (Vector2)target.position).sqrMagnitude;
                 //距离小于视野
                 if (rangerSqr <= viewRadius * viewRadius)
                 {
-                    Vector3 sight = (Vector2)(target.position - this.enemyGFX.position);
-                    float angle=getAngle(new Vector3(sight.x, sight.y, 0), forward);
                     //在视野里或者实在太近
-                    if (angle < viewAngle / 2 && angle > -viewAngle / 2 || rangerSqr<= viewRadius) {
+                    if (isInSight(rangerSqr)) {
                         lastStartTrack = 0f;
                         sightColor = Color.yellow;
                         state = EnemyState.TRACK;
                         //暂时追踪模式疯狂开火
-                        eneity.SendMessage("startFire", "");
+                        lastInSight = 0f;
                     }
                 }
-                //xunluo
+                //
                 if (track(speed/2)) {
                     isToEnd = !isToEnd;
                 }
                 break;
             case EnemyState.TRACK:
                 track(speed);
-                //至少追踪五秒后，并且离开 根号2 *视野 后停止最终
-                if ((lastStartTrack> trackSecond && (this.enemyGFX.position - target.position).sqrMagnitude >= 2 * viewRadius * viewRadius)) {
+
+                //至少追踪五秒后，并且离开 视野 后停止最终
+                if ((lastStartTrack > trackSecond && !isInSight(rangerSqr)))
+                {
+                    lastInSight = 0f;
                     sightColor = Color.green;
                     state = EnemyState.PATROL;
                     //巡逻模式停止开火
                     eneity.SendMessage("stopFire", "");
                 }
+                else if (rangerSqr <= viewRadius * viewRadius&&isInSight(rangerSqr))
+                {
+
+                    if (lastInSight > fireSecond) {
+                        state = EnemyState.FIRE;
+                        sightColor = Color.red;
+                        lastInSight = 0f;
+                        eneity.SendMessage("startFire", "");
+                    }
+                    lastInSight += Time.deltaTime;
+                }
                 break;
             case EnemyState.FIRE:
+                if (rangerSqr > viewRadius * viewRadius || !isInSight(rangerSqr))
+                {
+                    lastStartTrack = 0f;
+                    lastInSight = 0f;
+                    sightColor = Color.yellow;
+                    state = EnemyState.TRACK;
+                    eneity.SendMessage("stopFire", "");
+                }
+                else {
+                    eneity.SendMessage("startFire", "");
+                }
                 break;
         }
     }
-
+    private bool isInSight(float rangerSqr) {
+        Vector3 sight = (Vector2)(target.position - this.enemyGFX.position);
+        float angle = getAngle(new Vector3(sight.x, sight.y, 0), forward);
+        if (angle < viewAngle / 2 && angle > -viewAngle / 2 || rangerSqr <= viewRadius)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
+            Vector3 end = target.position;
+            //视线受阻
+            if (hit.collider != null)
+            {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
+    }
     float lastStartTrack = 0;
+    float lastInSight = 0;
     bool track(float speed)
     {
         if (path == null ){
