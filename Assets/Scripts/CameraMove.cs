@@ -10,10 +10,13 @@ public class CameraMove : MonoBehaviour
     public float BorderBottom=0;
     public float BorderTop=4;
     private Transform CameraTransform;
+    private Vector3 positionLastFrame;
+    public Vector3 CameraVelocity;
     // Start is called before the first frame update
     void Start()
     {
         CameraTransform =  GetComponent<Transform>();
+        positionLastFrame = CameraTransform.position;
     }
 
     // Update is called once per frame
@@ -44,5 +47,9 @@ public class CameraMove : MonoBehaviour
         {
             CameraTransform.position = new Vector3(CameraTransform.position.x, FollowObject.position.y, -10f);
         }
+
+        CameraVelocity = (CameraTransform.position - positionLastFrame) / Time.deltaTime;
+        positionLastFrame = CameraTransform.position;
+        Debug.Log(CameraVelocity);
     }
 }
