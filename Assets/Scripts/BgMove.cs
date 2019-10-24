@@ -17,6 +17,7 @@ public class BgMove : MonoBehaviour
     void Update()
     {
         _velocity = cameraMoveScript.CameraVelocity*0.7f;
+        _velocity.y = cameraMoveScript.CameraVelocity.y * 0.3f;
         transform.position += _velocity * Time.deltaTime;
     }
 }
