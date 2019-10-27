@@ -35,7 +35,7 @@ public class shoot : MonoBehaviour
     public Rigidbody2D rocket;              // Prefab of the rocket.
     public float speed = 20f;               // The speed the rocket will fire at.
     private Animator anim;                  // Reference to the Animator component.
-    private float timer;
+    private float shootingTimer;
 
     private GunState GunStatus;
     public GameObject[] GunList;          //枪支实体列表,与子弹列表必须一一对应（没有枪支模型，暂时用空物体代替）
@@ -54,8 +54,6 @@ public class shoot : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
-        timer = 0.2f;
-
         GunIndex = 0;
         GunStatus = GunState.IDLE;
         Guns = new GunInfo[2];
@@ -79,7 +77,7 @@ public class shoot : MonoBehaviour
             GunList[1],              //枪支的模型
             BulletList[1]            //子弹的模型
             );
-
+        shootingTimer = Guns[GunIndex].shootingSpeed;
         //shootableMask = LayerMask.GetMask("Shootable");
         //player = GameObject.FindGameObjectWithTag("Player");
         //anim = transform.root.gameObject.GetComponent<Animator>();
@@ -90,6 +88,7 @@ public class shoot : MonoBehaviour
 
     void Update()
     {
+        shootingTimer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.R))
         {
             //TODO: 换弹
@@ -98,10 +97,12 @@ public class shoot : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             GunIndex = 0;
+            shootingTimer = Guns[GunIndex].shootingSpeed;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             GunIndex = 1;
+            shootingTimer = Guns[GunIndex].shootingSpeed;
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -116,13 +117,13 @@ public class shoot : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            timer += Time.deltaTime;
-            if(timer>=Guns[GunIndex].shootingSpeed)
+            
+            if(shootingTimer>=Guns[GunIndex].shootingSpeed)
             {
                 // ... set the animator Shoot trigger parameter and play the audioclip.
                 //anim.SetTrigger("Shoot");
                 //GetComponent<AudioSource>().Play();
-                timer = 0;
+                shootingTimer = 0;
                 Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 MousePosition2D = new Vector2(MousePosition.x, MousePosition.y);
                 //根据鼠标点击位置更改人物朝向
@@ -140,10 +141,6 @@ public class shoot : MonoBehaviour
                 Rigidbody2D bulletInstance = Instantiate(Guns[GunIndex].Bullet.GetComponent<Rigidbody2D>(), transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
                 bulletInstance.velocity = new Vector2(Guns[GunIndex].flyingSpeed * Mathf.Cos(angle), Guns[GunIndex].flyingSpeed * Mathf.Sin(angle));
             }      
-        }
-        else
-        {
-            timer = Guns[GunIndex].shootingSpeed;
         }
         
     }
