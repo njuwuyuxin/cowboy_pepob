@@ -1327,11 +1327,11 @@ MonoBehaviour:
   rocket: {fileID: 4617979970049723426, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
   speed: 20
   GunList:
-  - {fileID: 0}
-  - {fileID: 0}
-  Bullet:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6560660630274883863, guid: 2f93195e91cc8e647a418bac38a96377, type: 3}
+  - {fileID: 5753060855367128872, guid: 9a14f132f4b486247aaf607bc270cd42, type: 3}
+  BulletList:
+  - {fileID: 4617979970053145026, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
+  - {fileID: 4617979970053145026, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
 --- !u!120 &518162902
 LineRenderer:
   m_ObjectHideFlags: 0

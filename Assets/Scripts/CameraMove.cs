@@ -50,6 +50,6 @@ public class CameraMove : MonoBehaviour
 
         CameraVelocity = (CameraTransform.position - positionLastFrame) / Time.deltaTime;
         positionLastFrame = CameraTransform.position;
-        Debug.Log(CameraVelocity);
+        //Debug.Log(CameraVelocity);
     }
 }
