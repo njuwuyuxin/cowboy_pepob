@@ -42,7 +42,7 @@ public class shoot : MonoBehaviour
     public GameObject[] GunList;          //枪支实体列表,与子弹列表必须一一对应（没有枪支模型，暂时用空物体代替）
     public GameObject[] BulletList;       //子弹实体列表,与枪支列表必须一一对应
     private GunInfo[] Guns;                   //存储枪支列表信息的容器
-    private int GunIndex=0;                       //指明当前枪支索引，等于当前枪支编号-1
+    private GunInfo currentGun;
    
     //private int shootableMask;
     //LineRenderer gunLine;
@@ -55,7 +55,6 @@ public class shoot : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
-        GunIndex = 0;
         GunStatus = GunState.IDLE;
         Guns = new GunInfo[2];
         Guns[0] = new GunInfo(
@@ -78,7 +77,8 @@ public class shoot : MonoBehaviour
             GunList[1],              //枪支的模型
             BulletList[1]            //子弹的模型
             );
-        shootingTimer = Guns[GunIndex].shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
+        currentGun = Guns[0];
+        shootingTimer =currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
         reloadingTimer = 0;
         //shootableMask = LayerMask.GetMask("Shootable");
         //player = GameObject.FindGameObjectWithTag("Player");
@@ -105,11 +105,11 @@ public class shoot : MonoBehaviour
             angle = -angle;
         angle = angle * Mathf.Deg2Rad;
 
-        Rigidbody2D bulletInstance = Instantiate(Guns[GunIndex].Bullet.GetComponent<Rigidbody2D>(), transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
-        bulletInstance.velocity = new Vector2(Guns[GunIndex].flyingSpeed * Mathf.Cos(angle), Guns[GunIndex].flyingSpeed * Mathf.Sin(angle));
+        Rigidbody2D bulletInstance = Instantiate(currentGun.Bullet.GetComponent<Rigidbody2D>(), transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
+        bulletInstance.velocity = new Vector2(currentGun.flyingSpeed * Mathf.Cos(angle),currentGun.flyingSpeed * Mathf.Sin(angle));
 
-        if (Guns[GunIndex].bulletLeft > 0)
-            Guns[GunIndex].bulletLeft--;
+        if (currentGun.bulletLeft > 0)
+           currentGun.bulletLeft--;
         else
             Debug.LogError("Err: 剩余弹药量小于0");
     }
@@ -120,7 +120,7 @@ public class shoot : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)&&GunStatus!=GunState.RELOADING)
         {
             //TODO: 换弹
-            if(Guns[GunIndex].bulletLeft!= Guns[GunIndex].magVolume)            //弹夹非满
+            if(currentGun.bulletLeft!=currentGun.magVolume)            //弹夹非满
             {
                 GunStatus = GunState.RELOADING;
                 Debug.Log("Reloading!");
@@ -129,7 +129,7 @@ public class shoot : MonoBehaviour
         if (GunStatus == GunState.RELOADING)
         {
             
-            if (reloadingTimer < Guns[GunIndex].reloadSpeed)
+            if (reloadingTimer <currentGun.reloadSpeed)
             {
                 reloadingTimer += Time.deltaTime;
                 return;
@@ -137,7 +137,7 @@ public class shoot : MonoBehaviour
             else
             {
                 reloadingTimer = 0;
-                Guns[GunIndex].bulletLeft = Guns[GunIndex].magVolume;
+               currentGun.bulletLeft =currentGun.magVolume;
                 GunStatus = GunState.IDLE;
                 Debug.Log("Reloading Finished!");
             }
@@ -145,13 +145,13 @@ public class shoot : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GunIndex = 0;
-            shootingTimer = Guns[GunIndex].shootingSpeed;
+            currentGun = Guns[0];
+            shootingTimer =currentGun.shootingSpeed;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            GunIndex = 1;
-            shootingTimer = Guns[GunIndex].shootingSpeed;
+            currentGun = Guns[1];
+            shootingTimer =currentGun.shootingSpeed;
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -167,11 +167,11 @@ public class shoot : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             
-            if(shootingTimer>=Guns[GunIndex].shootingSpeed)     //一次射击事件
+            if(shootingTimer>=currentGun.shootingSpeed)     //一次射击事件
             {
                 shootingTimer = 0;
                 shootEvent();
-                if (Guns[GunIndex].bulletLeft == 0)             //弹夹打光自动进入换弹状态
+                if (currentGun.bulletLeft == 0)             //弹夹打光自动进入换弹状态
                 {
                     GunStatus = GunState.RELOADING;
                     Debug.Log("Reloading!");
