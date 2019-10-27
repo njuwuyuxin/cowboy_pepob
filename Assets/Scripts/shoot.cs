@@ -69,7 +69,7 @@ public class shoot : MonoBehaviour
             GunList[0],              //枪支的模型
             BulletList[0]            //子弹的模型
             );
-        Guns[0] = new GunInfo(
+        Guns[1] = new GunInfo(
             2,                              //枪支编号
             "时缓枪",                  //枪支名称
             1f,                         //枪支射速
