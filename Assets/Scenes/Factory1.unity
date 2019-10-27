@@ -1326,6 +1326,12 @@ MonoBehaviour:
   timeBetweenAttacks: 0.2
   rocket: {fileID: 4617979970049723426, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
   speed: 20
+  GunList:
+  - {fileID: 0}
+  - {fileID: 0}
+  Bullet:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!120 &518162902
 LineRenderer:
   m_ObjectHideFlags: 0
