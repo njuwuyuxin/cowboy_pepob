@@ -344,9 +344,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 229945315}
-  - component: {fileID: 229945314}
   - component: {fileID: 229945313}
   - component: {fileID: 229945312}
+  - component: {fileID: 229945317}
+  - component: {fileID: 229945316}
+  - component: {fileID: 229945314}
   m_Layer: 12
   m_Name: EnemyGround
   m_TagString: Untagged
@@ -362,7 +364,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229945311}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -412,20 +414,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 229945311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ba5cabd1813fd419ae573376ace83d, type: 3}
+  m_Script: {fileID: 11500000, guid: eaec6ba18aa82f14e9da202218919f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1422056801}
-  speed: 800
-  nextWayPointDistance: 3
-  trackSecond: 5
-  fireSecond: 1
-  enemyGFX: {fileID: 1500476559}
-  eneity: {fileID: 1500476554}
-  patrolStart: {x: -2, y: 2.5}
-  patrolEnd: {x: 11, y: 2.5}
-  viewAngle: 40
-  viewRadius: 6
+  ignoreOneWayPlatformsThisFrame: 0
+  _skinWidth: 0.02
+  platformMask:
+    serializedVersion: 2
+    m_Bits: 1
+  triggerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  oneWayPlatformMask:
+    serializedVersion: 2
+    m_Bits: 512
+  slopeLimit: 30
+  jumpingThreshold: 0.07
+  slopeSpeedMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 1.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  totalHorizontalRays: 8
+  totalVerticalRays: 4
 --- !u!4 &229945315
 Transform:
   m_ObjectHideFlags: 0
@@ -434,13 +473,68 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229945311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.95, y: 5.94, z: -2}
+  m_LocalPosition: {x: 4.95, y: 2.95, z: -2}
   m_LocalScale: {x: 0.461, y: 0.506, z: 1}
   m_Children:
   - {fileID: 1500476559}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &229945316
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229945311}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &229945317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229945311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165bb39aaf608b84bb6006f4fb618aa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1422056801}
+  nextWayPointDistance: 1
+  trackSecond: 5
+  fireSecond: 1
+  enemyGFX: {fileID: 1500476559}
+  eneity: {fileID: 1500476554}
+  patrolStart: {x: -1, y: 2}
+  patrolEnd: {x: 10, y: 2}
+  gravity: -25
+  runSpeed: 2
+  groundDamping: 20
+  inAirDamping: 5
+  jumpHeight: 3
+  _velocity: {x: 0, y: 0, z: 0}
+  anim: {fileID: 0}
+  viewAngle: 30
+  viewRadius: 6
 --- !u!1 &238681818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,7 +1541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &784874701
 Rigidbody2D:
   serializedVersion: 4
@@ -1821,7 +1915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAABAIewfgikRUAIAAPQEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVEtz2jAQ/iuMzqVjAwmkt9YhpAcCE9rJxRfFWtsaZMmjR3hk+O9dyQY77ollv293v33In4RLU0NmlV5pztaKAfkxIt4m30Yd+AxHWii542e4ct44s6Un0cB5pZYr9Mc+zKgKrObZT1kIT47Q6STPla6WrIBEGWvQnVNhACGtrI+W6PockSP+jB98yAmtydxbZ7QeotEFzQykBd1R42nLvPIampOZoFUNzGvu2LNFy44bmsRuWoZXnikhuGmlEHuqQ6sJrY3DRpDAOMXWQn3PL4EXpfUy+8GbPDdgW0manh65xgk1Wckv1Yytombf6Pqgwvk6d/E0aGqSrv/Dx3GAc62q52vdOPI1bMmz/Ss9ZdTY3lz77sevwp08ULGn7wLeSpAvaqWVkwxBq50PdQYmj93fW2tJCdm+8zdSB05Xd/OOBsvxPVxC98dE8OrdQ99njWMnVJh32D1o3MxvFBwuw7Qp0OtV/DXwhxb9E2qBJ66NRajtUnp578ppTyXLMDPfjbOJ0hKCuxVdg6TCnraYxg5XOMB6ZQfIE/WPpS3eYtc3MAgJ7o4fRQNoqw63ZZlSHdZgyo2zgst+Mo+84KASJWVzYmaA+rid0znNoGu2cJx9vS0yu4thEcF9vKAQPbB8TOdRPGeLaT69n8xn+ObD8XGJjVKxbZS288G1yS65xEO7fkRGK03rcO5M08OKnyvVmzmXudplGkBumgw34aCxCD5LtmQcJ7QDa7kMCyefKREq2wNLb4nS0OnyaDVNuywpqfmHst6TkiR8NVJyIZd/UEsDBBQAAAgIAABAIexqZi4HbAAAAHcAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0rPQUVBKL0osyCgGChiCOKWZKSB2tJKJqWGqhUGqmaFFYqqBZUqabqK5gaF5ioVxmrGZkblJSqpSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAEAh7B+CKRFQAgAA9AQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAEAh7GpmLgdsAAAAdwAAAAkAJAAAAAAAAAAAAAAAnQIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABUAwAAAAA=
+    dataString: UEsDBBQAAAgIAABAIey1SkmMUgIAAPYEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzk3HJhBIb60hpAeSTGgnF1+EtcYaZMmjjwDJ8N+7kgV23BNi39vVe7srfxIuTQOFVXqlOVsrBuTHiPgz+TbqwEc40p2SG/4BF84bZ7byJBo4r9RyhfHUpxlVg9W8+Cl3wpMTDDrJS6XrJdtBpow1GC6pMICQVtZnSwx9jsgRf27ufcoJT+OZP33g6T4ZnfFYgLSgO2p6G5kXXktzshC0boB5zR17Mo/stKVJdBMZyfepL6+E4CaKIfbUBLMZbYxDK0hgnKK5oMB7rYDvKuuF9pOfy9KAjaI0PS24xh61Vckv1TaupmbfKnunwvl7puk4qGqLrv/Db9IAl1rVj5d708TfYSte7F/pqaDG9jrbDy++CnfyQMWebgW8VSCf1EorJxmCVjuf6gyMF93fq7WsgmLfxVupg6Bruo4ng/F4D+fg/pgJXm9D5ydtYCNU6HeYPmiczW8UHHbDxBIY9Sr+GvhDd/0lisAD18YiFF1KL2+rnPZUsgw9826czZSWEMJRdAOSCnt6wTJ2OMIB1rt2gDxQ/1zi5RG7vIJBSgh3/CQZQC/qcB2WqdRhDaZ6dlZw2S/mkSdsVKakbFfMDFCft3G6pAV0ZneOs6+7RSbTFOYJ3KVzCsk9K2/oLElnbH5b3t6NZxN89WH5uESjVLy0SmN/cGyyKy5x0S6fkdFK0yasO9P0sOIfter1nMtSbQoNIJ/bClfhoPESfJhsyTh2aAPWchkGTj5zIlSxB5ZfC+XB6fJoNc27Kjlp+LuyPpKTLHw3cnIm539QSwMEFAAACAgAAEAh7GpmLgdsAAAAdwAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSs9BRUEovSizIKAYKGII4pZkpIHa0kompYaqFQaqZoUViqoFlSppuormBoXmKhXGasZmRuUlKqlIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAQCHstUpJjFICAAD2BAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAQCHsamYuB2wAAAB3AAAACQAkAAAAAAAAAAAAAACfAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAFYDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -2530,6 +2624,8 @@ MonoBehaviour:
   timeBetweenAttacks: 0.2
   rocket: {fileID: 4617979970049723426, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
   speed: 20
+  GunList: []
+  BulletList: []
 --- !u!120 &1422056794
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3716,6 +3812,8 @@ MonoBehaviour:
   timeBetweenAttacks: 0
   rocket: {fileID: 5000000, guid: 8fde8ec1b330d4bbfb4839f4b41cadc0, type: 3}
   speed: 20
+  GunList: []
+  BulletList: []
 --- !u!1 &1809969318
 GameObject:
   m_ObjectHideFlags: 0
