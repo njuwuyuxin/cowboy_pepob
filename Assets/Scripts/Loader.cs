@@ -11,7 +11,7 @@ public class Loader : MonoBehaviour
         if (GameManager._GameManager == null)
         {
             Instantiate(gameManager);
-            GameManager._GameManager.LoadSceneByName("Slum1");
+            GameManager._GameManager.LoadSceneByName("Factory1");
         }
     }
 }
