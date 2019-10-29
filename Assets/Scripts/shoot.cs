@@ -45,7 +45,7 @@ public class shoot : MonoBehaviour
     public GameObject[] BulletList;       //子弹实体列表,与枪支列表必须一一对应
     private GunInfo[] Guns;                   //存储枪支列表信息的容器
     private GunInfo currentGun;
-   
+
     //private int shootableMask;
     //LineRenderer gunLine;
     //int range = 100;
@@ -83,7 +83,7 @@ public class shoot : MonoBehaviour
         shootingTimer =currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
         reloadingTimer = 0;
         BulletCountUI = GameObject.Find("BulletCount");
-        BulletCountUI.GetComponent<Text>().text="x"+currentGun.bulletLeft.ToString();
+        UpdateBulletCountUI();
 
         //shootableMask = LayerMask.GetMask("Shootable");
         //player = GameObject.FindGameObjectWithTag("Player");
@@ -91,6 +91,10 @@ public class shoot : MonoBehaviour
         //playerCtrl = transform.root.GetComponent<PlayerControl>();
     }
 
+    private void UpdateBulletCountUI()
+    {
+        BulletCountUI.GetComponent<Text>().text = currentGun.bulletLeft.ToString() + "/∞";
+    }
     private void shootEvent()
     {
         // ... set the animator Shoot trigger parameter and play the audioclip.
@@ -118,7 +122,7 @@ public class shoot : MonoBehaviour
         else
             Debug.LogError("Err: 剩余弹药量小于0");
 
-        BulletCountUI.GetComponent<Text>().text = "x" + currentGun.bulletLeft.ToString();
+        UpdateBulletCountUI();
     }
 
     void Update()
@@ -129,7 +133,7 @@ public class shoot : MonoBehaviour
             if(currentGun.bulletLeft!=currentGun.magVolume)            //弹夹非满
             {
                 GunStatus = GunState.RELOADING;
-                BulletCountUI.GetComponent<Text>().text = "x" + currentGun.bulletLeft.ToString();
+                UpdateBulletCountUI();
                 Debug.Log("Reloading!");
             }
         }
@@ -145,7 +149,7 @@ public class shoot : MonoBehaviour
                 reloadingTimer = 0;
                currentGun.bulletLeft =currentGun.magVolume;
                 GunStatus = GunState.IDLE;
-                BulletCountUI.GetComponent<Text>().text = "x" + currentGun.bulletLeft.ToString();
+                UpdateBulletCountUI();
                 Debug.Log("Reloading Finished!");
             }
         }
@@ -154,13 +158,13 @@ public class shoot : MonoBehaviour
         {
             currentGun = Guns[0];
             shootingTimer =currentGun.shootingSpeed;
-            BulletCountUI.GetComponent<Text>().text = "x" + currentGun.bulletLeft.ToString();
+            UpdateBulletCountUI();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentGun = Guns[1];
             shootingTimer =currentGun.shootingSpeed;
-            BulletCountUI.GetComponent<Text>().text = "x" + currentGun.bulletLeft.ToString();
+            UpdateBulletCountUI();
         }
 
         if (Input.GetMouseButtonDown(0))
