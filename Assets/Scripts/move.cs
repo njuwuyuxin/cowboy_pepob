@@ -47,18 +47,21 @@ public class move : MonoBehaviour
     //受到伤害并被击退
     public void hurtAndBack(int damage, float distance, float uncontrolableTime)
     {
-        _playerManager.hurt(damage);
-        MoveStatus = MoveState.HURTBACK;
-        GetComponent<rope>().ResetRope();
-        GetComponent<rope>().enabled = false;           //关闭钩索模块
-        UncontrolableTime = uncontrolableTime;
-        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-        if(transform.localScale.x>0)        //面朝右
-            _velocity.x = -distance;
-        else                                              //面朝左
-            _velocity.x=distance;
-        _velocity.y = 3f;
-        //_velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+        if (_playerManager.GetHealthStatus() == HealthState.NORMAL)
+        {
+            _playerManager.hurt(damage);
+            MoveStatus = MoveState.HURTBACK;
+            GetComponent<rope>().ResetRope();
+            GetComponent<rope>().enabled = false;           //关闭钩索模块
+            UncontrolableTime = uncontrolableTime;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            if (transform.localScale.x > 0)        //面朝右
+                _velocity.x = -distance;
+            else                                              //面朝左
+                _velocity.x = distance;
+            _velocity.y = 3f;
+            //_velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+        }
     }
 
     #region Event Listeners
@@ -86,7 +89,11 @@ public class move : MonoBehaviour
 
     void onTriggerStayEvent(Collider2D col)
     {
-
+        if (col.tag == "Spike")
+        {
+            Debug.Log("Enter spike");
+            hurtAndBack(30, 15f, 0.5f);
+        }
     }
 
     void onTriggerExitEvent(Collider2D col)

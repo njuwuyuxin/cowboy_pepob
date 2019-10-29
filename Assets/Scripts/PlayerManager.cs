@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum HealthState { NORMAL,INVINCIBLE};
+public enum HealthState { NORMAL,INVINCIBLE};
 public class PlayerManager : MonoBehaviour
 {
     private int PlayerHP;
@@ -51,6 +51,11 @@ public class PlayerManager : MonoBehaviour
                 Die();
             HealthStatus = HealthState.INVINCIBLE;
         }
+    }
+
+    public HealthState GetHealthStatus()
+    {
+        return HealthStatus;
     }
 
     void Die()
