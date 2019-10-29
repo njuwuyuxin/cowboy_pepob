@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Prime31;
 
+//NORMAL指正常移动状态，HURTBACK指收到伤害被强制位移（无法控制）
+enum MoveState { NORMAL,HURTBACK};
+
 public class move : MonoBehaviour
 {
     public float gravity = -25f;
@@ -16,19 +19,46 @@ public class move : MonoBehaviour
     private float normalizedHorizontalSpeed = 0;
 
     private CharacterController2D _controller;
+    private PlayerManager _playerManager;
     private Animator _animator;
     private RaycastHit2D _lastControllerColliderHit;
     public Animator anim;
+    private MoveState MoveStatus;
+    private float UncontrolableTime;       //受到强制位移无法控制的时间
+    private float UncontrolableTimer;     //强制位移计时器
 
     void Awake()
     {
         anim = GetComponent<Animator>();
         _controller = GetComponent<CharacterController2D>();
+        _playerManager = GetComponent<PlayerManager>();
 
         // listen to some events for illustration purposes
         _controller.onControllerCollidedEvent += onControllerCollider;
         _controller.onTriggerEnterEvent += onTriggerEnterEvent;
+        _controller.onTriggerStayEvent += onTriggerStayEvent;
         _controller.onTriggerExitEvent += onTriggerExitEvent;
+
+        MoveStatus = MoveState.NORMAL;
+        UncontrolableTime = 0;
+        UncontrolableTimer = 0;
+    }
+
+    //受到伤害并被击退
+    public void hurtAndBack(int damage, float distance, float uncontrolableTime)
+    {
+        _playerManager.hurt(damage);
+        MoveStatus = MoveState.HURTBACK;
+        GetComponent<rope>().ResetRope();
+        GetComponent<rope>().enabled = false;           //关闭钩索模块
+        UncontrolableTime = uncontrolableTime;
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        if(transform.localScale.x>0)        //面朝右
+            _velocity.x = -distance;
+        else                                              //面朝左
+            _velocity.x=distance;
+        _velocity.y = 3f;
+        //_velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
     }
 
     #region Event Listeners
@@ -47,8 +77,17 @@ public class move : MonoBehaviour
     void onTriggerEnterEvent(Collider2D col)
     {
         Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
+        if (col.tag == "Spike")
+        {
+            Debug.Log("Enter spike");
+            hurtAndBack(30, 15f,0.5f);
+        }
     }
 
+    void onTriggerStayEvent(Collider2D col)
+    {
+
+    }
 
     void onTriggerExitEvent(Collider2D col)
     {
@@ -66,7 +105,20 @@ public class move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_controller.isGrounded)
+        if (MoveStatus == MoveState.HURTBACK)
+        {
+            UncontrolableTimer += Time.deltaTime;
+            if (UncontrolableTimer >= UncontrolableTime)
+            {
+                UncontrolableTime = 0;
+                UncontrolableTimer = 0;
+                MoveStatus = MoveState.NORMAL;
+                GetComponent<rope>().enabled = true;
+                GetComponent<rope>().ResetRope();
+            }
+        }
+
+        if (_controller.isGrounded&&MoveStatus==MoveState.NORMAL)
         {
             _velocity.y = 0;
             //bool land = false;
@@ -88,7 +140,7 @@ public class move : MonoBehaviour
             anim.SetBool("inSky", true);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D)&&MoveStatus==MoveState.NORMAL)
         {
             anim.SetBool("isRunning", true);
             normalizedHorizontalSpeed = 1;
@@ -98,7 +150,7 @@ public class move : MonoBehaviour
             //if (_controller.isGrounded)
             //    _animator.Play(Animator.StringToHash("Run"));
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) && MoveStatus == MoveState.NORMAL)
         {
             anim.SetBool("isRunning", true);
             normalizedHorizontalSpeed = -1;
@@ -118,12 +170,12 @@ public class move : MonoBehaviour
         }
 
 
-        // we can only jump whilst grounded
-        //if (_controller.isGrounded && Input.GetKeyDown(KeyCode.W))
-        //{
-        //    _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
-        //    //_animator.Play(Animator.StringToHash("Jump"));
-        //}
+        //we can only jump whilst grounded
+        if (_controller.isGrounded && Input.GetKeyDown(KeyCode.Space) && MoveStatus == MoveState.NORMAL)
+        {
+            _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+            //_animator.Play(Animator.StringToHash("Jump"));
+        }
 
 
         // apply horizontal speed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
@@ -135,7 +187,7 @@ public class move : MonoBehaviour
 
         // if holding down bump up our movement amount and turn off one way platform detection for a frame.
         // this lets us jump down through one way platforms
-        if (_controller.isGrounded && Input.GetKey(KeyCode.S))
+        if (_controller.isGrounded && Input.GetKey(KeyCode.S) && MoveStatus == MoveState.NORMAL)
         {
             _velocity.y *= 3f;
             _controller.ignoreOneWayPlatformsThisFrame = true;

@@ -28,7 +28,7 @@ public class rope : MonoBehaviour
 
     public Animator anim;//动画管理器（动画）
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         RopeStatus = RopeState.IDLE;
         line = GetComponent<LineRenderer>();
@@ -198,5 +198,14 @@ public class rope : MonoBehaviour
                 line.enabled = false;
             }
         }
+    }
+
+    public void ResetRope()
+    {
+        RopeStatus = RopeState.IDLE;
+        ropeStartPoint = ropeEndPoint = transform.position;
+        line.SetPosition(0, ropeStartPoint);
+        line.SetPosition(1, ropeEndPoint);
+        DragSpeed = StartDragSpeed;
     }
 }
