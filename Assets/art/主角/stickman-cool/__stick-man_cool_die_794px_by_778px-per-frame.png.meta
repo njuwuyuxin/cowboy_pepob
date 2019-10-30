@@ -1,0 +1,463 @@
+fileFormatVersion: 2
+guid: 052e3324a82271a4ab77292ced87c38b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7006411293027658715
+    second: __stick-man_cool_die_794px_by_778px-per-frame_0
+  - first:
+      213: -1000519226291444495
+    second: __stick-man_cool_die_794px_by_778px-per-frame_1
+  - first:
+      213: 8270647223337340367
+    second: __stick-man_cool_die_794px_by_778px-per-frame_2
+  - first:
+      213: -430703125258776210
+    second: __stick-man_cool_die_794px_by_778px-per-frame_3
+  - first:
+      213: -4873350908732073043
+    second: __stick-man_cool_die_794px_by_778px-per-frame_4
+  - first:
+      213: -5831079411879784422
+    second: __stick-man_cool_die_794px_by_778px-per-frame_5
+  - first:
+      213: 960606010155801167
+    second: __stick-man_cool_die_794px_by_778px-per-frame_6
+  - first:
+      213: 8771364299879768419
+    second: __stick-man_cool_die_794px_by_778px-per-frame_7
+  - first:
+      213: 9092810813430902844
+    second: __stick-man_cool_die_794px_by_778px-per-frame_8
+  - first:
+      213: -6472257637259853514
+    second: __stick-man_cool_die_794px_by_778px-per-frame_9
+  - first:
+      213: 3072554400175308780
+    second: __stick-man_cool_die_794px_by_778px-per-frame_10
+  - first:
+      213: -5647150496311314930
+    second: __stick-man_cool_die_794px_by_778px-per-frame_11
+  - first:
+      213: -3604589574820899327
+    second: __stick-man_cool_die_794px_by_778px-per-frame_12
+  - first:
+      213: 2582808597531146871
+    second: __stick-man_cool_die_794px_by_778px-per-frame_13
+  - first:
+      213: -5981277896395093818
+    second: __stick-man_cool_die_794px_by_778px-per-frame_14
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_0
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 1611
+        width: 331
+        height: 686
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cc1a53a20ecbc740a35691d5f356c09
+      internalID: -7006411293027658715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_1
+      rect:
+        serializedVersion: 2
+        x: 1103
+        y: 1622
+        width: 349
+        height: 673
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ae2dc05718c5fd4fb0b2c088e52059d
+      internalID: -1000519226291444495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_2
+      rect:
+        serializedVersion: 2
+        x: 1830
+        y: 1636
+        width: 392
+        height: 636
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80407d1508ee3184dbd9f09de488ae0e
+      internalID: 8270647223337340367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_3
+      rect:
+        serializedVersion: 2
+        x: 2549
+        y: 1656
+        width: 497
+        height: 585
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70ed3685b0903114fbc4bfdfbc69fb48
+      internalID: -430703125258776210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_4
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 1149
+        width: 237
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04dccac6a110e4641b0ae3b89c113ade
+      internalID: -4873350908732073043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_5
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 906
+        width: 378
+        height: 488
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52ad7011bbf481d4787a7367394d900c
+      internalID: -5831079411879784422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_6
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 1033
+        width: 239
+        height: 281
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a23ae6a84284484eaa19c99178dba58
+      internalID: 960606010155801167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_7
+      rect:
+        serializedVersion: 2
+        x: 1073
+        y: 938
+        width: 371
+        height: 410
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74f454c326cf8054b8ebb2bab31c17ab
+      internalID: 8771364299879768419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_8
+      rect:
+        serializedVersion: 2
+        x: 1613
+        y: 889
+        width: 640
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 685ab9192503d494f8a21515393f42a8
+      internalID: 9092810813430902844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_9
+      rect:
+        serializedVersion: 2
+        x: 2656
+        y: 944
+        width: 354
+        height: 352
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9677231cf443b44a4064a0f3ab1990
+      internalID: -6472257637259853514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_10
+      rect:
+        serializedVersion: 2
+        x: 2408
+        y: 813
+        width: 267
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c65df89916920a4a94b4ddd4f414392
+      internalID: 3072554400175308780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_11
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 64
+        width: 625
+        height: 362
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e6ce231038287b43ad6ff9e56f22e69
+      internalID: -5647150496311314930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_12
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 48
+        width: 642
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01484facddb5cfe44b3102d9e9b9ce55
+      internalID: -3604589574820899327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_13
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 48
+        width: 665
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 085b48f771b4c1140a4ec60cf02b5d4f
+      internalID: 2582808597531146871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_die_794px_by_778px-per-frame_14
+      rect:
+        serializedVersion: 2
+        x: 2433
+        y: 48
+        width: 665
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b58bed2f677ca654eb3908ae3118ab67
+      internalID: -5981277896395093818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

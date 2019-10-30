@@ -80,7 +80,7 @@ public class move : MonoBehaviour
     void onTriggerEnterEvent(Collider2D col)
     {
         Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
-        if (col.tag == "Spike")
+        if (col.tag == "Spike"||col.tag=="Enemy")
         {
             Debug.Log("Enter spike");
             hurtAndBack(30, 15f,0.5f);
@@ -89,7 +89,7 @@ public class move : MonoBehaviour
 
     void onTriggerStayEvent(Collider2D col)
     {
-        if (col.tag == "Spike")
+        if (col.tag == "Spike" || col.tag == "Enemy")
         {
             Debug.Log("Enter spike");
             hurtAndBack(30, 15f, 0.5f);
