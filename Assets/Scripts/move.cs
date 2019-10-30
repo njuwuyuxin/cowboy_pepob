@@ -82,7 +82,6 @@ public class move : MonoBehaviour
         Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
         if (col.tag == "Spike"||col.tag=="Enemy")
         {
-            Debug.Log("Enter spike");
             hurtAndBack(30, 15f,0.5f);
         }
     }
@@ -91,7 +90,6 @@ public class move : MonoBehaviour
     {
         if (col.tag == "Spike" || col.tag == "Enemy")
         {
-            Debug.Log("Enter spike");
             hurtAndBack(30, 15f, 0.5f);
         }
     }
@@ -133,7 +131,7 @@ public class move : MonoBehaviour
             //{
             //    land = true;
             //}
-            anim.SetBool("inSky", false);
+            //anim.SetBool("inSky", false);
             //if (land)
             //{
             //    anim.SetBool("isLanding", true);
