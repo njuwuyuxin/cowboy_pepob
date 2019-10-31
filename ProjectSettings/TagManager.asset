@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - OneWayPlatform
   - Spike
+  - "\u4E0D\u53EF\u7A7F\u900F\u5E73\u53F0"
   layers:
   - Default
   - TransparentFX
