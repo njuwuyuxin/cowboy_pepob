@@ -7,6 +7,7 @@ using Prime31;
 
 public class GroundEnemyAI : MonoBehaviour
 {
+    // 主角
     public Transform target;
     private EnemyState state = EnemyState.PATROL;
     public float nextWayPointDistance = 3f;
@@ -21,13 +22,17 @@ public class GroundEnemyAI : MonoBehaviour
     bool reachedEndOfPath = false;
     Seeker seeker;
     Rigidbody2D rb;
-
+    // cc（character controller）的模拟重力系数
     public float gravity = -25f;
+    // cc（character controller）的奔跑速度
     public float runSpeed = 8f;
-    public float groundDamping = 20f; // how fast do we change direction? higher means faster
+    // how fast do we change direction? higher means faster（我也不懂，问wyx）
+    public float groundDamping = 20f;
+    //（我也不懂，问wyx）[反正我没用过]
     public float inAirDamping = 5f;
+    // 跳跃高度
     public float jumpHeight = 3f;
-    public Vector3 _velocity;
+    private Vector3 _velocity;
 
     [HideInInspector]
     private float normalizedHorizontalSpeed = 0;
@@ -35,6 +40,7 @@ public class GroundEnemyAI : MonoBehaviour
     private CharacterController2D _controller;
     private Animator _animator;
     private RaycastHit2D _lastControllerColliderHit;
+    // 要设置状态的动画
     public Animator anim;
 
     void Awake()
@@ -158,12 +164,12 @@ public class GroundEnemyAI : MonoBehaviour
             if (state == EnemyState.PATROL)
             {
                 if (isToEnd)
-                {
-                    seeker.StartPath(rb.position, new Vector3(patrolEnd.x, patrolEnd.y, -1), OnPathComplete);
+                {   // 2 的 n次 4就是第三个地图
+                    seeker.StartPath(rb.position, new Vector3(patrolEnd.x, patrolEnd.y, -1), OnPathComplete,4);
                 }
                 else
                 {
-                    seeker.StartPath(rb.position, new Vector3(patrolStart.x, patrolStart.y, -1), OnPathComplete);
+                    seeker.StartPath(rb.position, new Vector3(patrolStart.x, patrolStart.y, -1), OnPathComplete,4);
                 }
             }
             else

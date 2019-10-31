@@ -7,18 +7,29 @@ using UnityEditor;
 enum EnemyState{ PATROL, TRACK,FIRE  };
 public class EnemyAI : MonoBehaviour
 {
+    // 主角
     public Transform target;
     private EnemyState state = EnemyState.PATROL;
+    // 敌人行动的速度
     public float speed = 200f;
+    // 最后到达最终寻路点的距离（和某个寻路点小于这个距离意味着到达了这个寻路点）
     public float nextWayPointDistance = 3f;
+    // 追踪的最小时间
     public float trackSecond = 5f;
+    // 在视野多少秒后开火
     public float fireSecond = 1f;
+    // 设置为内置的那个对象就好
     public Transform enemyGFX;
+    // 设置为内置的那个对象就好
     public GameObject eneity;
+    // 巡逻的开始点
     public Vector2 patrolStart;
+    // 巡逻的结束点
     public Vector2 patrolEnd;
     Path path;
+
     int currentWayPoint = 0;
+
     bool reachedEndOfPath=false;
     Seeker seeker;
     Rigidbody2D rb;
@@ -96,8 +107,8 @@ public class EnemyAI : MonoBehaviour
             currentWayPoint = 0;
         }
     }
-    public static Vector2 RIGHTFORWARD = new Vector2(1f, 0f);
-    public static Vector2 LEFTFORWARD = new Vector2(-1f, 0f);
+    private static Vector2 RIGHTFORWARD = new Vector2(1f, 0f);
+    private static Vector2 LEFTFORWARD = new Vector2(-1f, 0f);
     // Update is called once per frame
     void FixedUpdate()
     {
