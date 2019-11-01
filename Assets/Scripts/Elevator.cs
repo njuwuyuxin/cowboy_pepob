@@ -58,7 +58,7 @@ public class Elevator : MonoBehaviour
 
         if (ActionStatus == ActionState.MOVING)
         {
-            if (ElevatorDirection == 1||ElevatorDirection==-1)
+            //if (ElevatorDirection == 1||ElevatorDirection==-1)
             {
                 float dist = ElevatorSpeed * Time.deltaTime;
                 AlreadyMovedDistance += dist;
@@ -69,7 +69,12 @@ public class Elevator : MonoBehaviour
                 }
                 else                //该帧时电梯已经到达终点
                 {
-                    distance = (dist - (AlreadyMovedDistance - MoveDistance)) * ElevatorDirection;
+                    int Directionflag = 1;
+                    if (ElevatorDirection > 0)
+                        Directionflag = 1;
+                    else
+                        Directionflag = -1;
+                    distance = (dist - (AlreadyMovedDistance - MoveDistance)) * Directionflag;
 
                     ActionStatus= ActionState.IDLE;
                     AlreadyMovedDistance = 0;
@@ -85,10 +90,11 @@ public class Elevator : MonoBehaviour
 
                 if (PositionStatus == PositionState.END)        //如果电梯处于终点，那么需要反向移动。
                     distance = -distance;
-                Vector3 distVector = new Vector3(0,distance,0);
-
-                
-                
+                Vector3 distVector;
+                if (ElevatorDirection == 1 || ElevatorDirection == -1)
+                    distVector = new Vector3(0, distance, 0);
+                else
+                    distVector = new Vector3(distance, 0, 0);
                 transform.Translate(distVector);
                 if(Player!=null)
                     Player.GetComponent<CharacterController2D>().move(distVector);
