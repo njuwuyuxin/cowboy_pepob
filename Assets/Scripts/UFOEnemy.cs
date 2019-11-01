@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class UFOEnemy : MonoBehaviour
 {
+    // 暂时无用
     public float speed;
+    // 暂时无用
     public float stoppingDistance;
-
+    
     private float timeBtwShots;
+    // 两次射击的间隔
     public float startTimeBtwShots;
-
+    // 要发射的子弹
     public GameObject projectile;
     public Transform player;
     private bool canFire = false;

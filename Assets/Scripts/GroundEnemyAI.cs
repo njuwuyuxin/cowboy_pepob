@@ -9,13 +9,22 @@ public class GroundEnemyAI : MonoBehaviour
 {
     // 主角
     public Transform target;
+    // 使用第几个寻路graph
+    public int graphNum = 1;
     private EnemyState state = EnemyState.PATROL;
+    // 最后到达最终寻路点的距离（和某个寻路点小于这个距离意味着到达了这个寻路点）
     public float nextWayPointDistance = 3f;
+    // 追踪的最小时间
     public float trackSecond = 5f;
+    // 在视野多少秒后开火（警觉时间）
     public float fireSecond = 1f;
+    // 设置为内置的那个对象就好
     public Transform enemyGFX;
+    // 设置为内置的那个对象就好
     public GameObject eneity;
+    // 巡逻的开始点
     public Vector2 patrolStart;
+    // 巡逻的结束点
     public Vector2 patrolEnd;
     Path path;
     int currentWayPoint = 0;
@@ -165,11 +174,11 @@ public class GroundEnemyAI : MonoBehaviour
             {
                 if (isToEnd)
                 {   // 2 的 n次 4就是第三个地图
-                    seeker.StartPath(rb.position, new Vector3(patrolEnd.x, patrolEnd.y, -1), OnPathComplete,4);
+                    seeker.StartPath(rb.position, new Vector3(patrolEnd.x, patrolEnd.y, -1), OnPathComplete, 1 << (graphNum - 1));
                 }
                 else
                 {
-                    seeker.StartPath(rb.position, new Vector3(patrolStart.x, patrolStart.y, -1), OnPathComplete,4);
+                    seeker.StartPath(rb.position, new Vector3(patrolStart.x, patrolStart.y, -1), OnPathComplete, 1 << (graphNum - 1));
                 }
             }
             else

@@ -10,6 +10,8 @@ public class EnemyAI : MonoBehaviour
     // 主角
     public Transform target;
     private EnemyState state = EnemyState.PATROL;
+    // 使用第几个寻路graph
+    public int graphNum = 1;
     // 敌人行动的速度
     public float speed = 200f;
     // 最后到达最终寻路点的距离（和某个寻路点小于这个距离意味着到达了这个寻路点）
