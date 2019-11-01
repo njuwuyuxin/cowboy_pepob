@@ -68,6 +68,15 @@ public class move : MonoBehaviour
 
     void onControllerCollider(RaycastHit2D hit)
     {
+        //Debug.Log("onControllerCollider = "+hit.collider.tag);
+       GameObject colObject = hit.collider.gameObject;
+        if (colObject.tag == "Elevator")
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                colObject.GetComponent<Elevator>().ElevatorStart();
+            }
+        }
         // bail out on plain old ground hits cause they arent very interesting
         if (hit.normal.y == 1f)
             return;
