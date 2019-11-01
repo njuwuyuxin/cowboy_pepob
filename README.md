@@ -1,3 +1,6 @@
+## 开发环境
+Unity 2019.2.5f1 Personal
+
 ## 关于charactor controller脚本使用方法
 该脚本主要通过射线检测的方式控制人物移动和碰撞，不使用Unity原生刚体。
 ### 使用方法
@@ -22,4 +25,10 @@
 1. 首先在场景中创建寻路区域，例如：创建名为A*的空对象，然后增加PathFinder的组件，使用Graphs创建 GridGraph，勾选2D，2D Physics，然后选择Obstacle图层（可多选），最后Scan 生成寻路地图
 2. 在敌人对象上增加AI Path组件和AI Destination 组件，选定SnowMan作为Target
 
-
+## 电梯物体(Elevator)使用注意事项
+### 各项参数释义
+- Elevator Direction 用于控制电梯初始移动方向：1=向上 -1=向下 2=向上 -2=向下
+- Move Distance 控制该电梯启动一次移动的距离
+- Elevator Speed 电梯移动速度
+- isAuto 勾选为自动移动，可用作移动平台。非勾选为正常电梯，主角需按E启动
+- Ray Count 由于电梯物体通过向上方发射射线来检测主角是否站在上面，射线在物体上横向均匀分布，数量由该参数控制。如果太小，可能出现射线间隙过大检测不到主角。如果电梯宽度较高或出现检测失灵情况，应适量调高射线数以提高精度

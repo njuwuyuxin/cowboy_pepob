@@ -4,7 +4,7 @@ using UnityEngine;
 using Prime31;
 
 //NORMAL指正常移动状态，HURTBACK指收到伤害被强制位移（无法控制）
-enum MoveState { NORMAL,HURTBACK};
+enum MoveState { NORMAL,HURTBACK,USING_ELEVATOR};
 
 public class move : MonoBehaviour
 {
@@ -27,22 +27,7 @@ public class move : MonoBehaviour
     private float UncontrolableTime;       //受到强制位移无法控制的时间
     private float UncontrolableTimer;     //强制位移计时器
 
-    void Awake()
-    {
-        anim = GetComponent<Animator>();
-        _controller = GetComponent<CharacterController2D>();
-        _playerManager = GetComponent<PlayerManager>();
 
-        // listen to some events for illustration purposes
-        _controller.onControllerCollidedEvent += onControllerCollider;
-        _controller.onTriggerEnterEvent += onTriggerEnterEvent;
-        _controller.onTriggerStayEvent += onTriggerStayEvent;
-        _controller.onTriggerExitEvent += onTriggerExitEvent;
-
-        MoveStatus = MoveState.NORMAL;
-        UncontrolableTime = 0;
-        UncontrolableTimer = 0;
-    }
 
     //受到伤害并被击退
     public void hurtAndBack(int damage, float distance, float uncontrolableTime)
@@ -62,6 +47,15 @@ public class move : MonoBehaviour
             _velocity.y = 3f;
             //_velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
         }
+    }
+
+    //提供给电梯调用，用来设置主角移动状态，state = 0为USING_ELEVATOR，state = 1为NORMAL
+    public void SetMoveStatus(int state)
+    {
+        if (state == 0)
+            MoveStatus = MoveState.NORMAL;
+        if (state == 1)
+            MoveStatus = MoveState.USING_ELEVATOR;
     }
 
     #region Event Listeners
@@ -111,12 +105,23 @@ public class move : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    #region MonoBehavior
+    void Awake()
     {
-        
-    }
+        anim = GetComponent<Animator>();
+        _controller = GetComponent<CharacterController2D>();
+        _playerManager = GetComponent<PlayerManager>();
 
+        // listen to some events for illustration purposes
+        _controller.onControllerCollidedEvent += onControllerCollider;
+        _controller.onTriggerEnterEvent += onTriggerEnterEvent;
+        _controller.onTriggerStayEvent += onTriggerStayEvent;
+        _controller.onTriggerExitEvent += onTriggerExitEvent;
+
+        MoveStatus = MoveState.NORMAL;
+        UncontrolableTime = 0;
+        UncontrolableTimer = 0;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -155,7 +160,7 @@ public class move : MonoBehaviour
             anim.SetBool("inSky", true);
         }
 
-        if (Input.GetKey(KeyCode.D)&&MoveStatus==MoveState.NORMAL)
+        if (Input.GetKey(KeyCode.D)&& (MoveStatus == MoveState.NORMAL || MoveStatus == MoveState.USING_ELEVATOR))
         {
             anim.SetBool("isRunning", true);
             normalizedHorizontalSpeed = 1;
@@ -165,8 +170,8 @@ public class move : MonoBehaviour
             //if (_controller.isGrounded)
             //    _animator.Play(Animator.StringToHash("Run"));
         }
-        else if (Input.GetKey(KeyCode.A) && MoveStatus == MoveState.NORMAL)
-        {
+        else if (Input.GetKey(KeyCode.A) && (MoveStatus == MoveState.NORMAL || MoveStatus == MoveState.USING_ELEVATOR)) 
+        { 
             anim.SetBool("isRunning", true);
             normalizedHorizontalSpeed = -1;
             if (transform.localScale.x > 0f)
@@ -186,7 +191,7 @@ public class move : MonoBehaviour
 
 
         //we can only jump whilst grounded
-        if (_controller.isGrounded && Input.GetKeyDown(KeyCode.Space) && MoveStatus == MoveState.NORMAL)
+        if (((_controller.isGrounded && MoveStatus == MoveState.NORMAL)||MoveStatus==MoveState.USING_ELEVATOR) && Input.GetKeyDown(KeyCode.Space))
         {
             _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
             //_animator.Play(Animator.StringToHash("Jump"));
@@ -213,4 +218,6 @@ public class move : MonoBehaviour
         // grab our current _velocity to use as a base for all calculations
         _velocity = _controller.velocity;
     }
+    #endregion
 }
+
