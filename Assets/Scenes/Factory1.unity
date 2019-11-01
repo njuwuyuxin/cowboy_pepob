@@ -6243,5 +6243,15 @@ PrefabInstance:
       propertyPath: ElevatorSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6919654695209517994, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: isAuto
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6919654695209517994, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: rayCount
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c64f5be792146b418e985de0186e8ec, type: 3}
