@@ -7,7 +7,9 @@ using Prime31;
 
 public class GroundEnemyAI : MonoBehaviour
 {
-    // 主角
+    /// <summary>
+    /// 主角
+    /// </summary>
     public Transform target;
     // 使用第几个寻路graph
     public int graphNum = 1;
