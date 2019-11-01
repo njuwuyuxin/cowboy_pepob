@@ -74,9 +74,10 @@ public class move : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
-                colObject.GetComponent<Elevator>().ElevatorStart();
+                colObject.GetComponent<Elevator>().ElevatorStart(gameObject);       //由于电梯移动时需要主角跟随移动，因此把主角物体
             }
         }
+
         // bail out on plain old ground hits cause they arent very interesting
         if (hit.normal.y == 1f)
             return;
