@@ -27,7 +27,7 @@ Unity 2019.2.5f1 Personal
 
 ## 电梯物体(Elevator)使用注意事项
 ### 各项参数释义
-- Elevator Direction 用于控制电梯初始移动方向：1=向上 -1=向下 2=向上 -2=向下
+- Elevator Direction 用于控制电梯初始移动方向：1=向上 -1=向下 2=向右 -2=向左
 - Move Distance 控制该电梯启动一次移动的距离
 - Elevator Speed 电梯移动速度
 - isAuto 勾选为自动移动，可用作移动平台。非勾选为正常电梯，主角需按E启动
