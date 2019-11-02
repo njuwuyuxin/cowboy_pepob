@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    public Transform FollowObject;
+    private Transform FollowObject;
     public float BorderLeft=-15;
     public float BorderRight=10000;
     public float BorderBottom=0;
@@ -15,6 +15,7 @@ public class CameraMove : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        FollowObject = GameObject.FindGameObjectWithTag("Player").transform;
         CameraTransform =  GetComponent<Transform>();
         positionLastFrame = CameraTransform.position;
     }

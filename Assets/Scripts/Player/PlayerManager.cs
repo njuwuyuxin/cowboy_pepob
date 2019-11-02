@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public enum HealthState { NORMAL,INVINCIBLE};
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager _PlayerManager = null; //单例模式
+
     private int PlayerHP;
     public int PlayerHPMax = 100;
     public float InvincibleTimeAfterDamage = 1f;                  //收到伤害后的无敌时间（指敌人碰撞，踩到陷阱)
@@ -15,6 +17,14 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (_PlayerManager == null)
+            _PlayerManager = this;
+        else if (_PlayerManager != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+
         PlayerHP = PlayerHPMax;
         HPSlotUI = GameObject.Find("HP");
         HealthStatus = HealthState.NORMAL;

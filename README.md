@@ -32,3 +32,11 @@ Unity 2019.2.5f1 Personal
 - Elevator Speed 电梯移动速度
 - isAuto 勾选为自动移动，可用作移动平台。非勾选为正常电梯，主角需按E启动
 - Ray Count 由于电梯物体通过向上方发射射线来检测主角是否站在上面，射线在物体上横向均匀分布，数量由该参数控制。如果太小，可能出现射线间隙过大检测不到主角。如果电梯宽度较高或出现检测失灵情况，应适量调高射线数以提高精度
+
+## 场景切换组件使用方法
+场景切换主要通过Portal物体实现，Portal可以放置在需要切换场景的位置，可以自定义大小（注意保持Collider大小一致） Portal为一个Trigger，当Portal检测到主角进入触发区域后，即会自动加载新场景。
+### 各项参数释义
+- Scene Name 当主角进入该Portal时，要加载的新场景名称
+- Character Position 当主角进入新的场景时，出现在新场景中的位置（从不同入口进入同一张地图，加载新场景时，主角在新场景的初始位置也会不同）
+### 注意事项
+- 当需要加载新场景时，注意要把新场景加入到Build Settings当中。位置：文件->Build Settings->添加已打开的场景。 否则会报错：Scene 'xxx' couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
