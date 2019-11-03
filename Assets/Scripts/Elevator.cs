@@ -11,7 +11,9 @@ public class Elevator : MonoBehaviour
     public float MoveDistance;                           //电梯启动一次移动的距离
     public float ElevatorSpeed;
     public bool isAuto = false;                            //默认非自动电梯，需要玩家手动启动。 若为自动电梯，则在限定范围内往复移动
+    public bool showUI = false;                          //默认不显示UI，需要显示操作说明的电梯可手动勾选
     public int rayCount = 8;                                //发射射线条数，可自定义
+    public GameObject InteractiveUI;                //显示使用电梯UI
 
     private float AlreadyMovedDistance;           //每次移动时，已经移动的距离
     private PositionState PositionStatus;           //电梯当前位置状态，处于起点or处于终点
@@ -41,21 +43,32 @@ public class Elevator : MonoBehaviour
         {
             Vector3 startPoint = transform.position;
             startPoint.x = startPoint.x - ElevatorSize.x / 2 + i * (ElevatorSize.x / (rayCount - 1));
-            _raycastHit = Physics2D.Raycast(startPoint, rayDirection, 0.51f);
+            _raycastHit = Physics2D.Raycast(startPoint, rayDirection, 0.52f);
             //Debug.DrawRay(startPoint, rayDirection);
             if (_raycastHit)
             {
-                //Debug.Log(_raycastHit.collider.tag);
                 Player = _raycastHit.collider.gameObject;
                 Player.GetComponent<move>().SetMoveStatus(1);
                 HitFlag = true;
-            }
+
+                if (showUI && ActionStatus == ActionState.IDLE )           //如果主角站上电梯且电梯未启动，显示UI
+                {
+                    InteractiveUI.SetActive(true);
+                    Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+                    Transform temp2 = InteractiveUI.transform.GetChild(0);
+                    Vector2 offset = new Vector2(60, 25);
+                    temp2.position = screenPos+offset;
+                }
+                else
+                    InteractiveUI.SetActive(false);
+            }         
         }
         if (HitFlag == false)
         {
             if(Player!=null)
                 Player.GetComponent<move>().SetMoveStatus(0);
             Player = null;  //没有检测到上面有主角时，主角物体置空
+            InteractiveUI.SetActive(false);
             //Debug.Log("Nothing hit");
         }
 
