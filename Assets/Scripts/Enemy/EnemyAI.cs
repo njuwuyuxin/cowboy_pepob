@@ -179,7 +179,7 @@ public class EnemyAI : MonoBehaviour
         float angle = getAngle(new Vector3(sight.x, sight.y, 0), forward);
         if (angle < viewAngle / 2 && angle > -viewAngle / 2 || rangerSqr <= viewRadius)
         {
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("Default"));
             Vector3 end = target.position;
             //视线受阻
             if (hit.collider != null)
