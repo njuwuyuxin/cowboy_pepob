@@ -26,7 +26,10 @@ public class rope : MonoBehaviour
     private Vector2 rayHitPoint;                                        //绳子末端发射的极短射线的碰撞点，可以看作绳索勾到的点的坐标
     private Vector2 _velocity;
     private Vector2 ropeStartPoint;                                  //绳子当前帧终点坐标
-    private Vector2 ropeEndPoint;                                   //绳子当前帧终点坐标
+    private Vector2 ropeEndPoint;                                   //绳子当前帧终点坐标，区别于rayHitPoint， rayHitPoint只有勾到目标物体时才会被赋值
+
+    private GameObject targetObject;                              //用于记录可移动平台的物体
+    private Vector3 targetObjectPositionLastFrame;        //用于记录可移动平台的物体上一帧坐标
 
     public Animator anim;//动画管理器（动画）
     // Start is called before the first frame update
@@ -123,6 +126,13 @@ public class rope : MonoBehaviour
                 //如果发生了碰撞，则说明勾到物体
                 Debug.Log(info.point);
                 rayHitPoint = info.point;
+                //如果勾到可移动物体，则把该物体传递进来，跟随其移动
+                if (info.collider.tag == "Elevator")
+                {
+                    targetObject = info.collider.gameObject;
+                    targetObjectPositionLastFrame = targetObject.transform.position;
+                }
+
                 RopeStatus = RopeState.DRAGGING;
                 anim.SetBool("isThrowingRope", false);
                 anim.SetBool("isDragging", true);
@@ -136,6 +146,14 @@ public class rope : MonoBehaviour
         {
             _moveScript.enabled = false;
 
+            //勾到了可能移动的平台
+            if (targetObject != null)
+            {
+                Vector2 deltaPosition = targetObject.transform.position - targetObjectPositionLastFrame;
+                targetObjectPositionLastFrame = targetObject.transform.position;
+                rayHitPoint += deltaPosition;
+            }
+
             //如果已经到达目标点，则钩锁自动脱离
             ropeStartPoint = transform.position + startPointOffset;
             ropeEndPoint = rayHitPoint;
@@ -148,6 +166,7 @@ public class rope : MonoBehaviour
                 _velocity.x = 0f;
                 _velocity.y = 0f;
                 DragSpeed = StartDragSpeed;
+                targetObject = null;                //目标物体需清空
                 anim.SetBool("isDragging",false);
             }
 
