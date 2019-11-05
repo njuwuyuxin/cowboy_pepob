@@ -157,7 +157,7 @@ public class move : MonoBehaviour
         }
         else
         {
-            anim.SetBool("inSky", true);
+            //anim.SetBool("inSky", true);
         }
 
         if (Input.GetKey(KeyCode.D)&& (MoveStatus == MoveState.NORMAL || MoveStatus == MoveState.USING_ELEVATOR))

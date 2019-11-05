@@ -13,6 +13,8 @@ public class rope : MonoBehaviour
     public float RopeExtendSpeed = 3f;
     public float RopeReturnSpeed = 3f;
     public Vector3 startPointOffset;
+    public float GravityRatio = 375;                                   //重力系数对速度的影响
+    public float HorizontalVelocity=2f;                             //人物在钩锁牵引过程中，按A D方向键时产生水平速度的分量
 
     private float DragSpeed;
     private LineRenderer line;
@@ -22,7 +24,7 @@ public class rope : MonoBehaviour
     private move _moveScript;
     private Vector2 rayDirection;                                       //绳子发射过程中，用来检测是否勾到物体的射线（方向向量）
     private Vector2 rayHitPoint;                                        //绳子末端发射的极短射线的碰撞点，可以看作绳索勾到的点的坐标
-    private Vector2 _veclocity;
+    private Vector2 _velocity;
     private Vector2 ropeStartPoint;                                  //绳子当前帧终点坐标
     private Vector2 ropeEndPoint;                                   //绳子当前帧终点坐标
 
@@ -34,7 +36,7 @@ public class rope : MonoBehaviour
         line = GetComponent<LineRenderer>();
         _controller = GetComponent<CharacterController2D>();
         _moveScript = GetComponent<move>();
-        _veclocity = new Vector2(0f, 0f);
+        _velocity = new Vector2(0f, 0f);
         DragSpeed = StartDragSpeed;
         ropeStartPoint = transform.position + startPointOffset;
         ropeEndPoint = ropeStartPoint;
@@ -83,10 +85,10 @@ public class rope : MonoBehaviour
             {
                 RopeStatus = RopeState.IDLE;
                 _moveScript.enabled = true;
-                _moveScript._velocity.x = _veclocity.x;
-                _moveScript._velocity.y = _veclocity.y;
-                _veclocity.x = 0f;
-                _veclocity.y = 0f;
+                _moveScript._velocity.x = _velocity.x;
+                _moveScript._velocity.y = _velocity.y;
+                _velocity.x = 0f;
+                _velocity.y = 0f;
                 DragSpeed = StartDragSpeed;
             }
                 
@@ -141,27 +143,55 @@ public class rope : MonoBehaviour
             {
                 RopeStatus = RopeState.IDLE;
                 _moveScript.enabled = true;
-                _moveScript._velocity.x = _veclocity.x;
-                _moveScript._velocity.y = _veclocity.y;
-                _veclocity.x = 0f;
-                _veclocity.y = 0f;
+                _moveScript._velocity.x = _velocity.x;
+                _moveScript._velocity.y = _velocity.y;
+                _velocity.x = 0f;
+                _velocity.y = 0f;
                 DragSpeed = StartDragSpeed;
                 anim.SetBool("isDragging",false);
             }
 
+            //画线
             line.SetPosition(0, ropeStartPoint);
             line.SetPosition(1, rayHitPoint);
             line.material.color = Color.blue;
 
+            //计算速度大小及方向
             Vector2 forceDirection = new Vector2(rayHitPoint.x - ropeStartPoint.x, rayHitPoint.y - ropeStartPoint.y);
             forceDirection.Normalize(); //方向向量
             //Debug.Log(forceDirection);
-            _veclocity = forceDirection * DragSpeed;
-            //Debug.Log(DragSpeed);
-
+            _velocity = forceDirection * DragSpeed;
             if (DragSpeed < MaxDragSpeed)
                 DragSpeed += AccelerateSpeed * Time.deltaTime;
-            _controller.move(_veclocity * Time.deltaTime);
+            //Debug.Log(DragSpeed);
+
+            //计算绳子与竖直方向夹角正弦余弦值，每一帧都会随人物位置变化而变化
+            float sinA = Mathf.Abs(rayHitPoint.x - ropeStartPoint.x) / (rayHitPoint - ropeStartPoint).magnitude;
+            float cosA = Mathf.Abs(rayHitPoint.y - ropeStartPoint.y) / (rayHitPoint - ropeStartPoint).magnitude;
+            //重力产生的延绳切线方向加速度
+            float tengentAcceleration = GravityRatio * sinA;
+            //把切线方向速度变化量正交分解
+            Vector2 deltaVelocity = new Vector2(tengentAcceleration * cosA, -tengentAcceleration * sinA) * Time.deltaTime;
+            //Debug.Log("deltaVelocity=" + deltaVelocity);
+            //Debug.Log("_velocity before=" + _velocity);
+
+            //原速度加上重力产生的速度分量
+            if(_velocity.x>0)
+                _velocity += deltaVelocity;
+            else
+            {
+                _velocity.x -= deltaVelocity.x;
+                _velocity.y += deltaVelocity.y;
+            }
+            //Debug.Log("_velocity after=" + _velocity);
+
+            //绳索牵引过程中，人物按方向键对水平速度的轻微影响
+            if (Input.GetKey(KeyCode.A))
+                _velocity.x -= HorizontalVelocity;
+            if (Input.GetKey(KeyCode.D))
+                _velocity.x += HorizontalVelocity;
+
+            _controller.move(_velocity * Time.deltaTime);
         }
         else if (RopeStatus == RopeState.RETURNING)
         {

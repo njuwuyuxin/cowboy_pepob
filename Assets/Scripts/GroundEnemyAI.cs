@@ -7,8 +7,10 @@ using Prime31;
 
 public class GroundEnemyAI : MonoBehaviour
 {
-    // 主角
-    public Transform target;
+    /// <summary>
+    /// 主角
+    /// </summary>
+    private Transform target;
     // 使用第几个寻路graph
     public int graphNum = 1;
     private EnemyState state = EnemyState.PATROL;
@@ -16,8 +18,10 @@ public class GroundEnemyAI : MonoBehaviour
     public float nextWayPointDistance = 3f;
     // 追踪的最小时间
     public float trackSecond = 5f;
-    // 在视野多少秒后开火（警觉时间）
-    public float fireSecond = 1f;
+    // 在视野多少秒后被发现（警觉时间）
+    public float toTrackSecond = 2f;
+    // 在视野多少秒后开火（开火时间）
+    public float toFireSecond = 1f;
     // 设置为内置的那个对象就好
     public Transform enemyGFX;
     // 设置为内置的那个对象就好
@@ -41,6 +45,8 @@ public class GroundEnemyAI : MonoBehaviour
     public float inAirDamping = 5f;
     // 跳跃高度
     public float jumpHeight = 3f;
+    // 警戒条
+    public SpriteRenderer warningBar;
     private Vector3 _velocity;
 
     [HideInInspector]
@@ -51,9 +57,13 @@ public class GroundEnemyAI : MonoBehaviour
     private RaycastHit2D _lastControllerColliderHit;
     // 要设置状态的动画
     public Animator anim;
-
+    private Vector3 warningFireBarScale;
     void Awake()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        warningFireBarScale = warningBar.transform.localScale;
+        warningBar.material.color = Color.Lerp(Color.green, Color.red, 0);
+
         anim = GetComponent<Animator>();
         _controller = GetComponent<CharacterController2D>();
 
@@ -90,6 +100,7 @@ public class GroundEnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         //重复寻路/0.1s
@@ -215,11 +226,18 @@ public class GroundEnemyAI : MonoBehaviour
                     //在视野里或者实在太近
                     if (isInSight(rangerSqr))
                     {
-                        lastStartTrack = 0f;
-                        sightColor = Color.yellow;
-                        state = EnemyState.TRACK;
-                        //暂时追踪模式疯狂开火
-                        lastInSight = 0f;
+                        if (lastInSightToTrack > toTrackSecond)
+                        {
+                            lastStartTrack = 0f;
+                            sightColor = Color.yellow;
+                            state = EnemyState.TRACK;
+                            lastInSight = 0f;
+                        }
+                        else {
+                            lastInSightToTrack += Time.deltaTime;
+                            updateFireBar(lastInSightToTrack / toTrackSecond, Color.green, Color.yellow);
+                        }
+
                     }
                 }
                 //
@@ -237,15 +255,17 @@ public class GroundEnemyAI : MonoBehaviour
                 if ((lastStartTrack > trackSecond && !isInSight(rangerSqr)))
                 {
                     lastInSight = 0f;
+                    lastInSightToTrack = toTrackSecond / 2;
                     sightColor = Color.green;
                     state = EnemyState.PATROL;
                     //巡逻模式停止开火
                     eneity.SendMessage("stopFire", "");
+                    updateFireBar(lastInSightToTrack / toTrackSecond, Color.green, Color.yellow);
                 }
                 else if (rangerSqr <= viewRadius * viewRadius && isInSight(rangerSqr))
                 {
 
-                    if (lastInSight > fireSecond)
+                    if (lastInSight > toFireSecond)
                     {
                         state = EnemyState.FIRE;
                         sightColor = Color.red;
@@ -253,6 +273,7 @@ public class GroundEnemyAI : MonoBehaviour
                         eneity.SendMessage("startFire", "");
                     }
                     lastInSight += Time.deltaTime;
+                    updateFireBar(lastInSight / toFireSecond,Color.yellow,Color.red);
                 }
                 break;
             case EnemyState.FIRE:
@@ -317,6 +338,7 @@ public class GroundEnemyAI : MonoBehaviour
     }
     float lastStartTrack = 0;
     float lastInSight = 0;
+    float lastInSightToTrack = 0;
     bool track()
     {
 
@@ -425,6 +447,10 @@ public class GroundEnemyAI : MonoBehaviour
         isRunning=false;
         normalizedHorizontalSpeed = 0;
         //anim.SetBool("isRunning", false);
+    }
+    private void updateFireBar(float percent,Color from, Color to) {
+        warningBar.material.color = Color.Lerp(from, to, percent);
+        warningBar.transform.localScale = new Vector3(warningFireBarScale.x * (1-percent), 1, 1);
     }
     private void InSky()
     {

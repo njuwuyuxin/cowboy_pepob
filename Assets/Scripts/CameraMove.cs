@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    public Transform FollowObject;
+    private Transform FollowObject;
     public float BorderLeft=-15;
     public float BorderRight=10000;
     public float BorderBottom=0;
@@ -12,11 +12,14 @@ public class CameraMove : MonoBehaviour
     private Transform CameraTransform;
     private Vector3 positionLastFrame;
     public Vector3 CameraVelocity;
+    public Vector3 DisplacementThisFrame;
     // Start is called before the first frame update
     void Awake()
     {
+        FollowObject = GameObject.FindGameObjectWithTag("Player").transform;
         CameraTransform =  GetComponent<Transform>();
         positionLastFrame = CameraTransform.position;
+        DisplacementThisFrame = new Vector3(0, 0, 0);
     }
 
     // Update is called once per frame
@@ -47,9 +50,7 @@ public class CameraMove : MonoBehaviour
         {
             CameraTransform.position = new Vector3(CameraTransform.position.x, FollowObject.position.y, -10f);
         }
-
-        CameraVelocity = (CameraTransform.position - positionLastFrame) / Time.deltaTime;
+        DisplacementThisFrame = CameraTransform.position - positionLastFrame;
         positionLastFrame = CameraTransform.position;
-        //Debug.Log(CameraVelocity);
     }
 }
