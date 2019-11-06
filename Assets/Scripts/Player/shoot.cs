@@ -44,7 +44,8 @@ public class shoot : MonoBehaviour
     public GameObject[] GunList;          //枪支实体列表,与子弹列表必须一一对应（没有枪支模型，暂时用空物体代替）
     public GameObject[] BulletList;       //子弹实体列表,与枪支列表必须一一对应
     private GunInfo[] Guns;                   //存储枪支列表信息的容器
-    private GunInfo currentGun;
+    private GunInfo currentGun;           //目前手持的枪
+    private Transform BulletLaunchPoint;           //主角身上的子物体，绑定在枪支头部，用来确定子弹起始位置
 
     //private int shootableMask;
     //LineRenderer gunLine;
@@ -84,6 +85,7 @@ public class shoot : MonoBehaviour
         reloadingTimer = 0;
         BulletCountUI = GameObject.Find("BulletCount");
         UpdateBulletCountUI();
+        BulletLaunchPoint = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(3).GetChild(0).GetChild(0).GetChild(1);
 
         //shootableMask = LayerMask.GetMask("Shootable");
         //player = GameObject.FindGameObjectWithTag("Player");
@@ -108,13 +110,13 @@ public class shoot : MonoBehaviour
         if (MousePosition2D.x < transform.position.x && transform.localScale.x > 0)
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
-        Vector3 pos = MousePosition - transform.position;
+        Vector3 pos = MousePosition - BulletLaunchPoint.position;
         float angle = Vector2.Angle(new Vector2(pos.x, pos.y), new Vector2(1, 0));
         if (pos.y < 0)
             angle = -angle;
         angle = angle * Mathf.Deg2Rad;
 
-        Rigidbody2D bulletInstance = Instantiate(currentGun.Bullet.GetComponent<Rigidbody2D>(), transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
+        Rigidbody2D bulletInstance = Instantiate(currentGun.Bullet.GetComponent<Rigidbody2D>(), BulletLaunchPoint.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
         bulletInstance.velocity = new Vector2(currentGun.flyingSpeed * Mathf.Cos(angle),currentGun.flyingSpeed * Mathf.Sin(angle));
 
         if (currentGun.bulletLeft > 0)

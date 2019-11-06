@@ -25,8 +25,9 @@ public class rope : MonoBehaviour
     private Vector2 rayDirection;                                       //绳子发射过程中，用来检测是否勾到物体的射线（方向向量）
     private Vector2 rayHitPoint;                                        //绳子末端发射的极短射线的碰撞点，可以看作绳索勾到的点的坐标
     private Vector2 _velocity;
-    private Vector2 ropeStartPoint;                                  //绳子当前帧终点坐标
+    private Vector2 ropeStartPoint;                                  //绳子当前帧起点坐标
     private Vector2 ropeEndPoint;                                   //绳子当前帧终点坐标，区别于rayHitPoint， rayHitPoint只有勾到目标物体时才会被赋值
+    private Transform ForeLeftArm;
 
     private GameObject targetObject;                              //用于记录可移动平台的物体
     private Vector3 targetObjectPositionLastFrame;        //用于记录可移动平台的物体上一帧坐标
@@ -44,11 +45,13 @@ public class rope : MonoBehaviour
         ropeStartPoint = transform.position + startPointOffset;
         ropeEndPoint = ropeStartPoint;
         anim = GetComponent<Animator>();//获取Animator部件（动画）
+        ForeLeftArm = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
     }
 
     // Update is called once per frame
     void Update()
     {
+        ropeStartPoint = ForeLeftArm.position;
         //保证绳子起始位置偏移量和人物朝向一致
         if ((transform.localScale.x > 0 && startPointOffset.x < 0)||(transform.localScale.x < 0 && startPointOffset.x > 0)) 
             startPointOffset.x = -startPointOffset.x;
@@ -72,7 +75,10 @@ public class rope : MonoBehaviour
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             //Debug.Log(MousePosition2D);
 
-            ropeStartPoint = transform.position + startPointOffset;
+            //ropeStartPoint = transform.position + startPointOffset;
+
+            Debug.Log(ForeLeftArm.position);
+
             ropeEndPoint = ropeStartPoint;
             //按下按键时，一次性确定射线方向，该方向在发射过程中会用到
             rayDirection = new Vector2(MousePosition2D.x - ropeStartPoint.x, MousePosition2D.y - ropeStartPoint.y);
@@ -102,7 +108,7 @@ public class rope : MonoBehaviour
 
         if (RopeStatus==RopeState.LAUNGCHING)
         {
-            ropeStartPoint = transform.position + startPointOffset;
+            //ropeStartPoint = transform.position + startPointOffset;
             //暂时先用这种方式延伸绳子
             ropeEndPoint += rayDirection * Time.deltaTime * RopeExtendSpeed;
             //如果绳子已达最大长度
@@ -155,7 +161,7 @@ public class rope : MonoBehaviour
             }
 
             //如果已经到达目标点，则钩锁自动脱离
-            ropeStartPoint = transform.position + startPointOffset;
+            //ropeStartPoint = transform.position + startPointOffset;
             ropeEndPoint = rayHitPoint;
             if (Mathf.Abs(rayHitPoint.x - ropeStartPoint.x) < 0.5f && Mathf.Abs(rayHitPoint.y - ropeStartPoint.y) < 0.5f)
             {
@@ -214,7 +220,7 @@ public class rope : MonoBehaviour
         }
         else if (RopeStatus == RopeState.RETURNING)
         {
-            ropeStartPoint = transform.position + startPointOffset;
+            //ropeStartPoint = transform.position + startPointOffset;
             Vector2 returnDirection = ropeEndPoint - ropeStartPoint;
             returnDirection.Normalize();
             ropeEndPoint -= returnDirection * Time.deltaTime * RopeExtendSpeed;
@@ -229,7 +235,7 @@ public class rope : MonoBehaviour
         }
         else if(RopeStatus == RopeState.IDLE)
         {
-            ropeStartPoint = transform.position + startPointOffset;
+            //ropeStartPoint = transform.position + startPointOffset;
             if ((ropeEndPoint - ropeStartPoint).magnitude > 0.5f)
             {
                 //Debug.Log("return ropen when idle");
@@ -252,7 +258,7 @@ public class rope : MonoBehaviour
     public void ResetRope()
     {
         RopeStatus = RopeState.IDLE;
-        ropeStartPoint = ropeEndPoint = transform.position;
+        ropeStartPoint = ropeEndPoint =ForeLeftArm.position;
         line.SetPosition(0, ropeStartPoint);
         line.SetPosition(1, ropeEndPoint);
         DragSpeed = StartDragSpeed;
