@@ -98,7 +98,7 @@ public class Elevator : MonoBehaviour
                     PositionStatus = PositionState.END;
                 else
                     PositionStatus = PositionState.START;
-                Debug.Log("Elevator Move Finish!");
+                //Debug.Log("Elevator Move Finish!");
 
                 if (isAuto)         //如果是自动电梯，结束后会自动开始新一轮自动移动
                     ElevatorStart();
@@ -122,11 +122,11 @@ public class Elevator : MonoBehaviour
         if (ActionStatus == ActionState.IDLE)
         {
             ActionStatus = ActionState.MOVING;
-            Debug.Log("Elevator Start!");
+            //Debug.Log("Elevator Start!");
         }
         else
         {
-            Debug.Log("Elevator is moving!");
+            //Debug.Log("Elevator is moving!");
         }    
     }
 }
