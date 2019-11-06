@@ -16,7 +16,6 @@ public class move : MonoBehaviour
     private float normalizedHorizontalSpeed = 0;
 
     private CharacterController2D _controller;
-    private Animator _animator;
     private RaycastHit2D _lastControllerColliderHit;
     public Animator anim;
 
