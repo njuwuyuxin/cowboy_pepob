@@ -1,0 +1,439 @@
+fileFormatVersion: 2
+guid: 94eebf724bdc40540a00fb307d9dea25
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1953845877354972321
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_0
+  - first:
+      213: 1940771090233774410
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_1
+  - first:
+      213: 4591711589746639763
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_2
+  - first:
+      213: -4897156953688886633
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_3
+  - first:
+      213: -2508422643801243870
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_4
+  - first:
+      213: 7033113908654457353
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_5
+  - first:
+      213: 5298484883246665635
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_6
+  - first:
+      213: 4768869933742706716
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_7
+  - first:
+      213: 4968643638039653076
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_8
+  - first:
+      213: 8496806962453440296
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_9
+  - first:
+      213: 7057651933811166777
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_10
+  - first:
+      213: 488229665341616805
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_11
+  - first:
+      213: 5231040489586950623
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_12
+  - first:
+      213: -7934715250159095314
+    second: __stick-man_cool_shotgun_794px_by_778px-per-frame_13
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_0
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 1611
+        width: 331
+        height: 686
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82a6f9d15e370664da2344d547d5f1d9
+      internalID: 1953845877354972321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_1
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 1611
+        width: 331
+        height: 686
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56de5ee2acf5c054bb1d0cd3c5b20cd0
+      internalID: 1940771090233774410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_2
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 1611
+        width: 331
+        height: 686
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93df0281d8986334abf77d06c6298515
+      internalID: 4591711589746639763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_3
+      rect:
+        serializedVersion: 2
+        x: 2774
+        y: 1611
+        width: 331
+        height: 686
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99d69a6190cb3904fa9a637e0787c80f
+      internalID: -4897156953688886633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_4
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 834
+        width: 331
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53f262c1796636f45aea6656c994b4b5
+      internalID: -2508422643801243870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_5
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 834
+        width: 331
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 445f611f293f2b64e9dfb25b56d6859a
+      internalID: 7033113908654457353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_6
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 834
+        width: 331
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc9af2085e297974cb1bfcd96259a27e
+      internalID: 5298484883246665635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_7
+      rect:
+        serializedVersion: 2
+        x: 2757
+        y: 1286
+        width: 283
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c0168c0e9ffaef489b2bd104e8909c4
+      internalID: 4768869933742706716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_8
+      rect:
+        serializedVersion: 2
+        x: 2759
+        y: 834
+        width: 377
+        height: 449
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3cf852fca552ce48b55cd84b0c8098b
+      internalID: 4968643638039653076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_9
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 507
+        width: 275
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 670ab5542468a7343838602fb4da6f87
+      internalID: 8496806962453440296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_10
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 56
+        width: 331
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 845d0a09794c17b4a89448438688f8b8
+      internalID: 7057651933811166777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_11
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 56
+        width: 331
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3707e21ed49a3304f88d07f195bcb79a
+      internalID: 488229665341616805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_12
+      rect:
+        serializedVersion: 2
+        x: 2774
+        y: 56
+        width: 331
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7da00176ed626a2499f0727e1873f7a9
+      internalID: 5231040489586950623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: __stick-man_cool_shotgun_794px_by_778px-per-frame_13
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 56
+        width: 311
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb6a2b159b4932748add78749590a16a
+      internalID: -7934715250159095314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d8b07501799528246add8e50a71d6b25
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
