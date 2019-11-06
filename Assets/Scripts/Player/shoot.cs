@@ -127,6 +127,14 @@ public class shoot : MonoBehaviour
 
     void Update()
     {
+        //每帧判断鼠标位置决定人物朝向
+        Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 MousePosition2D = new Vector2(MousePosition.x, MousePosition.y);
+        if (MousePosition2D.x > transform.position.x && transform.localScale.x < 0)
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        if (MousePosition2D.x < transform.position.x && transform.localScale.x > 0)
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
         shootingTimer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.R)&&GunStatus!=GunState.RELOADING)
         {

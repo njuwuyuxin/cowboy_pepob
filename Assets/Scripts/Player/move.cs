@@ -164,21 +164,15 @@ public class move : MonoBehaviour
         {
             anim.SetBool("isRunning", true);
             normalizedHorizontalSpeed = 1;
-            if (transform.localScale.x < 0f)
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-
-            //if (_controller.isGrounded)
-            //    _animator.Play(Animator.StringToHash("Run"));
+            //if (transform.localScale.x < 0f)
+            //    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
         else if (Input.GetKey(KeyCode.A) && (MoveStatus == MoveState.NORMAL || MoveStatus == MoveState.USING_ELEVATOR)) 
         { 
             anim.SetBool("isRunning", true);
             normalizedHorizontalSpeed = -1;
-            if (transform.localScale.x > 0f)
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-
-            //if (_controller.isGrounded)
-            //    _animator.Play(Animator.StringToHash("Run"));
+            //if (transform.localScale.x > 0f)
+            //    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
         else
         {
