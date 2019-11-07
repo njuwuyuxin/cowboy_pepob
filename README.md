@@ -41,3 +41,13 @@ Unity 2019.2.5f1 Personal
 - Character Position 当主角进入新的场景时，出现在新场景中的位置（从不同入口进入同一张地图，加载新场景时，主角在新场景的初始位置也会不同）
 ### 注意事项
 - 当需要加载新场景时，注意要把新场景加入到Build Settings当中。位置：文件->Build Settings->添加已打开的场景。 否则会报错：Scene 'xxx' couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
+
+## 塌陷地板组件使用方法
+塌陷地板使用较为简单，对于需要设置成塌陷地板的物体，直接挂载CollapseFloor脚本，设置参数即可，对Tag没有明确要求
+### 各项参数释义
+- Ray Count 含义与电梯中的Ray Count相同，进行射线检测的射线条数
+- Time Before Collapse 指人物站上地板，经过多久后地板开始塌陷
+- Falling Speed 地板塌陷速度
+- Time Before Destroy 指地板开始塌陷后，经过多久销毁自身物体
+### 注意事项
+如果想做出一个平台依次塌陷的效果，需要将平台细分为多个小单元，每个单元均要挂载该脚本独立计算，可以实现依次塌陷的效果
