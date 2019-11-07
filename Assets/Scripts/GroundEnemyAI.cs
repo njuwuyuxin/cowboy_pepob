@@ -133,7 +133,7 @@ public class GroundEnemyAI : MonoBehaviour
         if (state == EnemyState.PATROL || state == EnemyState.TRACK || state == EnemyState.FIRE)
         {
             if (rb == null) { return; }
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("Default"));
             Vector3 end = target.position;
             if (hit.collider != null)
             {
@@ -163,7 +163,7 @@ public class GroundEnemyAI : MonoBehaviour
         float x = 1 * forward.x;
         int y = 1;
         Vector2 start = new Vector2(rb.position.x + x, rb.position.y + y);
-        RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 3, 1 << LayerMask.NameToLayer("Default"));
+        RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 3, 1 << LayerMask.NameToLayer("Default")| 1 << LayerMask.NameToLayer("OneWayPlatform"));
         if (hit.collider != null)
         {
             return true;
@@ -315,21 +315,21 @@ public class GroundEnemyAI : MonoBehaviour
     }
     private bool isInSight(float rangerSqr)
     {
+        float dis = (target.position - this.enemyGFX.position).sqrMagnitude;
         Vector3 sight = (Vector2)(target.position - this.enemyGFX.position);
         float angle = getAngle(new Vector3(sight.x, sight.y, 0), forward);
         if (angle < viewAngle / 2 && angle > -viewAngle / 2 || rangerSqr <= viewRadius)
         {
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, dis);
             Vector3 end = target.position;
             //视线受阻
             if (hit.collider != null)
             {
-                return false;
+                if (((Vector2)this.enemyGFX.position - hit.point).sqrMagnitude > rangerSqr) {
+                    return false;
+                }
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
         else
         {
