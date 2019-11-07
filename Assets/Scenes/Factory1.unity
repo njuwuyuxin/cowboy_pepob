@@ -2229,7 +2229,7 @@ MonoBehaviour:
   jumpHeight: 3
   warningBar: {fileID: 410495171}
   anim: {fileID: 1402982948}
-  viewAngle: 128
+  viewAngle: 121
   viewRadius: 16
 --- !u!50 &1545628051
 Rigidbody2D:
@@ -2710,7 +2710,7 @@ MonoBehaviour:
   jumpHeight: 3
   warningBar: {fileID: 882927739}
   anim: {fileID: 1112126750}
-  viewAngle: 20
+  viewAngle: 25
   viewRadius: 8
 --- !u!50 &1767874814
 Rigidbody2D:

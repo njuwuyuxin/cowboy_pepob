@@ -141,13 +141,14 @@ public class GroundEnemyAI : MonoBehaviour
             }
             Handles.DrawBezier(rb.position, end, rb.position, end, Color.magenta, null, 3);
         }
-        if (isRunning) {
+        if (isRunning)
+        {
             if (rb == null) { return; }
             float x = 1 * forward.x;
             int y = 1;
             Vector2 start = new Vector2(rb.position.x + x, rb.position.y + y);
-            RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0,-1f), 8, 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("OneWayPlatform"));
-            Vector3 end = new Vector2(rb.position.x + x, rb.position.y + y-8);
+            RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 8, 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("OneWayPlatform"));
+            Vector3 end = new Vector2(rb.position.x + x, rb.position.y + y - 8);
             if (hit.collider != null)
             {
                 end = hit.point;
@@ -158,12 +159,13 @@ public class GroundEnemyAI : MonoBehaviour
         Handles.color = color;
 
     }
-    bool CanRun() {
+    bool CanRun()
+    {
         if (rb == null) { return false; }
         float x = 1 * forward.x;
         int y = 1;
         Vector2 start = new Vector2(rb.position.x + x, rb.position.y + y);
-        RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 3, 1 << LayerMask.NameToLayer("Default")| 1 << LayerMask.NameToLayer("OneWayPlatform"));
+        RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 3, 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("OneWayPlatform"));
         if (hit.collider != null)
         {
             return true;
@@ -233,7 +235,8 @@ public class GroundEnemyAI : MonoBehaviour
                             state = EnemyState.TRACK;
                             lastInSight = 0f;
                         }
-                        else {
+                        else
+                        {
                             lastInSightToTrack += Time.deltaTime;
                             updateFireBar(lastInSightToTrack / toTrackSecond, Color.green, Color.yellow);
                         }
@@ -273,7 +276,7 @@ public class GroundEnemyAI : MonoBehaviour
                         eneity.SendMessage("startFire", "");
                     }
                     lastInSight += Time.deltaTime;
-                    updateFireBar(lastInSight / toFireSecond,Color.yellow,Color.red);
+                    updateFireBar(lastInSight / toFireSecond, Color.yellow, Color.red);
                 }
                 break;
             case EnemyState.FIRE:
@@ -325,7 +328,8 @@ public class GroundEnemyAI : MonoBehaviour
             //视线受阻
             if (hit.collider != null)
             {
-                if (((Vector2)this.enemyGFX.position - hit.point).sqrMagnitude > rangerSqr) {
+                if (((Vector2)this.enemyGFX.position - hit.point).sqrMagnitude > rangerSqr)
+                {
                     return false;
                 }
             }
@@ -353,10 +357,11 @@ public class GroundEnemyAI : MonoBehaviour
             {
                 currentWayPoint = path.vectorPath.Count - 1;
             }
-            else {
+            else
+            {
                 return true;
             }
-            
+
         }
 
 
@@ -405,7 +410,8 @@ public class GroundEnemyAI : MonoBehaviour
         {
             Running();
             normalizedHorizontalSpeed = 1;
-            if (enemyGFX.localScale.x > 0f) {
+            if (enemyGFX.localScale.x > 0f)
+            {
                 forward = RIGHTFORWARD;
                 enemyGFX.localScale = new Vector3(-Mathf.Abs(enemyGFX.localScale.x), enemyGFX.localScale.y, enemyGFX.localScale.z);
                 forward = RIGHTFORWARD;
@@ -417,7 +423,8 @@ public class GroundEnemyAI : MonoBehaviour
         {
             Running();
             normalizedHorizontalSpeed = -1;
-            if (enemyGFX.localScale.x < 0f) { 
+            if (enemyGFX.localScale.x < 0f)
+            {
                 enemyGFX.localScale = new Vector3(Mathf.Abs(enemyGFX.localScale.x), enemyGFX.localScale.y, enemyGFX.localScale.z);
                 forward = LEFTFORWARD;
             }
@@ -439,18 +446,21 @@ public class GroundEnemyAI : MonoBehaviour
         }
         return false;
     }
-    private void Running() {
+    private void Running()
+    {
         isRunning = true;
         //anim.SetBool("isRunning", true);
     }
-    private void StandBy() { 
-        isRunning=false;
+    private void StandBy()
+    {
+        isRunning = false;
         normalizedHorizontalSpeed = 0;
         //anim.SetBool("isRunning", false);
     }
-    private void updateFireBar(float percent,Color from, Color to) {
+    private void updateFireBar(float percent, Color from, Color to)
+    {
         warningBar.material.color = Color.Lerp(from, to, percent);
-        warningBar.transform.localScale = new Vector3(warningFireBarScale.x * (1-percent), 1, 1);
+        warningBar.transform.localScale = new Vector3(warningFireBarScale.x * (1 - percent), 1, 1);
     }
     private void InSky()
     {
