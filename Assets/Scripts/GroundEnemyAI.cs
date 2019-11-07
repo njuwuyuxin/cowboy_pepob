@@ -163,7 +163,7 @@ public class GroundEnemyAI : MonoBehaviour
         float x = 1 * forward.x;
         int y = 1;
         Vector2 start = new Vector2(rb.position.x + x, rb.position.y + y);
-        RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 3, 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("OneWayPlatform"));
+        RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 3, 1 << LayerMask.NameToLayer("Default"));
         if (hit.collider != null)
         {
             return true;
