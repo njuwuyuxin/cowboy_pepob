@@ -1238,7 +1238,7 @@ MonoBehaviour:
   _skinWidth: 0.02
   platformMask:
     serializedVersion: 2
-    m_Bits: 4097
+    m_Bits: 20481
   triggerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -1345,7 +1345,7 @@ MonoBehaviour:
   runSpeed: 8
   groundDamping: 20
   inAirDamping: 5
-  jumpHeight: 2
+  jumpHeight: 2.5
   _velocity: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
 --- !u!114 &4899592177349662891

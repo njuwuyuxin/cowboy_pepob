@@ -323,7 +323,7 @@ public class GroundEnemyAI : MonoBehaviour
         float angle = getAngle(new Vector3(sight.x, sight.y, 0), forward);
         if (angle < viewAngle / 2 && angle > -viewAngle / 2 || rangerSqr <= viewRadius)
         {
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, dis);
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, dis, LayerMask.GetMask("ground")| LayerMask.GetMask("Default"));
             Vector3 end = target.position;
             //视线受阻
             if (hit.collider != null)

@@ -36,6 +36,14 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth -= amount;
     }
+    void OnColliderEnter2D(Collider2D col)
+    {
+        if(col.tag=="Spike")
+        {
+            Debug.Log("spike");
+            Death();
+        }
+    }
     void Death()
     {
         // Find all of the sprite renderers on this object and it's children.
@@ -48,12 +56,11 @@ public class EnemyHealth : MonoBehaviour
         }
 
         // Re-enable the main sprite renderer and set it's sprite to the deadEnemy sprite.
-        ren.enabled = true;
-        ren.sprite = deadEnemy;
+        
 
         // Set dead to true.
         dead = true;
-
+        Debug.Log("Death");
         // Allow the enemy to rotate and spin it by adding a torque.
 
         // Find all of the colliders on the gameobject and set them all to be triggers.

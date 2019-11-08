@@ -31,7 +31,8 @@ public class Elevator : MonoBehaviour
 
         if(isAuto)
             ElevatorStart();
-        ElevatorSize = gameObject.GetComponent<Renderer>().bounds.size;
+        ElevatorSize = gameObject.GetComponent<Collider2D>().bounds.size;
+        Debug.Log(ElevatorSize);
     }
 
     // Update is called once per frame
@@ -47,7 +48,9 @@ public class Elevator : MonoBehaviour
             //Debug.DrawRay(startPoint, rayDirection);
             if (_raycastHit)
             {
+                
                 Player = _raycastHit.collider.gameObject;
+                Debug.Log(Player);
                 Player.GetComponent<move>().SetMoveStatus(1);
                 HitFlag = true;
 

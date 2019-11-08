@@ -17,7 +17,7 @@ public class Loader : MonoBehaviour
             Instantiate(UICanvas);
             Instantiate(Player);
 
-            GameManager._GameManager.LoadSceneByName("Factory1");           //初始场景入口，如需调整初始场景调试，需在此处修改
+            GameManager._GameManager.LoadSceneByName("Factory2");           //初始场景入口，如需调整初始场景调试，需在此处修改
         }
     }
 }

@@ -1,23 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-enum FloorState { NORMAL,TRIGGERED,FALLING};          //定义地板几种状态，NORMAL=正常状态，TRIGGERED=主角踩上触发，FALLING=触发后一定时间之后开始掉落
-public class CollapseFloor : MonoBehaviour
+public class button_collapse_floor : MonoBehaviour
 {
-    public int rayCount = 4;                                //发射射线条数，可自定义
-    public float TimeBeforeCollapse=1;             //用于定义玩家站上地板后，经过多长时间地板开始塌陷
+    public int rayCount = 4;                         //用于定义玩家站上地板后，经过多长时间地板开始塌陷
     public float FallingSpeed = 3;                      //地板塌陷下落速度
     public float TimeBeforeDestroy = 1;          //用于定义地板开始塌陷后，经过多长时间会销毁自身
     private FloorState FloorStatus;
     private RaycastHit2D _raycastHit;
     private Vector3 FloorSize;
-    private float TimerBeforeCollapse;              //用于计时地板塌陷前时间
+    public CollapseFloor[] CollapseFloors;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         FloorStatus = FloorState.NORMAL;
-        TimerBeforeCollapse = 0;
+
         FloorSize = gameObject.GetComponent<Renderer>().bounds.size;
     }
 
@@ -35,34 +32,21 @@ public class CollapseFloor : MonoBehaviour
                 Debug.DrawRay(startPoint, rayDirection);
                 if (_raycastHit && _raycastHit.collider.tag == "Player")        //检测到主角在地板上
                 {
-                    FloorStatus = FloorState.TRIGGERED;
+                    FloorStatus = FloorState.FALLING;
                     break;
                 }
             }
         }
-
-        if(FloorStatus==FloorState.TRIGGERED)
-        {
-            TimerBeforeCollapse += Time.deltaTime;
-            if (TimerBeforeCollapse >= TimeBeforeCollapse)
-            {
-                FloorStatus = FloorState.FALLING;
-                Destroy(gameObject,TimeBeforeDestroy);
-            }
-        }
-
-        if(FloorStatus==FloorState.FALLING)
+        if (FloorStatus == FloorState.FALLING)
         {
             Vector3 velocity = new Vector3(0, -FallingSpeed, 0);
             transform.Translate(velocity * Time.deltaTime);
+            Destroy(gameObject, TimeBeforeDestroy);
+            for (int i=0;i< CollapseFloors.Length;i++)
+            {
+                CollapseFloors[i].button_call();
+            }
         }
     }
-    public void button_call()
-    {
-        FloorStatus = FloorState.TRIGGERED;
-    }
-    //void OnColliderEnter2D(Collider2D col)
-    //{
-    //    Destroy(gameObject);
-    //}
+
 }
