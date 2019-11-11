@@ -22,6 +22,9 @@ public class GroundEnemyAI : MonoBehaviour
     public float toTrackSecond = 2f;
     // 在视野多少秒后开火（开火时间）
     public float toFireSecond = 1f;
+    // 在单次开火的至少时间
+    public float fireSecond = 1f;
+    public float turnRoundSecond = 1f;
     // 设置为内置的那个对象就好
     public Transform enemyGFX;
     // 设置为内置的那个对象就好
@@ -30,6 +33,8 @@ public class GroundEnemyAI : MonoBehaviour
     public Vector2 patrolStart;
     // 巡逻的结束点
     public Vector2 patrolEnd;
+    // 只巡逻
+    public bool onlyTrack=false;
     Path path;
     int currentWayPoint = 0;
     bool reachedEndOfPath = false;
@@ -116,6 +121,7 @@ public class GroundEnemyAI : MonoBehaviour
     private Vector3 forward = new Vector3(-1f, 0f, 0f);
     private Vector3 up = new Vector3(0f, 0f, 1f);
     private Color sightColor = Color.green;
+    private Color seeColor = Color.magenta;
     private bool isToEnd = true;
     private bool toEnd = false;
     private bool isRunning = false;
@@ -133,13 +139,19 @@ public class GroundEnemyAI : MonoBehaviour
         if (state == EnemyState.PATROL || state == EnemyState.TRACK || state == EnemyState.FIRE)
         {
             if (rb == null) { return; }
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("Default"));
-            Vector3 end = target.position;
-            if (hit.collider != null)
-            {
-                end = hit.point;
+            if ((rb.position- (Vector2)target.position).sqrMagnitude<=4*viewRadius*viewRadius) {
+                Vector2 end = target.position;
+                bool canSee = getSightPoint(rb.position, target.position, out end, "ground", "Default");
+                if (canSee)
+                {
+                    seeColor = Color.red;
+                }
+                if((end- rb.position).sqrMagnitude>viewRadius)
+                    Handles.DrawBezier(rb.position, end, rb.position, end, seeColor, null, 3);
+
+                seeColor = Color.magenta;
             }
-            Handles.DrawBezier(rb.position, end, rb.position, end, Color.magenta, null, 3);
+
         }
         if (isRunning)
         {
@@ -147,7 +159,7 @@ public class GroundEnemyAI : MonoBehaviour
             float x = 1 * forward.x;
             int y = 1;
             Vector2 start = new Vector2(rb.position.x + x, rb.position.y + y);
-            RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 8, 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("OneWayPlatform"));
+            RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 8, 1 << LayerMask.GetMask("ground") | 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("OneWayPlatform"));
             Vector3 end = new Vector2(rb.position.x + x, rb.position.y + y - 8);
             if (hit.collider != null)
             {
@@ -158,6 +170,43 @@ public class GroundEnemyAI : MonoBehaviour
 
         Handles.color = color;
 
+    }
+    bool getSightPoint(Vector2 enemyPos,Vector2 playerPos, out Vector2 colliderPos, params string[] layers) {
+        
+        float dis = (playerPos - enemyPos).sqrMagnitude;
+        Vector3 sight = (playerPos - enemyPos);
+        float angle = getAngle(new Vector3(sight.x, sight.y, 0), forward);
+        int layersMask=0;
+        if (layers.Length > 0) {
+            layersMask = 1 << LayerMask.GetMask(layers[0]);
+            for (int i = 1; i < layers.Length; i++) {
+                layersMask = layersMask | 1 << LayerMask.GetMask(layers[i]);
+            }
+        }
+        if (angle < viewAngle / 2 && angle > -viewAngle / 2 || dis <= viewRadius)
+        {
+            //碰撞！
+            RaycastHit2D hit = Physics2D.Raycast(enemyPos, (playerPos - enemyPos).normalized, int.MaxValue, layersMask);
+            if (hit.collider != null)
+            {
+                if ((hit.point - enemyPos).sqrMagnitude >= dis * 0.99)
+                {
+                    colliderPos = playerPos;
+                    return true ;
+                }
+                else {
+                    colliderPos = hit.point;
+                    return false;
+                }
+            }
+            colliderPos = playerPos;
+            return true;
+        }
+        else
+        {
+            colliderPos = enemyPos;
+            return false;
+        }
     }
     bool CanRun()
     {
@@ -267,20 +316,23 @@ public class GroundEnemyAI : MonoBehaviour
                 }
                 else if (rangerSqr <= viewRadius * viewRadius && isInSight(rangerSqr))
                 {
-
-                    if (lastInSight > toFireSecond)
-                    {
-                        state = EnemyState.FIRE;
-                        sightColor = Color.red;
-                        lastInSight = 0f;
-                        eneity.SendMessage("startFire", "");
+                    if (!onlyTrack) {
+                        if (lastInSight > toFireSecond)
+                        {
+                            state = EnemyState.FIRE;
+                            sightColor = Color.red;
+                            lastInSight = 0f;
+                            nowFireSec = 0f;
+                            eneity.SendMessage("startFire", "");
+                        }
+                        lastInSight += Time.deltaTime;
+                        updateFireBar(lastInSight / toFireSecond, Color.yellow, Color.red);
                     }
-                    lastInSight += Time.deltaTime;
-                    updateFireBar(lastInSight / toFireSecond, Color.yellow, Color.red);
+                    
                 }
                 break;
             case EnemyState.FIRE:
-                if (rangerSqr > viewRadius * viewRadius || !isInSight(rangerSqr))
+                if ((nowFireSec >= fireSecond) &&(rangerSqr > viewRadius * viewRadius || !isInSight(rangerSqr)))
                 {
                     lastStartTrack = 0f;
                     lastInSight = 0f;
@@ -291,6 +343,7 @@ public class GroundEnemyAI : MonoBehaviour
                 else
                 {
                     StandBy();
+                    nowFireSec += Time.deltaTime;
                     eneity.SendMessage("startFire", "");
                 }
                 break;
@@ -318,31 +371,14 @@ public class GroundEnemyAI : MonoBehaviour
     }
     private bool isInSight(float rangerSqr)
     {
-        float dis = (target.position - this.enemyGFX.position).sqrMagnitude;
-        Vector3 sight = (Vector2)(target.position - this.enemyGFX.position);
-        float angle = getAngle(new Vector3(sight.x, sight.y, 0), forward);
-        if (angle < viewAngle / 2 && angle > -viewAngle / 2 || rangerSqr <= viewRadius)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, dis, LayerMask.GetMask("ground")| LayerMask.GetMask("Default"));
-            Vector3 end = target.position;
-            //视线受阻
-            if (hit.collider != null)
-            {
-                if (((Vector2)this.enemyGFX.position - hit.point).sqrMagnitude > rangerSqr)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        Vector2 end;
+        return getSightPoint(rb.position, target.position, out end, "ground", "Default");
     }
     float lastStartTrack = 0;
     float lastInSight = 0;
-    float lastInSightToTrack = 0;
+    float lastInSightToTrack = 0; 
+    float turnRound = 0;
+    float nowFireSec = 0;
     bool track()
     {
 
@@ -381,8 +417,6 @@ public class GroundEnemyAI : MonoBehaviour
         {
             currentWayPoint++;
         }
-        //Debug.Log(rb.velocity.magnitude);
-        //转身
 
         if (_controller.isGrounded)
         {
@@ -405,28 +439,38 @@ public class GroundEnemyAI : MonoBehaviour
         {
             InSky();
         }
-
+        //向右-转身
         if (direction.x > 0f)
         {
             Running();
             normalizedHorizontalSpeed = 1;
-            if (enemyGFX.localScale.x > 0f)
+            //如果当前是朝左-默认scale是朝左的，所以localScale>0就是原图像
+            if (enemyGFX.localScale.x > 0f && turnRound >= turnRoundSecond)
             {
-                forward = RIGHTFORWARD;
                 enemyGFX.localScale = new Vector3(-Mathf.Abs(enemyGFX.localScale.x), enemyGFX.localScale.y, enemyGFX.localScale.z);
+                turnRound = 0;
                 forward = RIGHTFORWARD;
             }
-            //if (_controller.isGrounded)
-            //    _animator.Play(Animator.StringToHash("Run"));
+            else if (turnRound < turnRoundSecond) {
+                turnRound += Time.deltaTime;
+                StandBy();
+            }
         }
+        // 向左-转身
         else if (direction.x < 0f)
         {
             Running();
             normalizedHorizontalSpeed = -1;
-            if (enemyGFX.localScale.x < 0f)
+            if (enemyGFX.localScale.x < 0f && turnRound <= -turnRoundSecond)
             {
                 enemyGFX.localScale = new Vector3(Mathf.Abs(enemyGFX.localScale.x), enemyGFX.localScale.y, enemyGFX.localScale.z);
+                turnRound = 0;
                 forward = LEFTFORWARD;
+            }
+            else if (turnRound > -turnRoundSecond)
+            {
+                turnRound -= Time.deltaTime;
+                StandBy(); 
             }
             //if (_controller.isGrounded)
             //    _animator.Play(Animator.StringToHash("Run"));
@@ -446,6 +490,9 @@ public class GroundEnemyAI : MonoBehaviour
         }
         return false;
     }
+
+
+    // ---------------辅助函数------------------------
     private void Running()
     {
         isRunning = true;

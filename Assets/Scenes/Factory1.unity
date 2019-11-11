@@ -132,6 +132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OneWayPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 504384792899613542, guid: 0e81c646a536adf46826126e83c5d5de,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 504384792899613540, guid: 0e81c646a536adf46826126e83c5d5de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2157,10 +2162,13 @@ MonoBehaviour:
   trackSecond: 5
   toTrackSecond: 3
   toFireSecond: 0.5
+  fireSecond: 1
+  turnRoundSecond: 0.5
   enemyGFX: {fileID: 1112126749}
   eneity: {fileID: 1112126748}
   patrolStart: {x: 4, y: -3.37}
   patrolEnd: {x: 22, y: -3.37}
+  onlyTrack: 1
   gravity: -25
   runSpeed: 2
   groundDamping: 20
@@ -5275,6 +5283,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: "\u4E0D\u53EF\u7A7F\u900F\u5E73\u53F0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2521571639545807171, guid: ce67af9ab9e270847bfbda9123561927,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2521571639545807198, guid: ce67af9ab9e270847bfbda9123561927,
         type: 3}
