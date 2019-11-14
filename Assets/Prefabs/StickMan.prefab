@@ -1238,10 +1238,10 @@ MonoBehaviour:
   _skinWidth: 0.02
   platformMask:
     serializedVersion: 2
-    m_Bits: 20481
+    m_Bits: 16385
   triggerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5120
   oneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 512

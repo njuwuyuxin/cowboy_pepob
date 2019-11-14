@@ -24,6 +24,7 @@ public class Rocket : MonoBehaviour
 	
 	void OnTriggerEnter2D (Collider2D col) 
 	{
+        Debug.Log("hello");
 		// If it hits an enemy...
 		if(col.tag == "Enemy")
 		{

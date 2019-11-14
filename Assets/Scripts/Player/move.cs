@@ -83,7 +83,7 @@ public class move : MonoBehaviour
 
     void onTriggerEnterEvent(Collider2D col)
     {
-        Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
+        //Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
         if (col.tag == "Spike"||col.tag=="Enemy")
         {
             hurtAndBack(30, 15f,0.5f);
@@ -100,7 +100,7 @@ public class move : MonoBehaviour
 
     void onTriggerExitEvent(Collider2D col)
     {
-        Debug.Log("onTriggerExitEvent: " + col.gameObject.name);
+        //Debug.Log("onTriggerExitEvent: " + col.gameObject.name);
     }
 
     #endregion

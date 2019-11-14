@@ -17,6 +17,7 @@ TagManager:
   - Elevator
   - Portal
   - HealthBar
+  - "\u7EF3\u5B50"
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Enemy
   - BackGround
   - ground
-  - 
+  - spike
   - 
   - 
   - 

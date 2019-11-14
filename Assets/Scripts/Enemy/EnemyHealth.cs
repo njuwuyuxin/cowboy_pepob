@@ -36,9 +36,23 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth -= amount;
     }
-    void OnColliderEnter2D(Collider2D col)
+    public void Die()
     {
+        Death();
+    }
+    void onTriggerEnterEvent(Collider2D col)
+    {
+        Debug.Log("1");
+        Debug.Log(col.tag);
         if(col.tag=="Spike")
+        {
+            Debug.Log("spike");
+            Death();
+        }
+    }
+    void onTriggerStayEvent(Collider2D col)
+    {
+        if (col.tag == "Spike")
         {
             Debug.Log("spike");
             Death();
