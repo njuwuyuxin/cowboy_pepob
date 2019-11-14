@@ -149,6 +149,7 @@ public class shoot : MonoBehaviour
         }
         if (GunStatus == GunState.RELOADING)
         {
+            anim.SetBool("isReloading", true);
             if (reloadingTimer <currentGun.reloadSpeed)
             {
                 reloadingTimer += Time.deltaTime;
@@ -159,6 +160,7 @@ public class shoot : MonoBehaviour
                 reloadingTimer = 0;
                currentGun.bulletLeft =currentGun.magVolume;
                 GunStatus = GunState.IDLE;
+                anim.SetBool("isReloading", false);
                 UpdateBulletCountUI();
                 Debug.Log("Reloading Finished!");
             }
