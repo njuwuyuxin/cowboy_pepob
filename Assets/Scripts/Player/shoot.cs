@@ -35,9 +35,11 @@ public class shoot : MonoBehaviour
     public float timeBetweenAttacks;
     public Rigidbody2D rocket;              // Prefab of the rocket.
     public float speed = 20f;               // The speed the rocket will fire at.
+    public float ChangingTime = 0.5f;       //换枪所需时间
     private Animator anim;                  // Reference to the Animator component.
     private float shootingTimer;
     private float reloadingTimer;
+    private float changingTimer;
     private GameObject BulletCountUI;
 
     private GunState GunStatus;
@@ -83,6 +85,7 @@ public class shoot : MonoBehaviour
         currentGun = Guns[0];
         shootingTimer =currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
         reloadingTimer = 0;
+        changingTimer = 0;
         BulletCountUI = GameObject.Find("BulletCount");
         UpdateBulletCountUI();
         BulletLaunchPoint = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(3).GetChild(0).GetChild(0).GetChild(1);
@@ -138,6 +141,23 @@ public class shoot : MonoBehaviour
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
         shootingTimer += Time.deltaTime;
+        changingTimer += Time.deltaTime;
+        if (GunStatus == GunState.CHANGING)     //切枪过程中
+        {
+            if (changingTimer < ChangingTime)
+            {
+                changingTimer += Time.deltaTime;
+                return;
+            }
+            else
+            {
+                GunStatus = GunState.IDLE;      //切枪已完成
+                //TODO: 动画相关设置
+
+                UpdateBulletCountUI();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.R)&&GunStatus!=GunState.RELOADING)
         {
             if(currentGun.bulletLeft!=currentGun.magVolume)            //弹夹非满
@@ -168,13 +188,15 @@ public class shoot : MonoBehaviour
         {
             currentGun = Guns[0];
             shootingTimer =currentGun.shootingSpeed;
-            UpdateBulletCountUI();
+            changingTimer = 0;
+            GunStatus = GunState.CHANGING;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentGun = Guns[1];
             shootingTimer =currentGun.shootingSpeed;
-            UpdateBulletCountUI();
+            changingTimer = 0;
+            GunStatus = GunState.CHANGING;  
         }
 
         if (Input.GetMouseButtonDown(0))
