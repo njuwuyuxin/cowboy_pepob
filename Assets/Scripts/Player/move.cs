@@ -174,12 +174,12 @@ public class move : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.S) && MoveStatus == MoveState.NORMAL && _controller.isGrounded)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && MoveStatus == MoveState.NORMAL && _controller.isGrounded)
         {
             MoveStatus = MoveState.SQUATTING;
             anim.SetBool("isSquatting", true);
         }
-        if(Input.GetKeyUp(KeyCode.S)&&MoveStatus==MoveState.SQUATTING)
+        if(Input.GetKeyUp(KeyCode.LeftControl) &&MoveStatus==MoveState.SQUATTING)
         {
             MoveStatus = MoveState.NORMAL;
             anim.SetBool("isSquatting", false);
