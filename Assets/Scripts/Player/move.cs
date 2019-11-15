@@ -4,7 +4,7 @@ using UnityEngine;
 using Prime31;
 
 //NORMAL指正常移动状态，HURTBACK指收到伤害被强制位移（无法控制）
-enum MoveState { NORMAL,HURTBACK,USING_ELEVATOR};
+enum MoveState { NORMAL,HURTBACK,USING_ELEVATOR,SQUATTING};
 
 public class move : MonoBehaviour
 {
@@ -138,6 +138,9 @@ public class move : MonoBehaviour
             }
         }
 
+
+
+
         if (_controller.isGrounded&&MoveStatus==MoveState.NORMAL)
         {
             _velocity.y = 0;
@@ -158,6 +161,29 @@ public class move : MonoBehaviour
         else
         {
             //anim.SetBool("inSky", true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) && MoveStatus == MoveState.NORMAL && _controller.isGrounded)
+        {
+            MoveStatus = MoveState.SQUATTING;
+        }
+        if(Input.GetKeyUp(KeyCode.S)&&MoveStatus==MoveState.SQUATTING)
+        {
+            MoveStatus = MoveState.NORMAL;
+        }
+        if(MoveStatus==MoveState.SQUATTING)
+        {
+            BoxCollider2D col = GetComponent<BoxCollider2D>();
+            Debug.Log(col.size);
+            col.size = new Vector2(1.12355f,0.65f); //该值的y值为下蹲时人物碰撞盒高度，该值的修改需要重新计算所有偏移量，否则会出现浮空或穿透现象
+            col.offset = new Vector2(0.1019477f, 0.325f);
+        }
+        else
+        {
+            BoxCollider2D col = GetComponent<BoxCollider2D>();
+            col.size = new Vector2(1.12355f, 1.330366f);
+            col.offset = new Vector2(0.1019477f, 0.6514457f);
+            //GetComponent<BoxCollider2D>().size = new Vector2(GetComponent<BoxCollider2D>().size.x, GetComponent<BoxCollider2D>().size.y * 2);
         }
 
         if (Input.GetKey(KeyCode.D)&& (MoveStatus == MoveState.NORMAL || MoveStatus == MoveState.USING_ELEVATOR))
