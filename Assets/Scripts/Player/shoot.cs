@@ -35,7 +35,7 @@ public class shoot : MonoBehaviour
     public float timeBetweenAttacks;
     public Rigidbody2D rocket;              // Prefab of the rocket.
     public float speed = 20f;               // The speed the rocket will fire at.
-    public float ChangingTime = 0.5f;       //换枪所需时间
+    public float ChangingTime = 0.3f;       //换枪所需时间
     private Animator anim;                  // Reference to the Animator component.
     private float shootingTimer;
     private float reloadingTimer;
@@ -144,6 +144,7 @@ public class shoot : MonoBehaviour
         changingTimer += Time.deltaTime;
         if (GunStatus == GunState.CHANGING)     //切枪过程中
         {
+            anim.SetBool("isSwitching", true);
             if (changingTimer < ChangingTime)
             {
                 changingTimer += Time.deltaTime;
@@ -153,7 +154,7 @@ public class shoot : MonoBehaviour
             {
                 GunStatus = GunState.IDLE;      //切枪已完成
                 //TODO: 动画相关设置
-
+                anim.SetBool("isSwitching", false);
                 UpdateBulletCountUI();
             }
         }
@@ -203,7 +204,6 @@ public class shoot : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            anim.SetBool("isShooting", true);
             GunStatus = GunState.SHOOTING;
         }
         if (Input.GetMouseButtonUp(0))
@@ -216,11 +216,13 @@ public class shoot : MonoBehaviour
             
             if(shootingTimer>=currentGun.shootingSpeed)     //一次射击事件
             {
+                anim.SetBool("isShooting", true);
                 shootingTimer = 0;
                 shootEvent();
                 if (currentGun.bulletLeft == 0)             //弹夹打光自动进入换弹状态
                 {
                     GunStatus = GunState.RELOADING;
+                    anim.SetBool("isShooting", false);
                     Debug.Log("Reloading!");
                 }
             }      

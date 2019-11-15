@@ -13,7 +13,7 @@ public class move : MonoBehaviour
     public float groundDamping = 20f; // how fast do we change direction? higher means faster
     public float inAirDamping = 5f;
     public float jumpHeight = 3f;
-    public float LandingTime = 0.8f;    //落地硬直时间
+    public float LandingTime = 0.3f;    //落地硬直时间
     public Vector3 _velocity;
 
     [HideInInspector]
@@ -150,25 +150,17 @@ public class move : MonoBehaviour
                 Debug.Log("触发落地硬直");
                 LandingTimer = 0;
                 MoveStatus = MoveState.LANDING;
+                anim.SetBool("isLanding", true);
             }
             _velocity.y = 0;
-            //bool land = false;
-            //if (anim.GetBool("inSky"))
-            //{
-            //    land = true;
-            //}
-            //anim.SetBool("inSky", false);
-            //if (land)
-            //{
-            //    anim.SetBool("isLanding", true);
-            //    //这里停顿0.5秒表示落地硬直
-            //    anim.SetBool("isLanding", false);
-            //}
-            //Debug.Log("on the ground!");
+
+            anim.SetBool("inSky", false);
+
+            Debug.Log("on the ground!");
         }
         else
         {
-            //anim.SetBool("inSky", true);
+            anim.SetBool("inSky", true);
         }
         if(MoveStatus==MoveState.LANDING)
         {
@@ -177,6 +169,7 @@ public class move : MonoBehaviour
             else
             {
                 MoveStatus = MoveState.NORMAL;  //硬直结束，恢复正常
+                anim.SetBool("isLanding", false);
             }
         }
 
@@ -184,10 +177,12 @@ public class move : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && MoveStatus == MoveState.NORMAL && _controller.isGrounded)
         {
             MoveStatus = MoveState.SQUATTING;
+            anim.SetBool("isSquatting", true);
         }
         if(Input.GetKeyUp(KeyCode.S)&&MoveStatus==MoveState.SQUATTING)
         {
             MoveStatus = MoveState.NORMAL;
+            anim.SetBool("isSquatting", false);
         }
         if(MoveStatus==MoveState.SQUATTING)
         {
