@@ -140,7 +140,7 @@ public class Elevator : MonoBehaviour
                     }
                     End = Points[Point_number];
 
-                    Debug.Log(Point_number);
+                    //Debug.Log(Point_number);
                     AlreadyMovedDistance = 0;
                     //if (PositionStatus == PositionState.START)
                     //    PositionStatus = PositionState.END;

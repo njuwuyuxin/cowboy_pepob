@@ -24,10 +24,11 @@ public class Rocket : MonoBehaviour
 	
 	void OnTriggerEnter2D (Collider2D col) 
 	{
-        Debug.Log("hello");
-		// If it hits an enemy...
-		if(col.tag == "Enemy")
+        Debug.Log(col.tag);
+        // If it hits an enemy...
+        if (col.tag == "Enemy")
 		{
+            
 			// ... find the Enemy script and call the Hurt function.
 			col.gameObject.GetComponent<EnemyHealth>().Hurt(DamagePerShoot);
 

@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 5556723446090051191}
   - component: {fileID: 5556723446090051190}
   m_Layer: 10
-  m_Name: EnemyRocket 1
+  m_Name: RocketEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556723446090051177}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 75.15, y: 2.63, z: -2}
+  m_LocalPosition: {x: 75.15, y: -30.22, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5556723445849888206}
@@ -240,10 +240,13 @@ MonoBehaviour:
   trackSecond: 5
   toTrackSecond: 3
   toFireSecond: 0.5
+  fireSecond: 1
+  turnRoundSecond: 1
   enemyGFX: {fileID: 5556723445849888206}
   eneity: {fileID: 5556723445849888197}
   patrolStart: {x: 70, y: 3.14}
   patrolEnd: {x: 77.55, y: 3.09}
+  onlyTrack: 0
   gravity: -25
   runSpeed: 2
   groundDamping: 20

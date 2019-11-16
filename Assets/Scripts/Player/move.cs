@@ -141,7 +141,7 @@ public class move : MonoBehaviour
         }
 
 
-        Debug.Log(_velocity);
+        //Debug.Log(_velocity);
         LandingTimer += Time.deltaTime;
         if (_controller.isGrounded&&MoveStatus==MoveState.NORMAL)
         {
@@ -156,7 +156,7 @@ public class move : MonoBehaviour
 
             anim.SetBool("inSky", false);
 
-            Debug.Log("on the ground!");
+            //Debug.Log("on the ground!");
         }
         else
         {

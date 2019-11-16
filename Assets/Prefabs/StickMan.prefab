@@ -1195,7 +1195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4899592177349662884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: -9.33, y: -30, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4899592177034706383}
@@ -1342,10 +1342,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: -25
-  runSpeed: 8
+  runSpeed: 5
   groundDamping: 20
   inAirDamping: 5
   jumpHeight: 2.5
+  LandingTime: 0.3
   _velocity: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
 --- !u!114 &4899592177349662891
@@ -1481,6 +1482,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.2
   rocket: {fileID: 4617979970049723426, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
   speed: 20
+  ChangingTime: 0.3
   GunList:
   - {fileID: 6560660630274883863, guid: 2f93195e91cc8e647a418bac38a96377, type: 3}
   - {fileID: 5753060855367128872, guid: 9a14f132f4b486247aaf607bc270cd42, type: 3}
