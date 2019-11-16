@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GetRopeAbility : MonoBehaviour
 {
+    public GameObject InteractiveUI;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,6 +25,8 @@ public class GetRopeAbility : MonoBehaviour
         {
             PlayerRopeScript.enabled = true;
             PlayerRopeScript.ResetRope();
+            InteractiveUI.SetActive(true);
+            Destroy(InteractiveUI, 3f);
         }
     }
 }
