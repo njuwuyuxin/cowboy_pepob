@@ -74,7 +74,7 @@ public class shoot : MonoBehaviour
             );
         Guns[1] = new GunInfo(
             2,                              //枪支编号
-            "时缓枪",                  //枪支名称
+            "吸血枪",                  //枪支名称
             1f,                         //枪支射速
             15f,                          //子弹飞行速度
             5,                             //弹夹容量
@@ -205,6 +205,11 @@ public class shoot : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GunStatus = GunState.SHOOTING;
+            if (currentGun.gunID == 2) //吸血枪设置前摇
+            {
+                float shootAfterPress = 0.8f;       //前摇时间
+                shootingTimer = currentGun.shootingSpeed - shootAfterPress;
+            }
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -213,8 +218,8 @@ public class shoot : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            
-            if(shootingTimer>=currentGun.shootingSpeed)     //一次射击事件
+
+            if (shootingTimer>=currentGun.shootingSpeed)     //一次射击事件
             {
                 anim.SetBool("isShooting", true);
                 shootingTimer = 0;
