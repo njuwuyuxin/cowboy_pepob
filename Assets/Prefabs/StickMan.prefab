@@ -1481,6 +1481,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.2
   rocket: {fileID: 4617979970049723426, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
   speed: 20
+  ChangingTime: 0.5
   GunList:
   - {fileID: 6560660630274883863, guid: 2f93195e91cc8e647a418bac38a96377, type: 3}
   - {fileID: 5753060855367128872, guid: 9a14f132f4b486247aaf607bc270cd42, type: 3}
@@ -1499,6 +1500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1af4465ebded72429ca3cb64c0f02bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RopeLock: 0
   PlayerHPMax: 100
   InvincibleTimeAfterDamage: 1
 --- !u!114 &4899592177349662887

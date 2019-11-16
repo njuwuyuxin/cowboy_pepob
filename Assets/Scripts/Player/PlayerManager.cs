@@ -7,6 +7,7 @@ public enum HealthState { NORMAL,INVINCIBLE};
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager _PlayerManager = null; //单例模式
+    public bool RopeLock = false;           //判断主角是否获得绳索
 
     private int PlayerHP;
     public int PlayerHPMax = 100;
@@ -29,6 +30,8 @@ public class PlayerManager : MonoBehaviour
         HPSlotUI = GameObject.Find("HP");
         HealthStatus = HealthState.NORMAL;
         InvincibleTimer = 0;
+
+        GetComponent<rope>().enabled = false;
     }
 
     // Update is called once per frame

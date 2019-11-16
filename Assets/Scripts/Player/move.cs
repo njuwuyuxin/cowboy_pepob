@@ -4,7 +4,7 @@ using UnityEngine;
 using Prime31;
 
 //NORMAL指正常移动状态，HURTBACK指收到伤害被强制位移（无法控制）
-enum MoveState { NORMAL,HURTBACK,USING_ELEVATOR,SQUATTING,LANDING}; //正常，受伤击退，使用电梯，下蹲，落地硬硬直
+enum MoveState { NORMAL,HURTBACK,USING_ELEVATOR,SQUATTING}; //正常，受伤击退，使用电梯，下蹲
 
 public class move : MonoBehaviour
 {
@@ -13,7 +13,6 @@ public class move : MonoBehaviour
     public float groundDamping = 20f; // how fast do we change direction? higher means faster
     public float inAirDamping = 5f;
     public float jumpHeight = 3f;
-    public float LandingTime = 0.3f;    //落地硬直时间
     public Vector3 _velocity;
 
     [HideInInspector]
@@ -27,7 +26,6 @@ public class move : MonoBehaviour
     private MoveState MoveStatus;
     private float UncontrolableTime;       //受到强制位移无法控制的时间
     private float UncontrolableTimer;     //强制位移计时器
-    private float LandingTimer;               //落地硬直计时器
 
 
 
@@ -140,39 +138,15 @@ public class move : MonoBehaviour
             }
         }
 
-
-        Debug.Log(_velocity);
-        LandingTimer += Time.deltaTime;
         if (_controller.isGrounded&&MoveStatus==MoveState.NORMAL)
         {
-            if(_velocity.y<-7f) //从高空掉落，触发落地硬直
-            {
-                Debug.Log("触发落地硬直");
-                LandingTimer = 0;
-                MoveStatus = MoveState.LANDING;
-                anim.SetBool("isLanding", true);
-            }
             _velocity.y = 0;
-
             anim.SetBool("inSky", false);
-
-            Debug.Log("on the ground!");
         }
         else
         {
             anim.SetBool("inSky", true);
         }
-        if(MoveStatus==MoveState.LANDING)
-        {
-            if (LandingTimer < LandingTime)
-                return;
-            else
-            {
-                MoveStatus = MoveState.NORMAL;  //硬直结束，恢复正常
-                anim.SetBool("isLanding", false);
-            }
-        }
-
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && MoveStatus == MoveState.NORMAL && _controller.isGrounded)
         {
