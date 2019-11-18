@@ -194,7 +194,7 @@ public class shoot : MonoBehaviour
             changingTimer = 0;
             GunStatus = GunState.CHANGING;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2)&&GetComponent<PlayerManager>().Gun2Lock)
         {
             currentGun = Guns[1];
             shootingTimer =currentGun.shootingSpeed;

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Factory2.unity
     guid: 94a29f33eb9c55c4ca4007db18ec5d5a
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9211b9aa3090688458d62408bbe1dc79
   m_configObjects: {}

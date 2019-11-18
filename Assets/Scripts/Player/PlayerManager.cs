@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager _PlayerManager = null; //单例模式
     public bool RopeLock = false;           //判断主角是否获得绳索
+    public bool Gun2Lock = false;           //判断主角是否获得第二把枪（吸血枪）
+    public bool Gun3Lock = false;           //判断主角是否获得第三把枪（突击步枪）
 
     private int PlayerHP;
     public int PlayerHPMax = 100;
