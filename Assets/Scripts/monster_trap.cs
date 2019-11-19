@@ -5,9 +5,9 @@ using UnityEditor;
 public class monster_trap : MonoBehaviour
 {
     public GameObject monster;
-    public Vector2 respawn;
-    public Vector2 set_patrolStart;
-    public Vector2 set_patrolEnd;
+    static public Vector2 respawn;
+    static public Vector2 set_patrolStart;
+    static public Vector2 set_patrolEnd;
     bool is_trigger = false;
     private void OnDrawGizmos()
     {
@@ -39,9 +39,14 @@ public class monster_trap : MonoBehaviour
             {
                 Instantiate(monster);
                 monster.transform.position = respawn;
+                Debug.Log("respawn" + respawn);
                 GroundEnemyAI GroundEnemyAI = monster.GetComponent<GroundEnemyAI>();
-                GroundEnemyAI.patrolStart = set_patrolStart;
-                GroundEnemyAI.patrolEnd = set_patrolEnd;
+                if(GroundEnemyAI)
+                {
+                    GroundEnemyAI.patrolStart = set_patrolStart;
+                    GroundEnemyAI.patrolEnd = set_patrolEnd;
+                }
+                
 
                 is_trigger = true;
             }

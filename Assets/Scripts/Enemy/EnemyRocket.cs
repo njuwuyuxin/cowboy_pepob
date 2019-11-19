@@ -7,6 +7,8 @@ public class EnemyRocket : MonoBehaviour
     public float speed;
     private Transform player;
     private Vector2 target;
+    private float timer;
+    public float Follow_time;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +23,25 @@ public class EnemyRocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Vector2 target= new Vector2(player.position.x, player.position.y);
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        if (transform.position.x == target.x && transform.position.y == target.y)
+        timer += Time.deltaTime;
+        if(timer< Follow_time)
         {
-            DestoryProjectile();
+            Vector2 target = new Vector2(player.position.x, player.position.y);
+            transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            if (transform.position.x == target.x && transform.position.y == target.y)
+            {
+                DestoryProjectile();
+            }
         }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            if (transform.position.x == target.x && transform.position.y == target.y)
+            {
+                DestoryProjectile();
+            }
+        }
+        
     }
 
     void DestoryProjectile()
