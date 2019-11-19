@@ -1514,7 +1514,7 @@ MonoBehaviour:
   Gun2Lock: 0
   Gun3Lock: 0
   PlayerHP: 0
-  PlayerHPMax: 1000
+  PlayerHPMax: 100
   InvincibleTimeAfterDamage: 1
 --- !u!114 &4899592177349662887
 MonoBehaviour:

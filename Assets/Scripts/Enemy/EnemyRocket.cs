@@ -31,6 +31,8 @@ public class EnemyRocket : MonoBehaviour
             if (transform.position.x == target.x && transform.position.y == target.y)
             {
                 DestoryProjectile();
+                Debug.Log("Hit Player");
+                PlayerManager._PlayerManager.hurt(10);
             }
         }
         else
@@ -39,6 +41,9 @@ public class EnemyRocket : MonoBehaviour
             if (transform.position.x == target.x && transform.position.y == target.y)
             {
                 DestoryProjectile();
+                Debug.Log("Hit Player");
+                PlayerManager._PlayerManager.hurt(10);
+
             }
         }
         
@@ -47,5 +52,9 @@ public class EnemyRocket : MonoBehaviour
     void DestoryProjectile()
     {
         Destroy(gameObject);
+    }
+
+    void onTriggerEnter2D(Collider2D col)
+    {
     }
 }
