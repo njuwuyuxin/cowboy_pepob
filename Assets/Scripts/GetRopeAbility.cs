@@ -23,8 +23,9 @@ public class GetRopeAbility : MonoBehaviour
             return;
         Debug.Log("触碰宝箱");
         rope PlayerRopeScript = col.GetComponent<rope>();
-        if (PlayerRopeScript.enabled == false)
+        if (PlayerRopeScript.enabled == false&&PlayerManager._PlayerManager.RopeLock==false)
         {
+            PlayerManager._PlayerManager.RopeLock = true;
             PlayerRopeScript.enabled = true;
             PlayerRopeScript.ResetRope();
             InteractiveUI.SetActive(true);

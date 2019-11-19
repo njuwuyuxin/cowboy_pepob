@@ -134,7 +134,8 @@ public class move : MonoBehaviour
                 UncontrolableTime = 0;
                 UncontrolableTimer = 0;
                 MoveStatus = MoveState.NORMAL;
-                GetComponent<rope>().enabled = true;
+                if(PlayerManager._PlayerManager.RopeLock)
+                    GetComponent<rope>().enabled = true;
                 GetComponent<rope>().ResetRope();
             }
         }

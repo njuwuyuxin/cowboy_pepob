@@ -141,9 +141,11 @@ public class shoot : MonoBehaviour
         if (pos.y < 0)
             angle = -angle;
         angle = angle * Mathf.Deg2Rad;
-
+        
         Rigidbody2D bulletInstance = Instantiate(currentGun.Bullet.GetComponent<Rigidbody2D>(), BulletLaunchPoint.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
         bulletInstance.velocity = new Vector2(currentGun.flyingSpeed * Mathf.Cos(angle),currentGun.flyingSpeed * Mathf.Sin(angle));
+        if (bulletInstance.velocity.x < 0)
+            bulletInstance.transform.localScale = new Vector2(-bulletInstance.transform.localScale.x, bulletInstance.transform.localScale.y);
 
         if (currentGun.bulletLeft > 0)
            currentGun.bulletLeft--;
