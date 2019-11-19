@@ -43,3 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1f28f4c399cc0438d3c94d47bafe67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 8666041844100397713, guid: 3151a95c021458448a2723b285f6c07e,
+    type: 3}
+  DieMenu: {fileID: 4209505692073464134, guid: ca1f0a58ebe52ff41b2da1378c6446b4, type: 3}
