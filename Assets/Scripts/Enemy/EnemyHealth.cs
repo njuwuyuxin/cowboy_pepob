@@ -11,17 +11,19 @@ public class EnemyHealth : MonoBehaviour
     private SpriteRenderer ren;
     private bool dead = false;
     public int sinkSpeed;
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         ren = GetComponentInChildren<SpriteRenderer>();
-        
+        anim = GetComponentInChildren<Animator>();
         currentHealth = startingHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        ren.color = Color.white;
         if (currentHealth <= 0)
         {
             Death();
@@ -29,7 +31,8 @@ public class EnemyHealth : MonoBehaviour
         }
         else if(!dead&&currentHealth<startingHealth)
         {
-            ren.sprite = damagedEnemy;
+            //ren.sprite = damagedEnemy;
+            ren.color = Color.red;
         }
     }
     public void Hurt(int amount)
@@ -74,6 +77,7 @@ public class EnemyHealth : MonoBehaviour
 
         // Set dead to true.
         dead = true;
+        anim.Play("die");
         Debug.Log("Death");
         // Allow the enemy to rotate and spin it by adding a torque.
 

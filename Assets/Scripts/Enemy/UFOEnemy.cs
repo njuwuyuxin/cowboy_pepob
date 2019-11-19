@@ -17,8 +17,10 @@ public class UFOEnemy : MonoBehaviour
     public Transform player;
     private bool canFire = false;
     // Start is called before the first frame update
+    private Animator anim;
     void Start()
     {
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         timeBtwShots = startTimeBtwShots;
     }
@@ -41,6 +43,7 @@ public class UFOEnemy : MonoBehaviour
             if (timeBtwShots <= 0)
             {
                 //发射子弹
+                anim.Play("shoot");
                 Instantiate(projectile, transform.position, Quaternion.identity);
                 timeBtwShots = startTimeBtwShots;
             }
