@@ -1514,7 +1514,7 @@ MonoBehaviour:
   Gun2Lock: 0
   Gun3Lock: 0
   PlayerHP: 0
-  PlayerHPMax: 100
+  PlayerHPMax: 1000
   InvincibleTimeAfterDamage: 1
 --- !u!114 &4899592177349662887
 MonoBehaviour:
@@ -1632,7 +1632,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4899592177349662884}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c48428a3892c21e4ca7b61aaf2434345, type: 3}
