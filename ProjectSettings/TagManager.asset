@@ -19,6 +19,7 @@ TagManager:
   - HealthBar
   - "\u7EF3\u5B50"
   - "\u5B9D\u7BB1"
+  - PauseMenu
   layers:
   - Default
   - TransparentFX
