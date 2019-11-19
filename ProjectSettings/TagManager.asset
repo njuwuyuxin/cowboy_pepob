@@ -20,6 +20,8 @@ TagManager:
   - "\u7EF3\u5B50"
   - "\u5B9D\u7BB1"
   - Enemy_Bullet
+  - PauseMenu
+  - GameManager
   layers:
   - Default
   - TransparentFX
