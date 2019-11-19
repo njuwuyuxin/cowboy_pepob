@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095877126149302634}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.67, y: -12.08, z: 0}
   m_LocalScale: {x: 0.65, y: 0.65, z: 1}
   m_Children:
   - {fileID: 2095877126600850574}
@@ -108,8 +108,8 @@ MonoBehaviour:
   turnRoundSecond: 0
   enemyGFX: {fileID: 2095877126600850574}
   eneity: {fileID: 2095877126600850575}
-  patrolStart: {x: 0, y: 0}
-  patrolEnd: {x: 0, y: 0}
+  patrolStart: {x: -8, y: -17.48}
+  patrolEnd: {x: 1.3, y: -17.48}
   onlyTrack: 1
   gravity: -25
   runSpeed: 2

@@ -5,9 +5,9 @@ using UnityEditor;
 public class monster_trap : MonoBehaviour
 {
     public GameObject monster;
-    static public Vector2 respawn;
-    static public Vector2 set_patrolStart;
-    static public Vector2 set_patrolEnd;
+     public Vector2 respawn;
+     public Vector2 set_patrolStart;
+     public Vector2 set_patrolEnd;
     bool is_trigger = false;
     private void OnDrawGizmos()
     {

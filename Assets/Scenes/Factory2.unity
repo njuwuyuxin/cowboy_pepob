@@ -3207,6 +3207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 919351150649281062, guid: cb6d044a5c7513f42981d5a7807497e5, type: 3}
+  respawn: {x: 0, y: 0}
+  set_patrolStart: {x: 0, y: 0}
+  set_patrolEnd: {x: 0, y: 0}
 --- !u!61 &440981587
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14964,6 +14967,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 2095877126149302634, guid: af59da1bd6496c04e8e015277f2ecdb4, type: 3}
+  respawn: {x: -46.4, y: 4.8}
+  set_patrolStart: {x: -47.8, y: 1.19}
+  set_patrolEnd: {x: -45, y: 1.19}
 --- !u!61 &1249267147
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20108,6 +20114,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 2095877126149302634, guid: af59da1bd6496c04e8e015277f2ecdb4, type: 3}
+  respawn: {x: -2.67, y: -12.08}
+  set_patrolStart: {x: -8, y: -17.48}
+  set_patrolEnd: {x: 1.3, y: -17.48}
 --- !u!61 &2106733048
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20277,6 +20286,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 2095877126149302634, guid: af59da1bd6496c04e8e015277f2ecdb4, type: 3}
+  respawn: {x: -40.2, y: -2.2}
+  set_patrolStart: {x: -40.64, y: -4.54}
+  set_patrolEnd: {x: -38.36, y: -4.54}
 --- !u!61 &2125285775
 BoxCollider2D:
   m_ObjectHideFlags: 0
