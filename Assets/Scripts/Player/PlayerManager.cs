@@ -17,11 +17,9 @@ public class PlayerManager : MonoBehaviour
     private float InvincibleTimer;                                               //受击无敌计时器
     private HealthState HealthStatus;
     private GameObject HPSlotUI;
-    private Animator anim;
     // Start is called before the first frame update
     void Awake()
     {
-        anim = GetComponent<Animator>();
         if (_PlayerManager == null)
             _PlayerManager = this;
         else if (_PlayerManager != this)
@@ -80,10 +78,8 @@ public class PlayerManager : MonoBehaviour
 
     void Die()
     {
-        anim.SetBool("isDied", true);
         PlayerHP = PlayerHPMax;
         HPSlotUI.GetComponent<Image>().fillAmount = (float)PlayerHP / (float)PlayerHPMax;
         GameManager._GameManager.GameOver();
-        anim.SetBool("isDied", false);
     }
 }
