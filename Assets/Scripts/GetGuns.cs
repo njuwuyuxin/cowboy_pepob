@@ -19,6 +19,8 @@ public class GetGuns : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (col.tag != "Player")
+            return;
         Debug.Log("触碰枪支宝箱");
         PlayerManager manager = col.GetComponent<PlayerManager>();
 

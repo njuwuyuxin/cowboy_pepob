@@ -12,11 +12,12 @@ public class GunInfo
     public float flyingSpeed;                          //子弹飞行速度
     public int magVolume;                            //弹夹容量
     public int bulletLeft;                                //当前弹夹剩余子弹
+    public int bulletStore;                              //子弹储备量
     public float reloadSpeed;                        //装弹时间（单位/秒）
     public GameObject Gun;                         //枪支的模型
     public GameObject Bullet;                      //子弹的模型
 
-    public GunInfo(int gid, string gname, float shooting_speed, float flying_speed, int mag_volume, float reload_speed, GameObject gun, GameObject bullet)
+    public GunInfo(int gid, string gname, float shooting_speed, float flying_speed, int mag_volume,int bullet_store, float reload_speed, GameObject gun, GameObject bullet)
     {
         gunID = gid;
         gunName = gname;
@@ -24,6 +25,7 @@ public class GunInfo
         flyingSpeed = flying_speed;
         magVolume = mag_volume;
         bulletLeft = magVolume;
+        bulletStore = bullet_store;
         reloadSpeed = reload_speed;
         Gun = gun;
         Bullet = bullet;
@@ -45,7 +47,7 @@ public class shoot : MonoBehaviour
     private GunState GunStatus;
     public GameObject[] GunList;          //枪支实体列表,与子弹列表必须一一对应（没有枪支模型，暂时用空物体代替）
     public GameObject[] BulletList;       //子弹实体列表,与枪支列表必须一一对应
-    private GunInfo[] Guns;                   //存储枪支列表信息的容器
+    public GunInfo[] Guns;                   //存储枪支列表信息的容器
     private GunInfo currentGun;           //目前手持的枪
     private Transform BulletLaunchPoint;           //主角身上的子物体，绑定在枪支头部，用来确定子弹起始位置
 
@@ -61,13 +63,14 @@ public class shoot : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         GunStatus = GunState.IDLE;
-        Guns = new GunInfo[2];
+        Guns = new GunInfo[3];
         Guns[0] = new GunInfo(
             1,                              //枪支编号
             "左轮枪",                  //枪支名称
             0.2f,                         //枪支射速
             20f,                          //子弹飞行速度
             6,                             //弹夹容量
+            100,                        //子弹储备量
             1f,                            //装弹时间
             GunList[0],              //枪支的模型
             BulletList[0]            //子弹的模型
@@ -75,13 +78,25 @@ public class shoot : MonoBehaviour
         Guns[1] = new GunInfo(
             2,                              //枪支编号
             "吸血枪",                  //枪支名称
-            1f,                         //枪支射速
+            1f,                            //枪支射速
             15f,                          //子弹飞行速度
             5,                             //弹夹容量
-            1.5f,                            //装弹时间
+            20,                           //子弹储备量
+            1.5f,                         //装弹时间
             GunList[1],              //枪支的模型
             BulletList[1]            //子弹的模型
             );
+        Guns[2] = new GunInfo(
+           3,                              //枪支编号
+           "突击步枪",               //枪支名称
+           0.1f,                          //枪支射速
+           25f,                          //子弹飞行速度
+           30,                           //弹夹容量
+           120,                         //子弹储备量
+           1.5f,                         //装弹时间
+           GunList[2],              //枪支的模型
+           BulletList[2]            //子弹的模型
+           );
         currentGun = Guns[0];
         shootingTimer =currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
         reloadingTimer = 0;
@@ -96,9 +111,9 @@ public class shoot : MonoBehaviour
         //playerCtrl = transform.root.GetComponent<PlayerControl>();
     }
 
-    private void UpdateBulletCountUI()
+    public void UpdateBulletCountUI()
     {
-        BulletCountUI.GetComponent<Text>().text = currentGun.bulletLeft.ToString() + "/∞";
+        BulletCountUI.GetComponent<Text>().text = currentGun.bulletLeft.ToString() + "/"+currentGun.bulletStore.ToString();
     }
     private void shootEvent()
     {
@@ -161,7 +176,7 @@ public class shoot : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R)&&GunStatus!=GunState.RELOADING)
         {
-            if(currentGun.bulletLeft!=currentGun.magVolume)            //弹夹非满
+            if(currentGun.bulletLeft!=currentGun.magVolume&&currentGun.bulletStore>0)            //弹夹非满，且有弹药储备
             {
                 GunStatus = GunState.RELOADING;
                 UpdateBulletCountUI();
@@ -179,7 +194,17 @@ public class shoot : MonoBehaviour
             else
             {
                 reloadingTimer = 0;
-               currentGun.bulletLeft =currentGun.magVolume;
+                int bulletNeed = currentGun.magVolume - currentGun.bulletLeft;
+                if (currentGun.bulletStore >= bulletNeed)   //当前储备大于此次补充量
+                {
+                    currentGun.bulletStore -= bulletNeed;
+                    currentGun.bulletLeft = currentGun.magVolume;
+                }
+                else
+                {
+                    currentGun.bulletLeft += currentGun.bulletStore;
+                    currentGun.bulletStore = 0;
+                }
                 GunStatus = GunState.IDLE;
                 anim.SetBool("isReloading", false);
                 UpdateBulletCountUI();
@@ -201,6 +226,13 @@ public class shoot : MonoBehaviour
             changingTimer = 0;
             GunStatus = GunState.CHANGING;  
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && GetComponent<PlayerManager>().Gun3Lock)
+        {
+            currentGun = Guns[2];
+            shootingTimer = currentGun.shootingSpeed;
+            changingTimer = 0;
+            GunStatus = GunState.CHANGING;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -219,12 +251,12 @@ public class shoot : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
 
-            if (shootingTimer>=currentGun.shootingSpeed)     //一次射击事件
+            if (shootingTimer>=currentGun.shootingSpeed&&currentGun.bulletLeft>0)     //一次射击事件
             {
                 anim.SetBool("isShooting", true);
                 shootingTimer = 0;
                 shootEvent();
-                if (currentGun.bulletLeft == 0)             //弹夹打光自动进入换弹状态
+                if (currentGun.bulletLeft == 0&&currentGun.bulletStore>0)             //弹夹打光自动进入换弹状态（如果还有剩余备弹）
                 {
                     GunStatus = GunState.RELOADING;
                     anim.SetBool("isShooting", false);
