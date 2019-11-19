@@ -127,48 +127,48 @@ public class GroundEnemyAI : MonoBehaviour
     private bool isRunning = false;
     void OnDrawGizmos()
     {
-        Color color = Handles.color;
-        Handles.color = sightColor;
-        int angle = viewAngle / 2;
-        //绕z轴旋转半个
-        Vector3 startLine = Quaternion.Euler(0, 0, -angle) * forward;
-        Handles.DrawSolidArc(this.enemyGFX.position, up, new Vector3(startLine.x, startLine.y, 0f), viewAngle, viewRadius);
-        Handles.color = Color.blue;
-        Handles.DrawSolidDisc(new Vector3(patrolStart.x, patrolStart.y, -1), up, 0.3f);
-        Handles.DrawSolidDisc(new Vector3(patrolEnd.x, patrolEnd.y, -1), up, 0.3f);
-        if (state == EnemyState.PATROL || state == EnemyState.TRACK || state == EnemyState.FIRE)
-        {
-            if (rb == null) { return; }
-            if ((rb.position- (Vector2)target.position).sqrMagnitude<=4*viewRadius*viewRadius) {
-                Vector2 end = target.position;
-                bool canSee = getSightPoint(rb.position, target.position, out end, "ground", "Default");
-                if (canSee)
-                {
-                    seeColor = Color.red;
-                }
-                if((end- rb.position).sqrMagnitude>viewRadius)
-                    Handles.DrawBezier(rb.position, end, rb.position, end, seeColor, null, 3);
+        //Color color = Handles.color;
+        //Handles.color = sightColor;
+        //int angle = viewAngle / 2;
+        ////绕z轴旋转半个
+        //Vector3 startLine = Quaternion.Euler(0, 0, -angle) * forward;
+        //Handles.DrawSolidArc(this.enemyGFX.position, up, new Vector3(startLine.x, startLine.y, 0f), viewAngle, viewRadius);
+        //Handles.color = Color.blue;
+        //Handles.DrawSolidDisc(new Vector3(patrolStart.x, patrolStart.y, -1), up, 0.3f);
+        //Handles.DrawSolidDisc(new Vector3(patrolEnd.x, patrolEnd.y, -1), up, 0.3f);
+        //if (state == EnemyState.PATROL || state == EnemyState.TRACK || state == EnemyState.FIRE)
+        //{
+        //    if (rb == null) { return; }
+        //    if ((rb.position- (Vector2)target.position).sqrMagnitude<=4*viewRadius*viewRadius) {
+        //        Vector2 end = target.position;
+        //        bool canSee = getSightPoint(rb.position, target.position, out end, "ground", "Default");
+        //        if (canSee)
+        //        {
+        //            seeColor = Color.red;
+        //        }
+        //        if((end- rb.position).sqrMagnitude>viewRadius)
+        //            Handles.DrawBezier(rb.position, end, rb.position, end, seeColor, null, 3);
 
-                seeColor = Color.magenta;
-            }
+        //        seeColor = Color.magenta;
+        //    }
 
-        }
-        if (isRunning)
-        {
-            if (rb == null) { return; }
-            float x = 1 * forward.x;
-            int y = 1;
-            Vector2 start = new Vector2(rb.position.x + x, rb.position.y + y);
-            RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 8, 1 << LayerMask.GetMask("ground") | 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("OneWayPlatform"));
-            Vector3 end = new Vector2(rb.position.x + x, rb.position.y + y - 8);
-            if (hit.collider != null)
-            {
-                end = hit.point;
-            }
-            Handles.DrawBezier(start, end, start, end, Color.magenta, null, 3);
-        }
+        //}
+        //if (isRunning)
+        //{
+        //    if (rb == null) { return; }
+        //    float x = 1 * forward.x;
+        //    int y = 1;
+        //    Vector2 start = new Vector2(rb.position.x + x, rb.position.y + y);
+        //    RaycastHit2D hit = Physics2D.Raycast(start, new Vector2(0, -1f), 8, 1 << LayerMask.GetMask("ground") | 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("OneWayPlatform"));
+        //    Vector3 end = new Vector2(rb.position.x + x, rb.position.y + y - 8);
+        //    if (hit.collider != null)
+        //    {
+        //        end = hit.point;
+        //    }
+        //    Handles.DrawBezier(start, end, start, end, Color.magenta, null, 3);
+        //}
 
-        Handles.color = color;
+        //Handles.color = color;
 
     }
     bool getSightPoint(Vector2 enemyPos,Vector2 playerPos, out Vector2 colliderPos, params string[] layers) {

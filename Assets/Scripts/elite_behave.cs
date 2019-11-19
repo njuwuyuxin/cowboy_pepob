@@ -33,12 +33,12 @@ public class elite_behave : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Color color = Handles.color;
-        Handles.color = Color.green;
-        Handles.DrawSolidDisc(new Vector3(patrol1.x, patrol1.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
-        Handles.DrawSolidDisc(new Vector3(patrol2.x, patrol2.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
-        Handles.DrawSolidDisc(new Vector3(patrol3.x, patrol3.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
-        Handles.DrawSolidDisc(new Vector3(patrol4.x, patrol4.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
+        //Color color = Handles.color;
+        //Handles.color = Color.green;
+        //Handles.DrawSolidDisc(new Vector3(patrol1.x, patrol1.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
+        //Handles.DrawSolidDisc(new Vector3(patrol2.x, patrol2.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
+        //Handles.DrawSolidDisc(new Vector3(patrol3.x, patrol3.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
+        //Handles.DrawSolidDisc(new Vector3(patrol4.x, patrol4.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
 
     }
     // Start is called before the first frame update

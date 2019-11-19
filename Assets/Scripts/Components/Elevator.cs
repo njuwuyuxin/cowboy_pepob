@@ -46,10 +46,10 @@ public class Elevator : MonoBehaviour
     }
     void OnDrawGizmos()
     {
-        Color color = Handles.color;
-        Handles.color = Color.green;
-        for(int i=0;i<Points.Length;i++)
-            Handles.DrawSolidDisc(new Vector3(Points[i].x, Points[i].y, -1), new Vector3(0f, 0f, 1f), 0.3f);   
+        //Color color = Handles.color;
+        //Handles.color = Color.green;
+        //for(int i=0;i<Points.Length;i++)
+        //    Handles.DrawSolidDisc(new Vector3(Points[i].x, Points[i].y, -1), new Vector3(0f, 0f, 1f), 0.3f);   
     }
     // Update is called once per frame
     void Update()
