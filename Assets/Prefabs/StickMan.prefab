@@ -1371,6 +1371,7 @@ MonoBehaviour:
   startPointOffset: {x: 0.35, y: 1.1, z: 0}
   GravityRatio: 375
   HorizontalVelocity: 2
+  LaunchSound: {fileID: 8300000, guid: 74662b5f302a3f2418bd5ad3db5bdac3, type: 3}
   anim: {fileID: 0}
 --- !u!120 &4899592177349662888
 LineRenderer:
@@ -1492,6 +1493,10 @@ MonoBehaviour:
   - {fileID: 4617979970053145026, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
   - {fileID: 4617979970053145026, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
   - {fileID: 4617979970053145026, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
+  ShootSounds:
+  - {fileID: 8300000, guid: e4dfd0775793a6d4c81414dee7e8e2a0, type: 3}
+  - {fileID: 8300000, guid: 2414dcb1e3ad9d54d9915f8d9ac53931, type: 3}
+  - {fileID: 8300000, guid: 2414dcb1e3ad9d54d9915f8d9ac53931, type: 3}
 --- !u!114 &4899592177349662886
 MonoBehaviour:
   m_ObjectHideFlags: 0

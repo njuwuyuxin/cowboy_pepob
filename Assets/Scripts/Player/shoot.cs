@@ -16,8 +16,9 @@ public class GunInfo
     public float reloadSpeed;                        //装弹时间（单位/秒）
     public GameObject Gun;                         //枪支的模型
     public GameObject Bullet;                      //子弹的模型
+    public AudioClip shootSound;                //枪支发射时的音效
 
-    public GunInfo(int gid, string gname, float shooting_speed, float flying_speed, int mag_volume,int bullet_store, float reload_speed, GameObject gun, GameObject bullet)
+    public GunInfo(int gid, string gname, float shooting_speed, float flying_speed, int mag_volume,int bullet_store, float reload_speed, GameObject gun, GameObject bullet,AudioClip shoot_sound)
     {
         gunID = gid;
         gunName = gname;
@@ -29,6 +30,7 @@ public class GunInfo
         reloadSpeed = reload_speed;
         Gun = gun;
         Bullet = bullet;
+        shootSound = shoot_sound;
     }
 }
 public class shoot : MonoBehaviour
@@ -43,10 +45,12 @@ public class shoot : MonoBehaviour
     private float reloadingTimer;
     private float changingTimer;
     private GameObject BulletCountUI;
+    //public AudioClip ShootSoundClip;
 
     private GunState GunStatus;
     public GameObject[] GunList;          //枪支实体列表,与子弹列表必须一一对应（没有枪支模型，暂时用空物体代替）
     public GameObject[] BulletList;       //子弹实体列表,与枪支列表必须一一对应
+    public AudioClip[] ShootSounds;     //枪支发射音效列表
     public GunInfo[] Guns;                   //存储枪支列表信息的容器
     private GunInfo currentGun;           //目前手持的枪
     private Transform BulletLaunchPoint;           //主角身上的子物体，绑定在枪支头部，用来确定子弹起始位置
@@ -68,13 +72,14 @@ public class shoot : MonoBehaviour
         Guns[0] = new GunInfo(
             1,                              //枪支编号
             "左轮枪",                  //枪支名称
-            0.2f,                         //枪支射速
+            0.4f,                         //枪支射速
             20f,                          //子弹飞行速度
             6,                             //弹夹容量
             100,                        //子弹储备量
             1f,                            //装弹时间
             GunList[0],              //枪支的模型
-            BulletList[0]            //子弹的模型
+            BulletList[0],           //子弹的模型
+            ShootSounds[0]
             );
         Guns[1] = new GunInfo(
             2,                              //枪支编号
@@ -85,7 +90,8 @@ public class shoot : MonoBehaviour
             20,                           //子弹储备量
             1.5f,                         //装弹时间
             GunList[1],              //枪支的模型
-            BulletList[1]            //子弹的模型
+            BulletList[1],           //子弹的模型
+            ShootSounds[1]
             );
         Guns[2] = new GunInfo(
            3,                              //枪支编号
@@ -96,7 +102,8 @@ public class shoot : MonoBehaviour
            120,                         //子弹储备量
            1.5f,                         //装弹时间
            GunList[2],              //枪支的模型
-           BulletList[2]            //子弹的模型
+           BulletList[2],           //子弹的模型
+           ShootSounds[2]
            );
         currentGun = Guns[0];
         shootingTimer =currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
@@ -143,6 +150,7 @@ public class shoot : MonoBehaviour
         else
             Debug.LogError("Err: 剩余弹药量小于0");
 
+        shootSound.clip = currentGun.shootSound;
         shootSound.Play();
         UpdateBulletCountUI();
     }
