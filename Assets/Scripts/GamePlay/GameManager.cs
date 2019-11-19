@@ -77,6 +77,15 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            Destroy(player);
+        GameObject manager = GameObject.FindGameObjectWithTag("GameManager");
+        if (manager != null)
+            Destroy(manager);
+        GameObject UIcanvas = GameObject.Find("Canvas(Clone)");
+        if (UIcanvas != null)
+            Destroy(UIcanvas);
         LoadSceneByName("MainMenu");
     }
 }
