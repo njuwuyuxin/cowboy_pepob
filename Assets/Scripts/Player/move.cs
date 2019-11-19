@@ -141,11 +141,11 @@ public class move : MonoBehaviour
         if (_controller.isGrounded&&MoveStatus==MoveState.NORMAL)
         {
             _velocity.y = 0;
-            anim.SetBool("inSky", false);
+            //anim.SetBool("inSky", false);
         }
         else
         {
-            anim.SetBool("inSky", true);
+            //anim.SetBool("inSky", true);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && MoveStatus == MoveState.NORMAL && _controller.isGrounded)
