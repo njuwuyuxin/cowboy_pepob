@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager _GameManager = null; //单例模式
     public GameObject PauseMenu;
+    public GameObject DieMenu;
 
     private GameState GameStatus;
     // Start is called before the first frame update
@@ -65,5 +66,17 @@ public class GameManager : MonoBehaviour
     {
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0;
+        Instantiate(DieMenu);
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        LoadSceneByName("MainMenu");
     }
 }

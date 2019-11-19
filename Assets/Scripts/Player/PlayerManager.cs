@@ -61,9 +61,12 @@ public class PlayerManager : MonoBehaviour
         if (HealthStatus == HealthState.NORMAL)
         {
             PlayerHP -= damage;
-            HPSlotUI.GetComponent<Image>().fillAmount = (float)PlayerHP / (float)PlayerHPMax;
             if (PlayerHP <= 0)
+            {
+                PlayerHP = 0;
                 Die();
+            }
+            HPSlotUI.GetComponent<Image>().fillAmount = (float)PlayerHP / (float)PlayerHPMax;
             HealthStatus = HealthState.INVINCIBLE;
         }
     }
@@ -77,5 +80,6 @@ public class PlayerManager : MonoBehaviour
     {
         PlayerHP = PlayerHPMax;
         HPSlotUI.GetComponent<Image>().fillAmount = (float)PlayerHP / (float)PlayerHPMax;
+        GameManager._GameManager.GameOver();
     }
 }
