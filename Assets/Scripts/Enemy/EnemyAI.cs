@@ -56,26 +56,26 @@ public class EnemyAI : MonoBehaviour
     private bool isToEnd = true;
     void OnDrawGizmos()
     {
-        Color color = Handles.color;
-        Handles.color = sightColor;
-        int angle = viewAngle / 2;
-        //绕z轴旋转半个
-        Vector3 startLine = Quaternion.Euler(0,0 , -angle) * forward;
-        Handles.DrawSolidArc(this.enemyGFX.position, up, new Vector3(startLine.x, startLine.y, 0f), viewAngle, viewRadius);
-        Handles.color = Color.blue;
-        Handles.DrawSolidDisc(new Vector3(patrolStart.x, patrolStart.y,-1), up,0.3f);
-        Handles.DrawSolidDisc(new Vector3(patrolEnd.x, patrolEnd.y, -1), up, 0.3f);
-        if (state == EnemyState.PATROL || state == EnemyState.TRACK|| state == EnemyState.FIRE) {
-            if (rb == null) { return; }
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
-            Vector3 end = target.position;
-            if (hit.collider!=null)
-            {
-                end = hit.point;
-            }
-            Handles.DrawBezier(rb.position, end, rb.position, end, Color.magenta, null, 3);
-        }
-        Handles.color = color;
+        //Color color = Handles.color;
+        //Handles.color = sightColor;
+        //int angle = viewAngle / 2;
+        ////绕z轴旋转半个
+        //Vector3 startLine = Quaternion.Euler(0,0 , -angle) * forward;
+        //Handles.DrawSolidArc(this.enemyGFX.position, up, new Vector3(startLine.x, startLine.y, 0f), viewAngle, viewRadius);
+        //Handles.color = Color.blue;
+        //Handles.DrawSolidDisc(new Vector3(patrolStart.x, patrolStart.y,-1), up,0.3f);
+        //Handles.DrawSolidDisc(new Vector3(patrolEnd.x, patrolEnd.y, -1), up, 0.3f);
+        //if (state == EnemyState.PATROL || state == EnemyState.TRACK|| state == EnemyState.FIRE) {
+        //    if (rb == null) { return; }
+        //    RaycastHit2D hit = Physics2D.Raycast(rb.position, ((Vector2)target.position - rb.position).normalized, int.MaxValue, 1 << LayerMask.NameToLayer("OneWayPlatform"));
+        //    Vector3 end = target.position;
+        //    if (hit.collider!=null)
+        //    {
+        //        end = hit.point;
+        //    }
+        //    Handles.DrawBezier(rb.position, end, rb.position, end, Color.magenta, null, 3);
+        //}
+        //Handles.color = color;
 
     }
 

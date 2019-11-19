@@ -11,13 +11,13 @@ public class monster_trap : MonoBehaviour
     bool is_trigger = false;
     private void OnDrawGizmos()
     {
-        Color color = Handles.color;
-        Handles.color = Color.green;
-        Handles.DrawSolidDisc(new Vector3(respawn.x, respawn.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
-        color = Handles.color;
-        Handles.color = Color.yellow;
-        Handles.DrawSolidDisc(new Vector3(set_patrolStart.x, set_patrolStart.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
-        Handles.DrawSolidDisc(new Vector3(set_patrolEnd.x, set_patrolEnd.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
+        //Color color = Handles.color;
+        //Handles.color = Color.green;
+        //Handles.DrawSolidDisc(new Vector3(respawn.x, respawn.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
+        //color = Handles.color;
+        //Handles.color = Color.yellow;
+        //Handles.DrawSolidDisc(new Vector3(set_patrolStart.x, set_patrolStart.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
+        //Handles.DrawSolidDisc(new Vector3(set_patrolEnd.x, set_patrolEnd.y, -1), new Vector3(0f, 0f, 1f), 0.3f);
 
     }
     // Start is called before the first frame update
