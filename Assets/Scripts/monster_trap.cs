@@ -37,10 +37,10 @@ public class monster_trap : MonoBehaviour
         {
             if(is_trigger==false)
             {
-                Instantiate(monster);
-                monster.transform.position = respawn;
+                GameObject i_obejct=Instantiate(monster, new Vector3(respawn.x,respawn.y,-2),new Quaternion(0,0,0,0));
+                //monster.transform.position = respawn;
                 Debug.Log("respawn" + respawn);
-                GroundEnemyAI GroundEnemyAI = monster.GetComponent<GroundEnemyAI>();
+                GroundEnemyAI GroundEnemyAI = i_obejct.GetComponent<GroundEnemyAI>();
                 if(GroundEnemyAI)
                 {
                     GroundEnemyAI.patrolStart = set_patrolStart;

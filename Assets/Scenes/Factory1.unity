@@ -4523,6 +4523,46 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1003843051805375645, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003843051805375645, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003843051805375645, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: ElevatorDirection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: MoveDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: ElevatorSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: isAuto
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
+        type: 3}
+      propertyPath: showUI
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6919654695209517989, guid: 8c64f5be792146b418e985de0186e8ec,
         type: 3}
       propertyPath: m_Name
@@ -4641,46 +4681,6 @@ PrefabInstance:
     - target: {fileID: 8731247486281294603, guid: 8c64f5be792146b418e985de0186e8ec,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003843051805375645, guid: 8c64f5be792146b418e985de0186e8ec,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003843051805375645, guid: 8c64f5be792146b418e985de0186e8ec,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003843051805375645, guid: 8c64f5be792146b418e985de0186e8ec,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
-        type: 3}
-      propertyPath: ElevatorDirection
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
-        type: 3}
-      propertyPath: MoveDistance
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
-        type: 3}
-      propertyPath: ElevatorSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
-        type: 3}
-      propertyPath: isAuto
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003843051805375585, guid: 8c64f5be792146b418e985de0186e8ec,
-        type: 3}
-      propertyPath: showUI
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
