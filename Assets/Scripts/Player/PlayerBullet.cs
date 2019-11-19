@@ -19,7 +19,8 @@ public class PlayerBullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(col.tag);
+        if(col.tag!="Player")
+            Debug.Log(col.tag);
         if (col.tag == "Enemy")
         {
             col.gameObject.GetComponent<EnemyHealth>().Hurt(DamagePerShoot);
