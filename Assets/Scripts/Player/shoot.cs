@@ -50,7 +50,7 @@ public class shoot : MonoBehaviour
     public GunInfo[] Guns;                   //存储枪支列表信息的容器
     private GunInfo currentGun;           //目前手持的枪
     private Transform BulletLaunchPoint;           //主角身上的子物体，绑定在枪支头部，用来确定子弹起始位置
-
+    private AudioSource shootSound;
     //private int shootableMask;
     //LineRenderer gunLine;
     //int range = 100;
@@ -61,6 +61,7 @@ public class shoot : MonoBehaviour
     //GameObject player;
     void Awake()
     {
+        shootSound = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         GunStatus = GunState.IDLE;
         Guns = new GunInfo[3];
@@ -142,6 +143,7 @@ public class shoot : MonoBehaviour
         else
             Debug.LogError("Err: 剩余弹药量小于0");
 
+        shootSound.Play();
         UpdateBulletCountUI();
     }
 
