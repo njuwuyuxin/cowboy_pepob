@@ -1370,6 +1370,7 @@ MonoBehaviour:
   startPointOffset: {x: 0.35, y: 1.1, z: 0}
   GravityRatio: 375
   HorizontalVelocity: 2
+  LaunchSound: {fileID: 8300000, guid: 74662b5f302a3f2418bd5ad3db5bdac3, type: 3}
   anim: {fileID: 0}
 --- !u!120 &4899592177349662888
 LineRenderer:
@@ -1483,6 +1484,7 @@ MonoBehaviour:
   rocket: {fileID: 4617979970049723426, guid: dc89b19769936bc49ade139a2ba0376d, type: 3}
   speed: 20
   ChangingTime: 0.5
+  ShootSoundClip: {fileID: 8300000, guid: 2414dcb1e3ad9d54d9915f8d9ac53931, type: 3}
   GunList:
   - {fileID: 6560660630274883863, guid: 2f93195e91cc8e647a418bac38a96377, type: 3}
   - {fileID: 5753060855367128872, guid: 9a14f132f4b486247aaf607bc270cd42, type: 3}

@@ -43,6 +43,7 @@ public class shoot : MonoBehaviour
     private float reloadingTimer;
     private float changingTimer;
     private GameObject BulletCountUI;
+    public AudioClip ShootSoundClip;
 
     private GunState GunStatus;
     public GameObject[] GunList;          //枪支实体列表,与子弹列表必须一一对应（没有枪支模型，暂时用空物体代替）
@@ -143,6 +144,7 @@ public class shoot : MonoBehaviour
         else
             Debug.LogError("Err: 剩余弹药量小于0");
 
+        shootSound.clip = ShootSoundClip;
         shootSound.Play();
         UpdateBulletCountUI();
     }

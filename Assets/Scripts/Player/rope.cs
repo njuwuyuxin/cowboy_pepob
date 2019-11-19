@@ -15,6 +15,7 @@ public class rope : MonoBehaviour
     public Vector3 startPointOffset;
     public float GravityRatio = 375;                                   //重力系数对速度的影响
     public float HorizontalVelocity=2f;                             //人物在钩锁牵引过程中，按A D方向键时产生水平速度的分量
+    public AudioClip LaunchSound;
 
     private float DragSpeed;
     private LineRenderer line;
@@ -59,6 +60,9 @@ public class rope : MonoBehaviour
         if (Input.GetMouseButtonDown(1)&&RopeStatus==RopeState.IDLE)
         {
             RopeStatus = RopeState.LAUNGCHING;
+            AudioSource audio_source = GetComponent<AudioSource>();
+            audio_source.clip = LaunchSound;
+            audio_source.Play();
             if (isThrowing)
             {
                 anim.SetBool("isThrowingRope", true);
