@@ -20,7 +20,7 @@ public class UIEvents : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Game Start!");
-        SceneManager.LoadScene("Factory2");
+        SceneManager.LoadScene("Factory1");
     }
 
     public void ExitGame()
