@@ -12,6 +12,8 @@ public class EnemyHealth : MonoBehaviour
     private bool dead = false;
     public int sinkSpeed;
     private Animator anim;
+    private float hurtTime = 0.2f;//敌人受击后变色时间
+    private float hurtTimer;//计时器
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,17 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ren.color = Color.white;
+        if (ren.color == Color.red)
+        {
+            hurtTimer += Time.deltaTime;
+            Debug.Log("hurtTimer is " + hurtTimer);
+            if (hurtTimer >= hurtTime)
+            {
+                ren.color = Color.white;
+                Debug.Log("white");
+                hurtTimer = 0;
+            }
+        }
         if (currentHealth <= 0)
         {
             Death();
@@ -32,12 +44,13 @@ public class EnemyHealth : MonoBehaviour
         else if(!dead&&currentHealth<startingHealth)
         {
             //ren.sprite = damagedEnemy;
-            ren.color = Color.red;
         }
     }
     public void Hurt(int amount)
     {
         currentHealth -= amount;
+        ren.color = Color.red;
+        Debug.Log("red");
     }
     public void Die()
     {
