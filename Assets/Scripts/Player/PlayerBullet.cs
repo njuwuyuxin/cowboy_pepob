@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
+    public Bullettype BulletType;
     public int DamagePerShoot;
     // Start is called before the first frame update
     void Awake()
@@ -24,6 +25,13 @@ public class PlayerBullet : MonoBehaviour
         if (col.tag == "Enemy")
         {
             col.gameObject.GetComponent<EnemyHealth>().Hurt(DamagePerShoot);
+            if(BulletType==Bullettype.Blood)
+            {
+                PlayerManager._PlayerManager.PlayerHP += (int)(DamagePerShoot * 0.4f);
+                if (PlayerManager._PlayerManager.PlayerHP > PlayerManager._PlayerManager.PlayerHPMax)
+                    PlayerManager._PlayerManager.PlayerHP = PlayerManager._PlayerManager.PlayerHPMax;
+                PlayerManager._PlayerManager.UpdateHPUI();
+            }
             Destroy(gameObject);
         }
         else if (col.gameObject.tag != "Player")

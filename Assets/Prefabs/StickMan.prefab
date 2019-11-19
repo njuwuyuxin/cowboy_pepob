@@ -1492,8 +1492,8 @@ MonoBehaviour:
   - {fileID: 5753060855367128872, guid: 9a14f132f4b486247aaf607bc270cd42, type: 3}
   BulletList:
   - {fileID: 4518749930074896920, guid: f4744d8bb95b7a74781a964e14178530, type: 3}
-  - {fileID: 4518749930074896920, guid: f4744d8bb95b7a74781a964e14178530, type: 3}
-  - {fileID: 4518749930074896920, guid: f4744d8bb95b7a74781a964e14178530, type: 3}
+  - {fileID: 6923397359894693468, guid: e36d7b9f436d4ef46869582859091ac4, type: 3}
+  - {fileID: 59537671618369812, guid: 98ffe12bfa39aab4799b32686ee4c7d7, type: 3}
   ShootSounds:
   - {fileID: 8300000, guid: e4dfd0775793a6d4c81414dee7e8e2a0, type: 3}
   - {fileID: 8300000, guid: 2414dcb1e3ad9d54d9915f8d9ac53931, type: 3}
@@ -1513,6 +1513,7 @@ MonoBehaviour:
   RopeLock: 0
   Gun2Lock: 0
   Gun3Lock: 0
+  PlayerHP: 0
   PlayerHPMax: 1000
   InvincibleTimeAfterDamage: 1
 --- !u!114 &4899592177349662887

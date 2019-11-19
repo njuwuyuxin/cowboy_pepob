@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     public bool Gun2Lock = false;           //判断主角是否获得第二把枪（吸血枪）
     public bool Gun3Lock = false;           //判断主角是否获得第三把枪（突击步枪）
 
-    private int PlayerHP;
+    public int PlayerHP;
     public int PlayerHPMax = 100;
     public float InvincibleTimeAfterDamage = 1f;                  //收到伤害后的无敌时间（指敌人碰撞，踩到陷阱)
     private float InvincibleTimer;                                               //受击无敌计时器
@@ -68,7 +68,7 @@ public class PlayerManager : MonoBehaviour
                 PlayerHP = 0;
                 Die();
             }
-            HPSlotUI.GetComponent<Image>().fillAmount = (float)PlayerHP / (float)PlayerHPMax;
+            UpdateHPUI();
             HealthStatus = HealthState.INVINCIBLE;
         }
     }
@@ -85,5 +85,10 @@ public class PlayerManager : MonoBehaviour
         HPSlotUI.GetComponent<Image>().fillAmount = (float)PlayerHP / (float)PlayerHPMax;
         GameManager._GameManager.GameOver();
         anim.SetBool("isDied", false);
+    }
+
+    public void UpdateHPUI()
+    {
+        HPSlotUI.GetComponent<Image>().fillAmount = (float)PlayerHP / (float)PlayerHPMax;
     }
 }
