@@ -24,6 +24,8 @@ public class GetBullets : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (col.tag != "Player")
+            return;
         if (used)
             return;
         Debug.Log("触碰子弹宝箱");

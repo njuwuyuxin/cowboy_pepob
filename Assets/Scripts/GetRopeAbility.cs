@@ -19,6 +19,8 @@ public class GetRopeAbility : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (col.tag != "Player")
+            return;
         Debug.Log("触碰宝箱");
         rope PlayerRopeScript = col.GetComponent<rope>();
         if (PlayerRopeScript.enabled == false)
