@@ -47,7 +47,7 @@ public class shoot : MonoBehaviour
     private GunState GunStatus;
     public GameObject[] GunList;          //枪支实体列表,与子弹列表必须一一对应（没有枪支模型，暂时用空物体代替）
     public GameObject[] BulletList;       //子弹实体列表,与枪支列表必须一一对应
-    private GunInfo[] Guns;                   //存储枪支列表信息的容器
+    public GunInfo[] Guns;                   //存储枪支列表信息的容器
     private GunInfo currentGun;           //目前手持的枪
     private Transform BulletLaunchPoint;           //主角身上的子物体，绑定在枪支头部，用来确定子弹起始位置
 
@@ -63,7 +63,7 @@ public class shoot : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         GunStatus = GunState.IDLE;
-        Guns = new GunInfo[2];
+        Guns = new GunInfo[3];
         Guns[0] = new GunInfo(
             1,                              //枪支编号
             "左轮枪",                  //枪支名称
@@ -86,6 +86,17 @@ public class shoot : MonoBehaviour
             GunList[1],              //枪支的模型
             BulletList[1]            //子弹的模型
             );
+        Guns[2] = new GunInfo(
+           3,                              //枪支编号
+           "突击步枪",               //枪支名称
+           0.1f,                          //枪支射速
+           25f,                          //子弹飞行速度
+           30,                           //弹夹容量
+           120,                         //子弹储备量
+           1.5f,                         //装弹时间
+           GunList[2],              //枪支的模型
+           BulletList[2]            //子弹的模型
+           );
         currentGun = Guns[0];
         shootingTimer =currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
         reloadingTimer = 0;
@@ -100,7 +111,7 @@ public class shoot : MonoBehaviour
         //playerCtrl = transform.root.GetComponent<PlayerControl>();
     }
 
-    private void UpdateBulletCountUI()
+    public void UpdateBulletCountUI()
     {
         BulletCountUI.GetComponent<Text>().text = currentGun.bulletLeft.ToString() + "/"+currentGun.bulletStore.ToString();
     }
@@ -214,6 +225,13 @@ public class shoot : MonoBehaviour
             shootingTimer =currentGun.shootingSpeed;
             changingTimer = 0;
             GunStatus = GunState.CHANGING;  
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && GetComponent<PlayerManager>().Gun3Lock)
+        {
+            currentGun = Guns[2];
+            shootingTimer = currentGun.shootingSpeed;
+            changingTimer = 0;
+            GunStatus = GunState.CHANGING;
         }
 
         if (Input.GetMouseButtonDown(0))
