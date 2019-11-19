@@ -14,6 +14,7 @@ public class move : MonoBehaviour
     public float inAirDamping = 5f;
     public float jumpHeight = 3f;
     public Vector3 _velocity;
+    public AudioClip JumpSound;     //跳跃音效
 
     [HideInInspector]
     private float normalizedHorizontalSpeed = 0;
@@ -201,6 +202,12 @@ public class move : MonoBehaviour
         if (((_controller.isGrounded && MoveStatus == MoveState.NORMAL)||MoveStatus==MoveState.USING_ELEVATOR) && Input.GetKeyDown(KeyCode.Space))
         {
             _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+            if (JumpSound != null)
+            {
+                AudioSource src = GetComponent<AudioSource>();
+                src.clip = JumpSound;
+                src.Play();
+            }
             //_animator.Play(Animator.StringToHash("Jump"));
         }
 
