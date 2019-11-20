@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public enum Guntype {Blood,Assult};
+public enum Guntype {Pistol,Blood,Assult};
 public class GetGuns : MonoBehaviour
 {
     public Guntype GunType;
@@ -31,21 +31,29 @@ public class GetGuns : MonoBehaviour
 
         string UItext = "";
         PlayerManager manager = col.GetComponent<PlayerManager>();
+        if (GunType == Guntype.Pistol)
+        {
+            manager.Gun1Lock = true;
+            col.GetComponent<shoot>().GetFirstGun(0);
+            UItext = "获得 手枪";
+        }
         if (GunType == Guntype.Blood)
         {
             manager.Gun2Lock = true;
+            col.GetComponent<shoot>().GetFirstGun(1);
             UItext = "获得 吸血枪";
         }
         if (GunType == Guntype.Assult)
         {
             manager.Gun3Lock = true;
+            col.GetComponent<shoot>().GetFirstGun(2);
             UItext = "获得 突击步枪";
         }
 
         InteractiveUI.SetActive(true);
         Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
         Transform temp2 = InteractiveUI.transform.GetChild(0);
-        Vector2 offset = new Vector2(60, 25);
+        Vector2 offset = new Vector2(10, 25);
         temp2.position = screenPos + offset;
         temp2.gameObject.GetComponent<Text>().text = UItext;
         Destroy(InteractiveUI, 2);
