@@ -34,7 +34,7 @@ public class PlayerBullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (col.gameObject.tag != "Player")
+        else if (col.gameObject.tag != "Player"&& col.gameObject.tag != "Enemy_Bullet"&&col.gameObject.tag != "CallElevator")
         {
             Destroy(gameObject);
         }
