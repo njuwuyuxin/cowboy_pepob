@@ -53,7 +53,7 @@ public class GetGuns : MonoBehaviour
         InteractiveUI.SetActive(true);
         Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
         Transform temp2 = InteractiveUI.transform.GetChild(0);
-        Vector2 offset = new Vector2(60, 25);
+        Vector2 offset = new Vector2(10, 25);
         temp2.position = screenPos + offset;
         temp2.gameObject.GetComponent<Text>().text = UItext;
         Destroy(InteractiveUI, 2);
