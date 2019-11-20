@@ -225,7 +225,7 @@ MonoBehaviour:
   round_time: 1
   rush_speed: 1
   bullet_speed: 3
-  bullet_wait_time: 0.3
+  bullet_wait_time: 0.5
   rush_time: 3
   walk_speed: 0.5
   patrol1: {x: -65.4, y: -5.2}
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f451b894221a3b74193003743ad3ee46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 1000
   currentHealth: 0
   deadEnemy: {fileID: -1995936585178756363, guid: eae455a1b32b4fd4d9ea64c85462ffbf,
     type: 3}

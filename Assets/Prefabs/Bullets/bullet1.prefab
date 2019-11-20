@@ -144,3 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletType: 0
   DamagePerShoot: 15
+  DamagePerShoot: 20

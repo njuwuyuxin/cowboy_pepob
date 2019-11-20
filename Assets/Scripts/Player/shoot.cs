@@ -75,7 +75,7 @@ public class shoot : MonoBehaviour
             0.4f,                         //枪支射速
             20f,                          //子弹飞行速度
             6,                             //弹夹容量
-            100,                        //子弹储备量
+            10000,                        //子弹储备量
             1f,                            //装弹时间
             GunList[0],              //枪支的模型
             BulletList[0],           //子弹的模型
@@ -84,7 +84,7 @@ public class shoot : MonoBehaviour
         Guns[1] = new GunInfo(
             2,                              //枪支编号
             "吸血枪",                  //枪支名称
-            1f,                            //枪支射速
+            0.7f,                            //枪支射速
             15f,                          //子弹飞行速度
             5,                             //弹夹容量
             20,                           //子弹储备量
@@ -99,7 +99,7 @@ public class shoot : MonoBehaviour
            0.1f,                          //枪支射速
            25f,                          //子弹飞行速度
            30,                           //弹夹容量
-           120,                         //子弹储备量
+           200,                         //子弹储备量
            1.5f,                         //装弹时间
            GunList[2],              //枪支的模型
            BulletList[2],           //子弹的模型
@@ -266,7 +266,7 @@ public class shoot : MonoBehaviour
             GunStatus = GunState.SHOOTING;
             if (currentGun.gunID == 2) //吸血枪设置前摇
             {
-                float shootAfterPress = 0.8f;       //前摇时间
+                float shootAfterPress = 0.3f;       //前摇时间
                 shootingTimer = currentGun.shootingSpeed - shootAfterPress;
             }
         }
