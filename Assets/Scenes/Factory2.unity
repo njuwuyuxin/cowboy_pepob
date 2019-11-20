@@ -22455,7 +22455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58e41a25e172f74795a69d9a5c54458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BorderLeft: -60
+  BorderLeft: -80
   BorderRight: 0
   BorderBottom: -45.99
   BorderTop: 4
