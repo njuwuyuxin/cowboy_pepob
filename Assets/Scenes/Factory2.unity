@@ -4161,6 +4161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elevator: {fileID: 1895351768}
   number: 1
+  InteractiveUI: {fileID: 7169184916118101652, guid: 70ef7947e92c0574aa323f381a931df0,
+    type: 3}
 --- !u!61 &552185563
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12851,6 +12853,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elevator: {fileID: 857697778}
   number: 0
+  InteractiveUI: {fileID: 7169184916118101652, guid: 70ef7947e92c0574aa323f381a931df0,
+    type: 3}
 --- !u!61 &711265932
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13689,6 +13693,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elevator: {fileID: 865075924}
   number: 0
+  InteractiveUI: {fileID: 7169184916118101652, guid: 70ef7947e92c0574aa323f381a931df0,
+    type: 3}
 --- !u!61 &834159499
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17337,6 +17343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elevator: {fileID: 865075924}
   number: 2
+  InteractiveUI: {fileID: 7169184916118101652, guid: 70ef7947e92c0574aa323f381a931df0,
+    type: 3}
 --- !u!61 &1295945388
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19338,6 +19346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elevator: {fileID: 865075924}
   number: 1
+  InteractiveUI: {fileID: 7169184916118101652, guid: 70ef7947e92c0574aa323f381a931df0,
+    type: 3}
 --- !u!1001 &1624609157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19490,6 +19500,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elevator: {fileID: 675627456}
   number: 1
+  InteractiveUI: {fileID: 7169184916118101652, guid: 70ef7947e92c0574aa323f381a931df0,
+    type: 3}
 --- !u!61 &1632163202
 BoxCollider2D:
   m_ObjectHideFlags: 0

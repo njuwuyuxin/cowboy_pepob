@@ -7,6 +7,8 @@ public class Call_Elevator : MonoBehaviour
 {
     public Elevator Elevator;
     public int number;
+    public GameObject InteractiveUI;
+    private GameObject UIInstance;
     //public Vector2 End_Position;
     bool IsIn=false;
     // Start is called before the first frame update
@@ -33,6 +35,14 @@ public class Call_Elevator : MonoBehaviour
         {
             Debug.Log("call_elevator");
             IsIn = true;
+            if (InteractiveUI != null)
+            {
+                Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+                UIInstance = Instantiate(InteractiveUI);
+                Transform temp2 = UIInstance.transform.GetChild(0);
+                Vector2 offset = new Vector2(10, 25);
+                temp2.position = screenPos + offset;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -40,6 +50,8 @@ public class Call_Elevator : MonoBehaviour
         if(collision.tag=="Player")
         {
             IsIn = false;
+            if (UIInstance != null)
+                Destroy(UIInstance);
         }
     }
 }
