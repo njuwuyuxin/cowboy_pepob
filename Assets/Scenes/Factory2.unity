@@ -12764,6 +12764,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elevator: {fileID: 857697778}
   number: 0
+  InteractiveUI: {fileID: 7169184916118101652, guid: 70ef7947e92c0574aa323f381a931df0,
+    type: 3}
 --- !u!61 &711265932
 BoxCollider2D:
   m_ObjectHideFlags: 0
