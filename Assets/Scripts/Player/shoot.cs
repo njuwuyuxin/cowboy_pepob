@@ -105,9 +105,9 @@ public class shoot : MonoBehaviour
            BulletList[2],           //子弹的模型
            ShootSounds[2]
            );
-        currentGun = Guns[0];
-        Guns[0].Gun.SetActive(true);
-        shootingTimer =currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
+        currentGun = null;
+        Guns[0].Gun.SetActive(false);
+        //shootingTimer =currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
         reloadingTimer = 0;
         changingTimer = 0;
         BulletCountUI = GameObject.Find("BulletCount");
@@ -122,7 +122,10 @@ public class shoot : MonoBehaviour
 
     public void UpdateBulletCountUI()
     {
-        BulletCountUI.GetComponent<Text>().text = currentGun.bulletLeft.ToString() + "/"+currentGun.bulletStore.ToString();
+        if (currentGun == null)
+            BulletCountUI.GetComponent<Text>().text = "未持枪";
+        else
+            BulletCountUI.GetComponent<Text>().text = currentGun.bulletLeft.ToString() + "/"+currentGun.bulletStore.ToString();
     }
     private void shootEvent()
     {
@@ -170,6 +173,9 @@ public class shoot : MonoBehaviour
 
         shootingTimer += Time.deltaTime;
         changingTimer += Time.deltaTime;
+        if (currentGun == null) //主角此时身上没有任何一把枪
+            return;
+
         if (GunStatus == GunState.CHANGING)     //切枪过程中
         {
             //anim.SetBool("isSwitching", true);
@@ -224,7 +230,7 @@ public class shoot : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && GetComponent<PlayerManager>().Gun1Lock)
         {
             currentGun = Guns[0];
             shootingTimer =currentGun.shootingSpeed;
@@ -288,5 +294,16 @@ public class shoot : MonoBehaviour
             guninfo.Gun.SetActive(false);
         }
         Guns[gunIndex].Gun.SetActive(true);
+    }
+
+    public  void GetFirstGun(int GunIndex)
+    {
+        if (currentGun == null)
+        {
+            currentGun = Guns[GunIndex];
+            Guns[GunIndex].Gun.SetActive(true);
+            shootingTimer = currentGun.shootingSpeed;           //初始设置为最大是为了保证射击第一枪可以无延迟射出
+        }     
+        UpdateBulletCountUI();
     }
 }
