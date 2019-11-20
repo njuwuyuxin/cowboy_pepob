@@ -100,6 +100,19 @@ public class EnemyHealth : MonoBehaviour
         {
             c.isTrigger = true;
         }
+
+        //死亡时可以生成宝箱
+        DropItem itemScript = GetComponent<DropItem>();
+        if (itemScript != null)    //说明这个敌人身上存在掉落物品脚本
+        {
+            Vector3 pos = transform.position;
+            if (itemScript.PositionType == PosType.Relative)
+                pos += itemScript.pos;
+            else
+                pos = itemScript.pos;
+            Instantiate(itemScript.item, pos, Quaternion.Euler(new Vector3(0, 0, 0)));
+        }
+
         Destroy(gameObject, 1);
     }
 }
