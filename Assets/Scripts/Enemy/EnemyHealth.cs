@@ -113,12 +113,14 @@ public class EnemyHealth : MonoBehaviour
             Instantiate(itemScript.item, pos, Quaternion.Euler(new Vector3(0, 0, 0)));
         }
 
-        if(GetComponent<elite_behave>().UICanvas!=null)
+        if(GetComponent<elite_behave>()!=null&&GetComponent<elite_behave>().UICanvas!=null)
         {
             GameObject temp = Instantiate(GetComponent<elite_behave>().UICanvas);
             Destroy(temp, 3);
         }
 
-        Destroy(gameObject, 1);
+        
+        Destroy(gameObject, 0);
+        Debug.Log("Destroy enemy finished");
     }
 }
