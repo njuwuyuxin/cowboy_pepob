@@ -31,6 +31,8 @@ public class elite_behave : MonoBehaviour
     public Vector2 patrol3;
     public Vector2 patrol4;
 
+    public GameObject UICanvas;
+
     private void OnDrawGizmos()
     {
         //Color color = Handles.color;

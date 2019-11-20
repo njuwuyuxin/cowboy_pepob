@@ -232,6 +232,8 @@ MonoBehaviour:
   patrol2: {x: -76.6, y: -5.2}
   patrol3: {x: -65.2, y: -10.76}
   patrol4: {x: -76.45, y: -10.76}
+  UICanvas: {fileID: 1752534592981476780, guid: a920f5dc24105ba489843945184a1312,
+    type: 3}
 --- !u!114 &4746586786165545231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,10 +431,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: e016c5eb8f411894ba2f3c12656cf65a, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: e016c5eb8f411894ba2f3c12656cf65a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.317
@@ -448,6 +446,10 @@ PrefabInstance:
     - target: {fileID: 400004, guid: e016c5eb8f411894ba2f3c12656cf65a, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.48364002
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: e016c5eb8f411894ba2f3c12656cf65a, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e016c5eb8f411894ba2f3c12656cf65a, type: 3}

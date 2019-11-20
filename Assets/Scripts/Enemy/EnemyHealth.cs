@@ -113,6 +113,12 @@ public class EnemyHealth : MonoBehaviour
             Instantiate(itemScript.item, pos, Quaternion.Euler(new Vector3(0, 0, 0)));
         }
 
+        if(GetComponent<elite_behave>().UICanvas!=null)
+        {
+            GameObject temp = Instantiate(GetComponent<elite_behave>().UICanvas);
+            Destroy(temp, 3);
+        }
+
         Destroy(gameObject, 1);
     }
 }
