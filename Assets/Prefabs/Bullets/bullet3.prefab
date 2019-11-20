@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5364164043408658491}
   m_Layer: 0
   m_Name: bullet3
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,4 +143,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletType: 2
-  DamagePerShoot: 8
+  DamagePerShoot: 13

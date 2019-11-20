@@ -1464,7 +1464,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &4899592177349662890
 MonoBehaviour:
@@ -1498,7 +1498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471640486e4d165418a6475b19d04175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxRopeLength: 8
+  MaxRopeLength: 5
   StartDragSpeed: 10
   MaxDragSpeed: 15
   AccelerateSpeed: 5
@@ -1646,10 +1646,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RopeLock: 0
+  Gun1Lock: 0
   Gun2Lock: 0
   Gun3Lock: 0
   PlayerHP: 0
-  PlayerHPMax: 1000
+  PlayerHPMax: 300
   InvincibleTimeAfterDamage: 1
 --- !u!114 &4899592177349662887
 MonoBehaviour:

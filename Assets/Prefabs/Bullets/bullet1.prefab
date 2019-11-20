@@ -142,4 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72043d14974b9a348852aeab48e783e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamagePerShoot: 15
+  BulletType: 0
+  DamagePerShoot: 20

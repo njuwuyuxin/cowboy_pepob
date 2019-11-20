@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   graphNum: 1
   nextWayPointDistance: 2
-  trackSecond: 0.5
+  trackSecond: 3
   toTrackSecond: 0.5
   toFireSecond: 0
   fireSecond: 0
