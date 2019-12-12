@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0;
+        GameObject Camera =  GameObject.Find("Main Camera");
+        Camera.GetComponent<CameraShaderManager>().StartShader();
         Instantiate(DieMenu);
     }
 
